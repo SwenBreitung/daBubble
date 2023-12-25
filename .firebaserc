@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "danode-bdbb8": {
+      "hosting": {
+        "da-keep": [
+          "danode-bdbb8"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "danode-bdbb8"
+  }
+}
