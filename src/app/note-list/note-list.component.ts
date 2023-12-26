@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Note } from '../interfaces/note.interface';
-import { NoteListService } from '../firebase-services/note-list.service'
+ import { NoteListService } from '../firebase-services/note-list.service'
 
 @Component({
   selector: 'app-note-list',
@@ -11,8 +11,8 @@ export class NoteListComponent {
   noteList: Note[] = [];
   favFilter: "all" | "fav" = "all";
   status: "notes" | "trash" = "notes";
-
-  constructor(private noteService: NoteListService) {
+  // 
+  constructor(public  noteListService: NoteListService) {
     this.noteList = this.getDummyData()
   }
 
@@ -28,9 +28,6 @@ export class NoteListComponent {
       this.favFilter = "all";
     }
   }
-
-
-
 
   getDummyData(): Note[] {
     return [
