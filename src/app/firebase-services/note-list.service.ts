@@ -1,6 +1,6 @@
 import { Injectable,inject } from '@angular/core';
 import { Note } from '../interfaces/note.interface'
-import { Firestore, collection, doc, collectionData,onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, doc, collectionData,onSnapshot, addDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 
@@ -34,7 +34,6 @@ export class NoteListService {
     });
     
     
-
     this.items$ = collectionData(this.getNodeshRef(), { idField: 'id' }) as Observable<Note[]>;
     this.items$.subscribe(data => {
       console.log('Daten aus Firebase:', data);
@@ -43,16 +42,15 @@ export class NoteListService {
       list.forEach(element =>{
         console.log('foreach',element)
       })
-    });
+    }); 
+    this.items.unsubscribe();
+  }
 
-    
-}
+  ngOnDestroy(){
+    this.unsubList;
+    // this.unsubSingle;
 
-ngOnDestroy(){
-  this.unsubList;
-  this.unsubSingle;
-  this.items.unsubscribe();
-}
+  }
 
 
   getNodeshRef(){
@@ -69,5 +67,12 @@ ngOnDestroy(){
     return  doc(collection(this.firestore,colID),docID);
   } 
 
+async addNote(item:{}){
+  await addDoc(this.getNodeshRef(),item ).catch(
+    (err)=>{console.error(err)}
+  ).then(
+    (docRef)=>{console.log("Document written with ID: ", docRef?.id)}
+  )
+}
 
 }

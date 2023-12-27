@@ -11,7 +11,7 @@ export class NoteListComponent {
   noteList: Note[] = [];
   favFilter: "all" | "fav" = "all";
   status: "notes" | "trash" = "notes";
-  // 
+  
   constructor(public  noteListService: NoteListService) {
     this.noteList = this.getDummyData()
   }
