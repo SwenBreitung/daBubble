@@ -67,7 +67,7 @@ export class NoteListService {
     return  doc(collection(this.firestore,colID),docID);
   } 
 
-async addNote(item:{}){
+async addNote(item:Note){
   await addDoc(this.getNodeshRef(),item ).catch(
     (err)=>{console.error(err)}
   ).then(
