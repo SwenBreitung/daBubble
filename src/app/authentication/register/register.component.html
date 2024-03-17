@@ -1,0 +1,126 @@
+<!-- <div class="login-out width-and-heigt-100p"> -->
+
+<!-- ----- step 1----- -->
+<form *ngIf="currentStep === 1" #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="login">
+    <div class="header-container">
+        <div class="return-img">
+            <mat-icon [routerLink]="['/login']"><span class="material-symbols-outlined">
+                arrow_back
+                </span></mat-icon>
+        </div>
+        <h1>Konto erstellen</h1>
+        <div></div>
+    </div>
+    <span>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto</span>
+    <div style="width: 100%;">
+        <div class="input-fild">
+            <img src="./../../assets/log-in/person_filled.svg">
+            <input type="text" (blur)="onBlur('name')" placeholder="Vor und Nachname" [class.error-border]="!isInputValid(nameField) && errorBooliean" (blur)="checkFieldValidity(nameField)" [(ngModel)]="user.name" (ngModelChange)="checkUsername()" name="name" #nameField="ngModel"
+                required minlength="4">
+        </div>
+        <div class="error-container">
+            <div class="error-message" *ngIf="errorBooliean">
+                {{ getErrorMessage(nameField, 4, 'name') }}
+            </div>
+        </div>
+
+    </div>
+
+    <div style="width: 100%;">
+        <div class="input-fild">
+            <img src="./../../assets/log-in/mail.svg">
+            <!-- <input type="text" [(ngModel)]="user.name" (blur)="onBlur('name')" placeholder="Vor und Nachname" [class.error-border]="!isInputValid(nameField) && errorBooliean" (blur)="checkFieldValidity(nameField)"  (ngModelChange)="checkUsername()" name="name" #nameField="ngModel" -->
+            <input type="email" [(ngModel)]="user.email" (blur)="onBlur('email')" placeholder="Email Adresse" [class.error-border]="!isInputValid(emailField)" (blur)="checkEmailValidity()" #emailField="ngModel" name="email" (ngModelChange)="checkEmail()" required
+                email>
+        </div>
+        <div class="error-container">
+            <div class="error-message" *ngIf="emailField.errors && (emailField.dirty || emailField.touched)">
+                <div *ngIf="emailField.errors['required']">
+                    E-Mail ist erforderlich.
+                </div>
+                <div *ngIf="emailField.errors && !emailField.errors['required'] && emailField.errors['email']">
+                    Bitte eine korrekte E-Mail-Adresse angeben.
+                </div>
+            </div>
+        </div>
+
+        <div class="error-container" *ngIf="!emailField.errors || !emailField.errors['email']">
+            <div class="error-message" *ngIf="errorBooliean">
+                {{ getErrorMessage(emailField, 4, 'email') }}
+            </div>
+        </div>
+    </div>
+
+
+    <div style="width: 100%;">
+        <div class="input-fild">
+            <img src="./../../assets/log-in/lock.svg">
+            <input type="password" (blur)="checkPasswordValidity()" placeholder="Passwort" [class.error-border]="showErrorPassword" [(ngModel)]="user.passwort" name="password" #passwordField="ngModel" required minlength="5">
+        </div>
+        <div class="error-container">
+            <div class="error-message" *ngIf="showErrorPassword">
+                {{ getErrorMessage(passwordField, 5, 'Passwort') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="checkbox-container">
+        <input class="cursor-pointer checkbox" type="checkbox" (change)="onBlur('checkbox')" [(ngModel)]="checkbox" id="checkbox" name="datenschutz" required>
+        <label for="datenschutz">Ich stimme der Datenschutz <a href="URL_ZU_IHRER_DATENSCHUTZERKLÄRUNG">Datenschutzerklärung </a><span>zu</span>.</label>
+        <div class="error-container">
+            <div class="error-message" *ngIf="!checkbox && errorBooliean">
+                Bitte Datenschutzerlärung zustimmen.
+            </div>
+        </div>
+    </div>
+    <div type="submit" class="buttons">
+        <div></div>
+        <button [disabled]="!contactForm.valid || !selectedImagePath" class="btn-login-user">Weiter</button>
+    </div>
+
+
+</form>
+
+
+<!-- ----- step 2 ----- -->
+<form *ngIf="currentStep === 2" #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="login">
+    <div class=" header-container">
+        <img (click)="goToStep(1)" src="./../../assets/log-in/arror-left.svg" alt="">
+        <h1>Wähle deinen Avatar</h1>
+        <div></div>
+    </div>
+    <img *ngIf="dragAndDropService.profileFile" [src]="dragAndDropService.profileFile" alt="Vorschaubild">
+
+    <img *ngIf="!dragAndDropService.profileFile" class="main-img" src="{{selectedImagePath}}" alt="">
+    <span class="name">{{ this.user.name}}</span>
+    <span class="text">Aus der Liste wählen</span>
+    <div class="d-flex img-bar">
+        <img src="./../../assets/user_avatars/women-1.svg" alt="Frauen-Avatar" (click)="selectImage('./../../assets/user_avatars/women-1.svg')">
+        <img src="./../../assets/user_avatars/man-1.svg" alt="Männer-Avatar 1" (click)="selectImage('./../../assets/user_avatars/man-1.svg')">
+        <img src="./../../assets/user_avatars/man-2.svg" alt="Männer-Avatar 2" (click)="selectImage('./../../assets/user_avatars/man-2.svg')">
+        <img src="./../../assets/user_avatars/man-3.svg" alt="Männer-Avatar 3" (click)="selectImage('./../../assets/user_avatars/man-3.svg')">
+        <img src="./../../assets/user_avatars/man-4.svg" alt="Männer-Avatar 4" (click)="selectImage('./../../assets/user_avatars/man-4.svg')">
+        <img src="./../../assets/user_avatars/man-5.svg" alt="Männer-Avatar 5" (click)="selectImage('./../../assets/user_avatars/man-5.svg')">
+
+    </div>
+    <div (click)="openDialog()" class="upload-img-container">
+        <span>Eigenes Bild verwenden</span>
+        <div class="btn-upload"><b>Dateil hochladen</b></div>
+    </div>
+
+
+
+    <!-- 
+        <button type="button" mat-raised-button (click)="openDialog()">Open dialog without animation</button> -->
+    <!-- <button mat-raised-button (click)="openDialog('3000ms', '1500ms')">Open dialog slowly</button> -->
+
+
+
+    <div type="submit" class="buttons">
+        <div></div>
+        <button [disabled]="!contactForm.valid" class="button-return-login">Weiter</button>
+    </div>
+</form>
+
+<!-- </div> -->
+<!-- <app-footer></app-footer> -->

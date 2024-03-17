@@ -1,31 +1,245 @@
-body{
+@import '@ctrl/ngx-emoji-mart/picker';
+:root {
+    --text-white: #FFF;
+    --background-color: rgb(237, 239, 255);
+    --second-background-color: rgb(255, 255, 255);
+    --header-color: rgb(68, 77, 242);
+    --link-color: rgb(121, 125, 242);
+    --text-color: rgb(15, 15, 15);
+    --second-text-color: rgb(137, 138, 143);
+    --your-chat-background-color: rgb(121, 125, 242);
+}
+
+.pxFromLeftandRightSide {
+    min-width: 300px !important;
+    display: flex;
+}
+
+app-responsiv-main-chat,
+app-authentication,
+app-register,
+app-main-section,
+app-log-in,
+app-root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+app-responsiv-main-chat,
+app-authentication,
+app-register,
+app-log-in {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+app-authentication {
+    justify-content: space-between;
+    padding: 2%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+.border-box {
+    box-sizing: border-box;
+}
+
+.padding-left16px {
+    padding-left: 16px;
+}
+
+.padding-right16px {
+    padding-right: 16px;
+}
+
+.border-line {
+    width: 100%;
+    height: 1px;
+    border: none;
+    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 47px;
+    background-color: transparent;
+}
+
+body {
     margin: 0;
-    overflow: hidden;
-    background-color: #0f0f12;
-    color: whitesmoke;
+    box-sizing: border-box;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: var(--background-color);
+    // color: whitesmoke;
+    color: var(--text-color);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-*{
+* {
     box-sizing: border-box;
 }
 
 * {
     scrollbar-width: auto;
     scrollbar-color: #6BC1E1 #ffffff00;
-  }
+}
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
+*::-webkit-scrollbar {
     width: 4px;
-  }
+}
 
-  *::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
     background: #ffffff00;
-  }
+}
 
-  *::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background-color: #6BC1E1;
     border-radius: 10px;
     border: 3px solid #ffffff00;
-  }
+}
+
+.d-flex {
+    display: flex;
+}
+
+.width-and-heigt-100p {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.position-relativ {
+    position: relative;
+}
+
+.p-16 {
+    padding: 16px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.curser-pointer {
+    cursor: pointer;
+}
+
+.custom-dialog-container .mat-mdc-dialog-surface {
+    border-radius: 25px !important;
+    padding: 31px !important;
+    display: flex !important;
+    background-color: rgb(255, 255, 255);
+}
+
+.gap8px {
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.padding16px {
+    padding: 16px;
+}
+
+.gap16px {
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin padding-left {
+    padding-left: 48px;
+}
+
+@mixin padding-right {
+    padding-right: 48px;
+}
+
+@mixin center-flex($justify-content: center, $align-items: center) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+@mixin column($column:column) {
+    display: flex;
+    flex-direction: $column;
+}
+
+@mixin box-shadow($x: 0, $y: 0, $blur: 10px, $color: rgba(0, 0, 0, 0.1)) {
+    box-shadow: $x $y $blur $color;
+}
+
+@mixin border-radius($radius: 4px) {
+    border-radius: $radius;
+}
+
+@mixin border($width: 1px, $style: solid, $color: black) {
+    border: $width $style $color;
+}
+
+@mixin padding($top: 8px, $right: 8px, $bottom: 8px, $left: 8px) {
+    padding: $top $right $bottom $left;
+}
+
+@mixin margin($top: 8px, $right: 8px, $bottom: 8px, $left: 8px) {
+    margin: $top $right $bottom $left;
+}
+
+@mixin color() {
+    color: var( --main-text-color);
+}
+
+@mixin z-index999() {
+    z-index: 999;
+    position: relative;
+}
+
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media (max-width: 1200px) {
+    .pxFromLeftandRightSide {
+        min-width: 240px !important;
+    }
+}
+
+@media (max-width: 800px) {
+    .pxFromLeftandRightSide {
+        min-width: 50px !important;
+        &:hover {
+            min-width: 250px !important;
+        }
+    }
+}
+
+.d-none {
+    display: none !important;
+}
+
+.custom-dialog-container .mat-mdc-dialog-surface {
+    border-radius: 25px 25px 0 0 !important;
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.mat-mdc-dialog-surface {
+    border-radius: 25px !important;
+    background-color: rgb(255, 255, 255) !important;
+}
+
+@media (max-width:700px) {
+    * {
+        // overflow-y: auto;
+        // /* Ermöglicht das Scrollen, wenn der Inhalt überläuft */
+        // scrollbar-width: none !important;
+        /* Für Firefox */
+    }
+    *::-webkit-scrollbar {
+        display: none !important;
+        /* Für WebKit-Browser wie Chrome und Safari */
+    }
+}

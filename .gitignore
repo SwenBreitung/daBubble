@@ -1,4 +1,21 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional IDE/Editor files
+.idea/
+*.sublime-workspace
+.vscode/
+
+# Optional build outputs
+dist/
+build/
 
 # Compiled output
 /dist

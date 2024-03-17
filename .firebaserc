@@ -6,9 +6,23 @@
           "danode-bdbb8"
         ]
       }
+    },
+    "node-3b514": {
+      "hosting": {
+        "da-keep": [
+          "node-3b514"
+        ]
+      }
+    },
+    "dabubble-7d65b": {
+      "hosting": {
+        "da-keep": [
+          "dabubble-7d65b"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "danode-bdbb8"
+    "default": "dabubble-7d65b"
   }
 }

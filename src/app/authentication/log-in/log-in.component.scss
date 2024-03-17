@@ -1,0 +1,71 @@
+@import './../authentication.component.scss';
+@import './../../../styles.scss';
+body {
+    @include center-flex;
+}
+
+.google-login {
+    color: var(--second-text-color);
+    background-color: var( --background-color);
+    @include center-flex;
+    border-radius: 50px;
+    border: 1px solid var( --background-color);
+    padding: 16px;
+    gap: 8px;
+    img {
+        width: 24px;
+    }
+    &:hover {
+        border: 1px solid var(--header-color);
+        span {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    gap: 16px;
+    button {
+        @include center-flex;
+        border-radius: 20px;
+        width: 90px;
+        height: 30px;
+        border: none;
+    }
+    .btn-login-user {
+        background-color: var( --header-color);
+        color: var(--text-white);
+        &:hover {
+            background-color: var( --your-chat-background-color);
+        }
+    }
+    .btn-login-gast {
+        border: 1px solid var( --header-color);
+        background-color: var(--text-white);
+        color: var(--header-color);
+        &:hover {
+            background-color: var( --header-color);
+            color: var(--text-white);
+        }
+    }
+}
+
+.password {
+    color: var( --link-color);
+}
+
+.border {
+    width: 100%;
+    height: 1px;
+    background-color: var( --second-text-color);
+}
+
+.divider-with-text {
+    width: 100%;
+    @include center-flex;
+    .text {
+        padding: 16px;
+    }
+}

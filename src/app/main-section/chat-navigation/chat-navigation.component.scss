@@ -1,0 +1,414 @@
+@import './../../../styles.scss';
+.left-container {
+    @include column;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 16px;
+    background-color: var(--second-background-color);
+    border-radius: 20px;
+    .users,
+    .channels {
+        @include column;
+        align-items: center;
+        overflow: auto;
+        height: calc(100%);
+        box-sizing: border-box;
+        padding-top: 24px;
+        height: calc(100% - 70px) !important;
+    }
+    .channels {}
+    .user-container {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+    .user-container,
+    .channel-container {
+        box-sizing: border-box;
+        cursor: pointer;
+        width: 100%;
+        padding: 4px;
+        text-align: start;
+        border-radius: 20px;
+        &:hover {
+            color: var( --header-color);
+            background-color: var(--background-color);
+        }
+    }
+    .left-head-container {
+        @include center-flex;
+        gap: 8px;
+        h1 {
+            font-size: 24px;
+        }
+        img {
+            width: 48px;
+        }
+    }
+    .left-menu-channels {
+        @include center-flex($justify-content: space-between);
+        padding-bottom: 16px;
+        justify-content: space-between !important;
+    }
+    .add-channel {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        cursor: pointer;
+        position: relative;
+        width: 100%;
+        height: auto;
+        @include center-flex;
+        &:hover {
+            color: blue;
+            .hover-image {
+                opacity: 1;
+            }
+            .default-img {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.left-menu-users {
+    height: 41%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-menu {
+    position: relative;
+    display: flex;
+    &:hover {
+        .hover-image {
+            opacity: 1;
+        }
+        .default-img {
+            opacity: 0;
+        }
+    }
+}
+
+.users-container {
+    height: calc(100%) !important;
+    overflow: auto;
+    .user-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        img {
+            max-height: 30px;
+        }
+    }
+}
+
+.bookmarker-img {
+    position: relative;
+    display: inline-block;
+    height: 40px !important;
+    width: 40px !important;
+    .image {
+        opacity: 1;
+    }
+    img {
+        height: 30px !important;
+        width: 30px !important;
+        display: block;
+    }
+    .image,
+    .hover-image {
+        position: absolute;
+        top: 2px;
+        left: 6px;
+    }
+    &:hover {
+        border-radius: 50%;
+        height: 34px;
+        width: 34px;
+        background-color: var(--your-chat-background-color);
+        .hover-image {
+            opacity: 1;
+        }
+        .image {
+            opacity: 0;
+        }
+    }
+}
+
+.hover-image {
+    width: 16px;
+}
+
+.default-img {
+    width: 16px;
+}
+
+.channel-menu {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 24px;
+}
+
+.left-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    &:hover {
+        color: blue;
+        .drop-down-container .hover-image,
+        .workspace-container .hover-image {
+            opacity: 1 !important;
+        }
+        .drop-down-container .drop-down-img,
+        .workspace-container .drop-down-img {
+            opacity: 0 !important;
+        }
+    }
+    .drop-down-container,
+    .workspace-container {
+        position: relative;
+        display: inline-block;
+        img {
+            display: block;
+            width: 16px;
+            /* Stellen Sie sicher, dass die Bilder die gleiche Größe haben */
+            height: auto;
+        }
+        img:last-child {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            width: 16px;
+            height: auto;
+        }
+        &:hover .hover-image {
+            opacity: 1;
+        }
+    }
+}
+
+.drop-down-img-container,
+.circle-img-container {
+    position: relative;
+    display: flex;
+}
+
+.drop-down-img-container:hover .default-img,
+.circle-img-container:hover .default-img {
+    opacity: 0;
+}
+
+.drop-down-img-container:hover .hover-image,
+.circle-img-container:hover .hover-image {
+    opacity: 1;
+}
+
+.default-img,
+.hover-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.search-result-item {
+    border-radius: 10px;
+    padding: 8px;
+    &:hover {
+        background-color: var(--background-color);
+    }
+}
+
+.drop-down-img-container,
+.circle-img-container {
+    position: relative;
+    display: flex;
+    .hover-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+}
+
+.grid {
+    @include column;
+    height: 94%;
+    gap: 8px;
+}
+
+.left-channels {
+    height: 100%;
+}
+
+.left-channel-container {
+    max-height: 50%;
+}
+
+@media(max-width:1200px) {
+    .grid {
+        height: 89%;
+    }
+    .users-container {
+        height: 90% !important;
+        flex: 1;
+    }
+}
+
+@media (max-width:800px) {
+    .left-container {
+        height: 100%;
+        padding: 16px;
+        background-color: var(--second-background-color);
+        border-radius: 20px;
+        h1 {
+            display: none;
+        }
+        .users,
+        .channels {
+            padding-top: 24px;
+            height: calc(100% - 70px) !important;
+        }
+        .user-container {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        .user-container,
+        .channel-container {
+            width: 100%;
+            padding: 4px;
+            &:hover {
+                color: var( --header-color);
+                background-color: var(--background-color);
+            }
+        }
+        .left-head-container {
+            gap: 8px;
+            h1 {
+                font-size: 15px !important;
+            }
+            img {
+                width: 20px !important;
+            }
+        }
+        .left-menu-channels {
+            padding-bottom: 16px;
+        }
+        .add-channel {
+            &:hover {
+                color: blue;
+                .hover-image {
+                    width: 14px;
+                }
+                .default-img {
+                    width: 14px;
+                }
+            }
+        }
+        .hover {
+            display: none;
+        }
+        &:hover {
+            .hover {
+                display: flex;
+            }
+        }
+    }
+    .bookmarker-img {
+        position: relative;
+        display: inline-block;
+        height: 31px !important;
+        width: 31px !important;
+        .image {
+            height: 24px !important;
+            width: 24px !important;
+        }
+        .hover-image {
+            height: 24px !important;
+            width: 24px !important;
+        }
+    }
+    .grid[_ngcontent-ng-c1960528773] {
+        height: 99%;
+    }
+}
+
+@media (max-width:700px) {
+    .left-container {
+        height: 100%;
+        padding: 16px;
+        background-color: var(--second-background-color);
+        border-radius: 20px;
+        h1 {
+            display: flex;
+        }
+        .users,
+        .channels {
+            padding-top: 24px;
+            height: calc(100% - 70px) !important;
+        }
+        .user-container {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        .user-container,
+        .channel-container {
+            width: 100%;
+            padding: 4px;
+            &:hover {
+                color: var( --header-color);
+                background-color: var(--background-color);
+            }
+        }
+        .left-head-container {
+            gap: 8px;
+            h1 {
+                font-size: 15px !important;
+            }
+            img {
+                width: 20px !important;
+            }
+        }
+        .left-menu-channels {
+            padding-bottom: 16px;
+        }
+        .add-channel {
+            &:hover {
+                color: blue;
+                .hover-image {
+                    width: 14px;
+                }
+                .default-img {
+                    width: 14px;
+                }
+            }
+        }
+        .hover {
+            display: flex;
+        }
+        &:hover {
+            .hover {
+                display: flex;
+            }
+        }
+    }
+    // .bookmarker-img {
+    //     position: relative;
+    //     display: inline-block;
+    //     height: 31px !important;
+    //     width: 31px !important;
+    //     .image {
+    //         height: 24px !important;
+    //         width: 24px !important;
+    //     }
+    //     .hover-image {
+    //         height: 24px !important;
+    //         width: 24px !important;
+    //     }
+    // }
+    .grid[_ngcontent-ng-c1960528773] {
+        height: 99%;
+    }
+}

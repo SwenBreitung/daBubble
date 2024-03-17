@@ -1,0 +1,52 @@
+<div>
+    <h1>{{ messageService.secondChatHeader }}</h1>
+    <div class="gap16px">
+        <div class="border-container column container" [ngClass]="{'visible-border': editChannelName,'edit-mode': !editChannelName}">
+            <div class="container beetween">
+                <span class="left-side" [ngClass]="{'move': editChannelName,'': !editChannelName}">Channel Name</span>
+                <div class="button-container right-side" [ngClass]="{'move': editChannelName}">
+                    <div *ngIf="!editChannelName" class="button curser-pointer" (click)="editNameChannel()">Bearbeiten</div>
+                    <div *ngIf="editChannelName" class="button curser-pointer" (click)="saveNameChannel()">Speichern</div>
+                </div>
+
+            </div>
+            <div class="channel-name-container " *ngIf="!editChannelName">
+                <b>#</b>
+                <span class="">{{  messageService.secondChatHeader }}</span>
+            </div>
+            <div class="input-fild" *ngIf="editChannelName" [ngClass]="{'visible-border': editChannelName}">
+                <input [(ngModel)]="newChannelName" placeholder="# {{messageService.secondChatHeader}}" type="text">
+            </div>
+        </div>
+
+        <div class="border-container column channel-description-editor container" [ngClass]="{'visible-border': editChannelInfo, 'edit-mode': !editChannelInfo}">
+            <div class="container column">
+                <div class="d-flex beetween">
+                    <span class="left-side" [ngClass]="{'move-up': editChannelInfo}">Beschreibung</span>
+                    <div class="channel-edit-info right-side-slide-left curser-pointer" [ngClass]="{'move-up': editChannelInfo}">
+                        <div *ngIf="!editChannelInfo" class="button curser-pointer" (click)="editInfoChannel()">Bearbeiten</div>
+                        <div *ngIf="editChannelInfo" class="button curser-pointer" (click)="saveInfoChannel()">Speichern</div>
+                    </div>
+                </div>
+
+                <div class="channel-creator-info left-side">
+                    <div class="channel-info-editor" [ngClass]="{'move-up': editChannelInfo}">
+                        <span *ngIf="!editChannelInfo">{{messageService.channelInfos.information}}</span>
+                        <div class="input-fild" *ngIf="editChannelInfo">
+                            <input [(ngModel)]="newChannelInfo" placeholder="Dein Text hier" type="text">
+                        </div>
+                    </div>
+                    <div class="underline-container">
+                        <div class="underline" [ngClass]="{'move': editChannelInfo}"></div>
+                    </div>
+
+                    <div class="column" [ngClass]="{'move-up': editChannelInfo}">
+                        <span>Erstellt von</span>
+                        <span class="user-name"><b>User</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

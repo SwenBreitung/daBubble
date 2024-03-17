@@ -1,0 +1,8 @@
+a {
+    color: var(--header-color);
+    width: auto;
+    padding: 16px;
+    &:hover {
+        color: var(--link-color);
+    }
+}

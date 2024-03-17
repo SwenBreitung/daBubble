@@ -1,0 +1,10 @@
+<div class="message-viewer ">
+    <div class="message" *ngFor="let message of messageService.messages">
+        <app-message-card [isMainChat]="true" [message]="message"></app-message-card>
+    </div>
+
+
+    <emoji-mart class="emjo-bar-main" (emojiClick)="onEmojiClick($event,'mainChannelTextarea')" *ngIf="messageService.showMainEmojiPicker" (emojiSelect)="onEmojiSelect($event)"></emoji-mart>
+
+</div>
+<app-message-input (emojiInsert)="handleEmojiInsert($event)" [functionKey]="'funktionA'"></app-message-input>

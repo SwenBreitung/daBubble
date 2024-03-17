@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="header">
+        <h1>
+            Channel erstellen
+        </h1>
+        <div class="curser-pointer closeLeftWindow" mat-button mat-dialog-close>X</div>
+    </div>
+    <div>
+        <span>
+    Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezognen sein.
+</span>
+        <span>
+            <b>#marketing</b> 
+    zum Beispiel
+</span>
+    </div>
+
+
+    <!-- <div class="inputs"> -->
+    <div class="gap8px">
+        <h2>
+            Channel-Name
+        </h2>
+        <div class="input-fild">
+            <input [(ngModel)]="channel.name" name="channelName" #channelNameField="ngModel" type="text">
+        </div>
+    </div>
+    <div class="gap8px">
+        <div>
+            <h2>
+                Beschreibung
+            </h2>
+            <span class="second-text-color">(optional)</span>
+        </div>
+        <div class="input-fild">
+            <input [(ngModel)]="channel.information" name="channelInfo" #channelInfoField="ngModel" type="text" type="text">
+        </div>
+    </div>
+    <!-- </div> -->
+
+    <div mat-dialog-actions>
+
+        <button class="btn-login-user" mat-button (click)="closeDialog()" cdkFocusInitial>Erstellen</button>
+    </div>
+
+</div>

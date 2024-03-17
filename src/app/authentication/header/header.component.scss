@@ -1,0 +1,36 @@
+@import './../authentication.component.scss';
+header {
+    padding-bottom: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .register {
+        @include column;
+        gap: 16px;
+        text-align: end;
+        a {
+            text-decoration: none;
+        }
+    }
+    .logo-container {
+        @include center-flex;
+        gap: 16px
+    }
+}
+
+a {
+    color: var(--header-color);
+    height: 16px;
+    width: auto;
+    padding: 16px;
+    border-radius: 20px;
+    @include center-flex;
+    &:hover {
+        border: 1px solid var(--link-color);
+        color: var(--link-color);
+    }
+}
+
+.d-none {
+    display: none;
+}

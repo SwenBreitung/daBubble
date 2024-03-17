@@ -1,0 +1,33 @@
+@import './../../styles.scss';
+.main-container {}
+
+header {
+    width: 100%;
+    justify-content: space-between;
+    padding: 24px;
+    .register {
+        @include column;
+    }
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+footer {
+    width: 100%;
+    justify-content: space-between;
+    padding: 24px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0
+}
+
+img {
+    height: 20px;
+    width: 20px
+}

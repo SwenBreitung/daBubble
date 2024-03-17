@@ -1,0 +1,31 @@
+@import './../../../styles.scss';
+.verify-email-instructions {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.verify-email-instructions h1 {
+    color: var(--header-color);
+}
+
+.verify-email-instructions p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.verify-email-instructions .resend-link {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.verify-email-instructions .resend-link:hover {
+    text-decoration: underline;
+    background-color: var(--your-chat-background-color);
+    color: var(--text-white);
+    padding: 2px 4px;
+    border-radius: 4px;
+}

@@ -1,0 +1,84 @@
+<div class="main-section width-and-heigt-100p border-box">
+    <header>
+        <div class="d-flex logo pxFromLeftandRightSide">
+            <span (click)="return()" class="return-button curser-pointer" *ngIf="!channelService.isScreenWide"><b><</b></span>
+            <img *ngIf="channelService.isScreenWide" src="./../../assets/logo/logo.svg" alt="">
+            <!-- Zeigt dieses Bild an, wenn die Bildschirmbreite 700px oder weniger ist -->
+            <img *ngIf="!channelService.isScreenWide" src="./../../assets/logo/logo-code-learning.svg" alt="">
+            <h1>DABubble</h1>
+        </div>
+        <div *ngIf="channelService.isScreenWide" class="search-container">
+            <div class="searchbar">
+                <div class="input-fild">
+                    <input (input)="onInputChange($event,1)" type="text" placeholder="code learning durchsuchen">
+                </div>
+            </div>
+            <div *ngIf="searchResults && searchResults.length >0 " class="search-result-items">
+                <div (click)="loadMassgesInTextChannel('channel', input)" *ngFor="let input of searchResults">
+                    <div class="search-result-item curser-pointer">{{ input.name }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="profile ">
+                <div class="position-relativ profile" (click)="openDialogChat()">
+                    <h2>Name</h2>
+                    <img *ngIf="profileImageUrl; else defaultImage" [src]="this.authService.currentUser.img" alt="Profilbild">
+
+                    <!-- Template für den Fall, dass profileImageUrl keinen gültigen Wert hat -->
+                    <ng-template #defaultImage>
+                        <img class="anonym-img" src="./../../assets/user_avatars/neutral-avatar.svg" alt="Standard Profilbild">
+                    </ng-template>
+                    <img src="./../../assets/main-section/icons/arrow-drop-down.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div *ngIf="channelService.isScreenWide" (click)="toggleLeftWindow()" class="torgle-menu border-box curser-pointer">
+
+        <div *ngIf="isMenuOpen">
+            <img class="img" src="./../../assets/main-section/icons/left_menu_icon_open.svg" alt=" ">
+            <img class="hover-image" src="./../../assets/main-section/icons/left_menu_icon_open_blue.svg" alt=" ">
+        </div>
+        <div *ngIf="!isMenuOpen">
+            <img class="img" src="./../../assets/main-section/icons/left_menu_icon_close.svg" alt=" ">
+            <img class="hover-image" src="./../../assets/main-section/icons/left_menu_icon_close_blue.svg" alt=" ">
+        </div>
+        <div>Workspace-Menü schließen</div>
+    </div>
+    <div class="d-flex chat-layout border-box">
+        <div class="main-content border-box" [ngClass]="{'d-none': !channelService.isSidebarVisible && !channelService.isScreenWide}">
+            <app-chat-navigation class="padding-left16px"></app-chat-navigation>
+        </div>
+
+        <div class="mid-container border-box" [ngClass]="{'d-none': !channelService.isMainChatVisible && !channelService.isScreenWide}">
+            <div class="width-and-heigt-100p message-container border-box">
+
+                <div *ngIf="messageService.secondChatHeader" class="send-massage border-box">
+                    <span><b># {{  messageService.secondChatHeader }}</b></span>
+                </div>
+                <div *ngIf="!messageService.secondChatHeader" class="search-container">
+                    <div class="searchbar-mid ">
+                        <div class="input-fild">
+                            <input (input)="onInputChange($event,2)" type="text" placeholder="An:#Channel oder @Jemanden">
+                        </div>
+                    </div>
+                    <div *ngIf="searchResults && searchResultsMain.length >0 " class="search-result-items">
+                        <div (click)="loadMassgesInTextChannel('channel', input)" *ngFor="let input of searchResultsMain">
+                            <div class="search-result-item curser-pointer">{{ input.name }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-line"></div>
+                <app-massager class="border-box"></app-massager>
+            </div>
+        </div>
+        <div class="right-container  border-box padding-right16px " [ngClass]="{'d-none': !channelService.isSecondaryPanelVisible && !channelService.isScreenWide}">
+            <app-second-messager style="position: relative;" class="border-box"></app-second-messager>
+        </div>
+    </div>
+</div>
+
+
+<!-- <app-responsive-dashboard></app-responsive-dashboard> -->

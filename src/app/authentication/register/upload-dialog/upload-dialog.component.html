@@ -1,0 +1,18 @@
+<!-- <p>upload-dialog works!</p> -->
+<div class="paddin16px">
+    <h1>Bild Hochladen</h1>
+    <p>Bitte ziehe hier dein Bild herein</p>
+    <p>Maximal 500kb und nur vom Typ png und jpeg</p>
+    <!-- (dragover)="onDragOver($event)" -->
+    <div id="drop-area" [class.hovered]="hovered" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (drop)="onDrop($event)">
+        <p *ngIf="dragAndDropService.profileFile === null">Bild hierher ziehen</p>
+
+        <img *ngIf="dragAndDropService.profileFile" [src]="dragAndDropService.profileFile" alt="Vorschaubild">
+
+    </div>
+
+
+    <div mat-dialog-actions>
+        <button mat-button (click)="closeDialog()" cdkFocusInitial>Erstellen</button>
+    </div>
+</div>

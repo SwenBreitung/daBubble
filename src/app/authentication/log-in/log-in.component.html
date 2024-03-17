@@ -1,0 +1,50 @@
+<form (ngSubmit)="login()" class="login">
+    <h1>Anmeldung</h1>
+    <span>Wir empfehlen dir die E-Mail adresse zu nutzen, die du bei der Arbeit verwendest</span>
+    <div class="input-error-area">
+        <div class="input-fild">
+            <img src="./../../assets/log-in/mail.svg">
+            <input type="email" required alt="" [(ngModel)]="email" name="email" #emailField="ngModel" placeholder="beispielname@mail.com">
+        </div>
+        <div class="error-container">
+            <div *ngIf="emailField.invalid && emailField.touched && !errorLogin" class="error-message">
+                Bitte gib eine gültige E-Mail-Adresse ein.
+            </div>
+            <div *ngIf="errorLogin" class="error-message">
+                Login fehlgeschlagen. Bitte überprüfe deine Eingaben.
+            </div>
+        </div>
+    </div>
+
+    <div class="input-error-area">
+        <div class="input-fild">
+            <img src="./../../assets/log-in/lock.svg">
+            <input type="password" required alt="" [(ngModel)]="passwort" name="email" #passwortField="ngModel" placeholder="beispielname@mail.com">
+        </div>
+        <div class="error-container">
+            <div *ngIf="errorLogin" class="error-message">
+                Login fehlgeschlagen. Bitte überprüfe deine Eingaben.
+            </div>
+        </div>
+    </div>
+
+    <div class="password curser-pointer" [routerLink]="['/password-reset']">Passwort vergessen</div>
+
+    <div class="d-flex divider-with-text">
+        <div class="border"></div>
+        <div class="text">ODER</div>
+        <div class="border"></div>
+    </div>
+    <div class="google-login curser-pointer" (click)="signInWithGoogle()">
+        <img src="./../../assets/log-in/google.svg" alt="">
+        <span>Anmelden bei Google</span>
+    </div>
+    <div class="buttons">
+        <button type="submit" class="btn-login-user  curser-pointer">Anmelden</button>
+        <button type="button" class="btn-login-gast  curser-pointer" (click)="loginAsGuest()">Gäste-Login</button>
+
+
+    </div>
+</form>
+
+<!-- <button (click)="noteService.uploadImage()">Bild hochladen</button> -->

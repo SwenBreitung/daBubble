@@ -1,0 +1,11 @@
+<h1>Nachricht bearbeiten</h1>
+<div>
+    <mat-form-field appearance="fill">
+        <mat-label>Nachrichtentext</mat-label>
+        <input matInput [(ngModel)]="messageText">
+    </mat-form-field>
+</div>
+<div class="buttons" mat-dialog-actions>
+    <button class="btn-login-user" mat-button [mat-dialog-close]="messageText">Speichern</button>
+    <button class="btn-login-gast" mat-button mat-dialog-close>Abbrechen</button>
+</div>

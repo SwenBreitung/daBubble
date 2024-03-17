@@ -1,0 +1,189 @@
+@import './../../../styles.scss';
+h1 {
+    margin: 0;
+    padding-bottom: 8px;
+}
+
+.column {
+    @include column;
+}
+
+.container {
+    gap: 20px;
+    display: flex;
+}
+
+.underline-container {
+    @include center-flex;
+    width: 100%;
+    .underline {
+        width: 80%;
+        height: 1px;
+        background-color: var(--second-text-color);
+        margin: 8px 0 8px 0;
+    }
+    .underline.move {
+        width: 70% !important;
+    }
+}
+
+.button {
+    color: var( --header-color);
+}
+
+.right-side {
+    position: absolute;
+    right: 16px;
+    /* oder den ursprünglichen Wert, den Sie für die Ausrichtung nach rechts verwenden */
+    transition: transform 0.5s ease;
+    /* Sanfte Transition */
+}
+
+
+/* Zustand für die Bewegung, z.B. durch Hinzufügen einer zusätzlichen Klasse oder durch ein bestimmtes Ereignis */
+
+.right-side.move {
+    transform: translate(8px, -8px);
+    /* Bewegt das Element nach oben rechts */
+}
+
+.right-side-slide-left {
+    position: absolute;
+    right: 16px;
+    /* oder den ursprünglichen Wert, den Sie für die Ausrichtung nach rechts verwenden */
+    transition: transform 0.5s ease;
+}
+
+.right-side-slide-left.move {
+    transform: translate(-8px, -8px);
+}
+
+.left-side {
+    position: absolute;
+    left: 16px;
+    /* oder den ursprünglichen Wert, den Sie für die Ausrichtung nach links verwenden */
+    transition: transform 0.5s ease;
+    /* Sanfte Transition */
+}
+
+.left-side.move {
+    transform: translate(-8px, -8px);
+    /* Bewegt das Element nach oben links */
+}
+
+.beetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+.channel-name-container {
+    height: 34px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.user-name {
+    color: blue;
+    font-size: 20px;
+}
+
+.input-fild {
+    padding: 4px;
+    border: 1px solid grey;
+    background-color: var(--second-background-color);
+    box-sizing: border-box;
+    width: 200px;
+    border-radius: 24px;
+    input {
+        padding: 4px;
+        width: 100%;
+        height: 24px;
+        border: none;
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+.no-border {
+    border-color: transparent;
+    /* Macht den Border unsichtbar, indem die Farbe transparent wird */
+}
+
+.border-container {
+    padding: 16px;
+    border: 1px solid var(--second-text-color);
+    border-radius: 24px;
+    box-shadow: 0 0 0 0 transparent;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+// .border-container {
+//     border: 1px solid transparent;
+// }
+.border-container.visible-border {
+    border: none !important;
+}
+
+// .border-container.edit-mode {
+//     transform: translateY(+5px);
+//     /* Bewegt das Element sanft nach oben */
+// }
+.input-field {
+    padding: 4px;
+    background-color: var(--second-background-color);
+    box-sizing: border-box;
+    width: 200px;
+    border-radius: 24px;
+    border: 1px solid transparent;
+    transition: box-shadow 0.5s ease;
+    /* Weicher Übergang für den Schatten */
+}
+
+.input-field input {
+    width: 100%;
+    height: 34px;
+    border: none;
+    padding: 4px;
+    &:focus {
+        outline: none;
+    }
+}
+
+.input-field.visible-border {
+    box-shadow: 0 0 0 1px grey;
+    /* Schatten für den Border-Effekt */
+}
+
+.channel-description-editor {
+    height: 250px;
+}
+
+.channel-creator-info {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    gap: 16px;
+    @include column;
+    justify-content: space-evenly;
+    height: 80%;
+}
+
+.channel-info-editor {
+    min-height: 34px;
+}
+
+.move-up {
+    transition: transform 0.3s ease;
+    /* Weiche Transition für die Bewegung */
+    transform: translate(-8px, -8px);
+    /* Verschiebt das Element um 8px nach oben */
+}
+
+
+/* Stil für den Container, wenn der Bearbeitungsmodus aktiviert ist */

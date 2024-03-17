@@ -1,0 +1,38 @@
+.mid-container {
+    width: 100vw;
+    height: 100vh;
+}
+
+app-massager {
+    width: 100%;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    max-height: 10vh;
+    img {
+        max-height: 8vh;
+    }
+}
+
+.message-container {
+    height: 90% !important;
+}
+
+.back-button {
+    font-size: 40px;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.left-head-container {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.header-left-side {
+    gap: 8px;
+}

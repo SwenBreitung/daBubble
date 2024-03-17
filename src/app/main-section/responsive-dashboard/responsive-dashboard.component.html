@@ -1,0 +1,104 @@
+<div class="mains-container">
+    <header>
+        <div class="d-flex logo pxFromLeftandRightSide">
+            <img src="./../../assets/logo/logo.svg" alt="">
+            <h1>DABubble</h1>
+        </div>
+
+        <div class="">
+            <div class="profile ">
+                <div class="position-relativ profile" (click)="openDialogChat()">
+                    <img *ngIf="profileImageUrl; else defaultImage" [src]="this.authService.currentUser.img" alt="Profilbild">
+
+                    <!-- Template für den Fall, dass profileImageUrl keinen gültigen Wert hat -->
+                    <ng-template #defaultImage>
+                        <img class="anonym-img" src="./../../assets/user_avatars/neutral-avatar.svg" alt="Standard Profilbild">
+                    </ng-template>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="left-container border-box pxFromLeftandRightSide">
+        <div class="search-container">
+            <div class="searchbar">
+                <div class="input-fild">
+                    <input (input)="onInputChange($event,1)" type="text" placeholder="code learning durchsuchen">
+                </div>
+            </div>
+            <div *ngIf="searchResults && searchResults.length >0 " class="search-result-items">
+                <div (click)="loadMassgesInTextChannel('channel', input)" *ngFor="let input of searchResults">
+                    <div class="search-result-item curser-pointer">{{ input.name }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid border-box">
+            <div class="left-channel-container border-box">
+                <div class="d-flex border-box">
+                    <div class="channel-menu border-box">
+                        <div (click)="toggleElement( 'showChannels') " class="left-menu hover  curser-pointer border-box">
+                            <div class="drop-down-container border-box">
+                                <img class="drop-down-img border-box" src="./../../assets/main-section/icons/arrow_drop_down.svg " alt=" ">
+                                <img class="hover-image border-box" src="./../../assets/main-section/icons/arrow_drop_down_blue.svg " alt=" ">
+                            </div>
+                            <div class="workspace-container border-box">
+                                <img class="workspace-img border-box " src="./../../assets/main-section/icons/workspaces.svg " alt=" ">
+                                <img class="hover-image border-box " src="./../../assets/main-section/icons/workspaces-blue.svg " alt=" ">
+                            </div>
+                            <h2 class="hover">Channels</h2>
+                        </div>
+                        <img (click)="openDialog()" class="button curser-pointer border-box hover" src="./../../assets/main-section/icons/add_black.svg " alt=" ">
+                    </div>
+                </div>
+                <div>
+                    <div class="left-channels border-box" *ngIf="showChannels ">
+
+                        <div class="channels border-box">
+                            <div [class.selected]="selectedChannelId === channel.id" [attr.id]="channel.id" (click)="loadMassgesInTextChannel('channel',channel)" class="channel-container hover" *ngFor="let channel of channels ">
+                                <b>#</b> {{channel.name}}
+                            </div>
+                        </div>
+
+                        <div class="add-channel border-box hover" (click)="openDialog()">
+                            <div class="drop-down-img-container border-box">
+                                <img class="default-img border-box hover" src="./../../assets/main-section/icons/add_circle.svg " alt=" ">
+                                <img class="hover-image border-box hover" src="./../../assets/main-section/icons/add_circle_blue.svg " alt=" ">
+                            </div>
+                            <span class="hover"><b>Channel Hinzufügen</b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="left-menu-users border-box">
+                <div (click)="toggleElement('showUsers')" class="left-menu border-box hover">
+                    <div class="drop-down-img-container border-box">
+                        <img class="default-img border-box" src="./../../assets/main-section/icons/arrow_drop_down.svg" alt="">
+                        <img class="hover-image border-box" src="./../../assets/main-section/icons/arrow_drop_down_blue.svg" alt="">
+                    </div>
+                    <div class="circle-img-container border-box">
+                        <img class="default-img border-box" src="./../../assets/main-section/icons/account_circle.svg" alt="">
+                        <img class="hover-image border-box" src="./../../assets/main-section/icons/account_circle_blue.svg" alt="">
+                    </div>
+                    <h2 class="curser-pointer hover">Direcknachrichten</h2>
+                </div>
+
+
+                <div *ngIf="showUsers " class="users-container border-box">
+
+                    <div [class.selected]="selectedChannelId === user.id" [attr.id]="user.uid" class="user-container border-box hover" (click)="loadMassgesInSecondChannel(user.id,user)" *ngFor="let user of users ">
+                        <span class="d-flex">
+                        <img *ngIf="user.img; else noImage" [src]="user.img" alt="Bild in Nachricht" class="message-img message-image curser-pointer">
+                        <ng-template #noImage><img src="./../../assets/user_avatars/neutral-avatar.svg" alt="Standardbild"></ng-template>
+                    </span>
+                        <span>
+                        {{user.name}}
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

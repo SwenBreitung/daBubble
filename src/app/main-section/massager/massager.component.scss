@@ -1,0 +1,62 @@
+@import './../../../styles.scss';
+.message-viewer {
+    box-sizing: border-box;
+    height: 100%;
+    background-color: var(--text-white);
+    max-width: 100%;
+    display: flex;
+    @include column;
+    overflow: auto;
+    word-break: break-all;
+    padding-top: 24px;
+}
+
+.users-container {
+    overflow: auto;
+    max-height: 200px;
+}
+
+.anonym-img {
+    width: 50px;
+}
+
+.message-image {
+    background-color: var(--text-white) !important;
+    border-radius: 20px;
+    padding: 8px;
+    object-fit: contain;
+}
+
+.emjo-bar-main {
+    width: 353px;
+    position: absolute;
+    top: 234px;
+}
+
+.highlight {
+    color: blue !important;
+    background-color: aqua !important;
+}
+
+@media (max-width:700px) {
+    .message-viewer {
+        overflow: auto;
+        height: calc(90vh - 166px);
+        border-radius: 20px;
+    }
+    .message-viewer::-webkit-scrollbar {
+        display: none !important;
+    }
+    .message-viewer {
+        -ms-overflow-style: none !important;
+        /* IE 11 */
+        scrollbar-width: none !important;
+        /* Firefox */
+    }
+    *::-webkit-scrollbar {
+        display: none !important;
+    }
+    * {
+        -ms-overflow-style: none !important;
+    }
+}

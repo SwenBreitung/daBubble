@@ -1,0 +1,38 @@
+@import './../../styles.scss';
+// .mat-mdc-dialog-container {
+//     border-radius: 25px !important;
+//     padding: 20px !important;
+//     display: flex !important;
+//     width: 380px !important;
+// }
+.buttons {
+    display: flex;
+    gap: 16px;
+    button {
+        @include center-flex;
+        border-radius: 20px;
+        width: 90px;
+        height: 30px;
+        border: none;
+    }
+    .btn-login-user {
+        background-color: var( --header-color);
+        color: var(--text-white);
+        &:hover {
+            background-color: var( --your-chat-background-color);
+        }
+    }
+    .btn-login-gast {
+        border: 1px solid var( --header-color);
+        background-color: var(--text-white);
+        color: var(--header-color);
+        &:hover {
+            background-color: var( --header-color);
+            color: var(--text-white);
+        }
+    }
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: white !important;
+}

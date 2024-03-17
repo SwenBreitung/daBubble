@@ -1,0 +1,25 @@
+<div class="right-container pxFromLeftandRightSide " *ngIf="messageService.torgleRightSide">
+    <header>
+        <div class="second-header d-flex">
+            <div class="second-header-text-area d-flex">
+                <span class="second-little-head"><b>Thred</b></span>
+                <span class="second-header-text">#{{ messageService.secondChatHeader }}</span>
+            </div>
+            <span *ngIf="channelService.isScreenWide" class="closeLeftWindow" (click)="closeLeftWindow()"><b>X</b></span>
+        </div>
+
+        <div class="border-line"></div>
+    </header>
+    <div class="heigt100p-calc">
+        <div class="width-and-heigt-100p ">
+            <div class="message-viewer">
+                <div class="d-flex p-16" *ngFor="let message of messageService.secondMessages ">
+                    <app-message-card style="width: 100%;" [isMainChat]="false" [message]="message"></app-message-card>
+                </div>
+                <emoji-mart class="emoji-chat-window-bar" (emojiClick)="onEmojiClick($event, 'secondChannelTextarea')" *ngIf="messageService.showSecondEmojiPicker" (emojiSelect)="onEmojiSelect($event)">saddasddassa</emoji-mart>
+            </div>
+            <app-message-input style="padding-bottom:16px;" [functionKey]="'funktionB'"></app-message-input>
+        </div>
+
+    </div>
+</div>

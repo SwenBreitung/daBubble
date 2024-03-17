@@ -1,10 +1,39 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
+import {RegisterComponent} from './authentication/register/register.component';
+import {StartScreenComponent} from './start-screen/start-screen.component';
+import {LogInComponent} from './authentication/log-in/log-in.component'
+import { MainSectionComponent } from './main-section/main-section.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import {AuthenticationComponent} from './authentication/authentication.component';
+import { VerifyEmailInstructionComponent } from './main-section/verify-email-instruction/verify-email-instruction.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { ResponsivMainChatComponent } from './main-section/responsiv-main-chat/responsiv-main-chat.component';
+import { ResponsiveDashboardComponent } from './main-section/responsive-dashboard/responsive-dashboard.component';
+const routes: Routes = [
+  { 
+    path: '', component: AuthenticationComponent,
+                children: [
+                  { path: '', component: LogInComponent },
+                  { path: 'register', component: RegisterComponent },
+                  { path: 'login', component: LogInComponent },
+                ]
+  },
+    { path: 'main-section', component: MainSectionComponent },
+    { path: 'password-reset', component: PasswordResetComponent },
+    { path: 'verify-email', component: VerifyEmailInstructionComponent },
+    { path: 'verify-email', component: EmailVerificationComponent },
+    //{ path: 'app-responsiv-main-chat/:param1/:param2', component: ResponsivMainChatComponent },
+    { path: 'app-responsiv-main-chat', component: ResponsivMainChatComponent },
+    { path: 'app-responsive-dashboard', component: ResponsiveDashboardComponent },
+   
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+  
+}

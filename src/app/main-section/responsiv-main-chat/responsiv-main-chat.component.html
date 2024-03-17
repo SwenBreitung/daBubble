@@ -1,0 +1,38 @@
+<div class="mid-container border-box">
+    <header class="d-flex left-head-container">
+
+        <div class="d-flex  header-left-side border-box curser-pointer">
+            <b class="back-button" (click)="return()"><</b>
+            <img src="./../../assets/logo/logo-code-learning.svg " alt=" ">
+            <h1 class="hover">Devspace</h1>
+
+        </div>
+
+
+        <div class="">
+            <div class="profile ">
+                <div class="position-relativ profile" (click)="openDialogChat()">
+                    <img *ngIf="profileImageUrl; else defaultImage" [src]="this.authService.currentUser.img" alt="Profilbild">
+
+                    <!-- Template für den Fall, dass profileImageUrl keinen gültigen Wert hat -->
+                    <ng-template #defaultImage>
+                        <img class="anonym-img" src="./../../assets/user_avatars/neutral-avatar.svg" alt="Standard Profilbild">
+                    </ng-template>
+
+                </div>
+            </div>
+        </div>
+        <!-- (click)="openDialogEditChannel()" -->
+    </header>
+    <div class="width-and-heigt-100p message-container border-box">
+
+        <!-- <div *ngIf="messageService.secondChatHeader" class="send-massage border-box">
+            <span><b># {{  messageService.secondChatHeader }}</b></span>
+        </div>
+        <div *ngIf="!messageService.secondChatHeader" class="search-container">
+
+        </div> -->
+
+        <app-massager class="border-box"></app-massager>
+    </div>
+</div>

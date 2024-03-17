@@ -1,0 +1,12 @@
+<header class="d-flex">
+    <div class="d-flex logo-container">
+        <img src="./../../assets/logo/logo.svg" alt="">
+        <span><b>DABubble</b></span>
+    </div>
+    <div *ngIf="!isRegisterPage" class="register">
+        <span>Neu bei DABubble?</span>
+        <a [routerLink]="['/register']">Konto erstellen</a>
+    </div>
+
+
+</header>

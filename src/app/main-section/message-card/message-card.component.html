@@ -1,0 +1,121 @@
+<div class="p-16 " *ngIf="message.userName !== this.authService.currentUser.name; else sameUserTemplate">
+
+    <div class="message-second-user p-16">
+        <div class="menu-second-user">
+            <div>
+                <div *ngIf="isMainChat" (click)="AddStaticEmojiToMessage(message.id, '✅', messageService.currentChannelId, authService.currentUser.uid)" class=" curser-pointer">
+                    ✅
+                </div>
+            </div>
+            <div>
+                <div *ngIf="isMainChat" (click)="AddStaticEmojiToMessage(message.id, '👍', messageService.currentChannelId, authService.currentUser.uid)" class=" curser-pointer">
+                    👍
+                </div>
+            </div>
+            <div (click)="toggleEmojiPickerForTextMassage(message.id)" class="menu-emoji-chat-bar">
+                <img class="emoji-bar curser-pointer" src="./../../../assets/main-section/icons/add_reaction.svg" alt="">
+                <img class="emoji-bar-hover curser-pointer" src="./../../../assets/main-section/icons/add_reaction_blue.svg" alt="">
+            </div>
+            <div *ngIf="message.userName == this.authService.currentUser.name" (click)="openDialogChat(message)" class="chat-options-button">
+                <img class="chat-options-buttoncurser-pointer" src="./../../../assets/main-section/icons/option.svg" alt="">
+                <img class="chat-options-button-hover curser-pointer" src="./../../../assets/main-section/icons/option_blue.svg" alt="">
+            </div>
+        </div>
+        <div class="messager-img-second-container">
+            <img class="user-img" [src]="message.userImg ? message.userImg : './../../../assets/user_avatars/neutral-avatar.svg'" alt="">
+            <div class="messager-container" style="padding-bottom: 4px;">
+                <span (click)="this.loadMassgesFromChannelInSecondChannel(message)" class="curser-pointer"><b>{{ message.userName }}</b></span>
+                <div class="message-text-second-user">
+                    <div class="text-img-container">
+                        <img (click)="downloadImage(message.img)" *ngIf="message.img && message.img !== 'defaultImagePath'" [src]="message.img" alt="Bild in Nachricht" class="message-img message-image curser-pointer">
+                    </div>
+                    <div style="position: relative;">
+                        <span>{{ message.text }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="emoji-bar-second-user">
+                <div>
+                    <span id="{{ message.id }}"></span>
+                    <img *ngIf="message.emojis?.length" class="emoji-img curser-pointer " (click)="toggleEmojiPickerForTextMassage(message.id)" src="./../../assets/main-section/icons/add_reaction.svg" alt="">
+                </div>
+                <div (click)="addEmojiToMessage(message.id,emoji, this.messageService.currentChannelId, this.authService.currentUser.uid)" class="d-flex curser-pointer" *ngFor="let emoji of message.emojis">
+                    <div>{{ emoji.emoji }}</div>
+                    <div>{{ emoji.counter }}</div>
+                </div>
+                <emoji-mart class="emoji-chat-window-bar" *ngIf="activeEmojiPickerId === message.id" (emojiClick)="onEmojiClick($event,  message.id)" (emojiSelect)="onEmojiSelect($event)"></emoji-mart>
+            </div>
+
+            <div class="curser-pointer" (click)="this.loadMassgesFromChannelInSecondChannel(message)" *ngIf="message.secondMessageCounter > 0">
+                <span class="color-antworten">{{message.secondMessageCounter}} </span>
+                <span class="color-antworten">Anworten</span>
+            </div>
+        </div>
+
+        <emoji-mart class="emoji-chat-window-bar curser-pointer" *ngIf="activeEmojiPickerId === message.id" (emojiClick)="onEmojiClick($event,  message.id)" (emojiSelect)="onEmojiSelect($event)"></emoji-mart>
+    </div>
+</div>
+
+
+<ng-template #sameUserTemplate>
+    <!-- Anzeige für Nachrichten vom aktuellen Benutzer -->
+    <div class="message-user  p-16">
+        <div class="menu d-flex">
+            <div>
+                <div *ngIf="isMainChat" (click)="AddStaticEmojiToMessage(message.id, '✅', messageService.currentChannelId, authService.currentUser.uid)" class=" curser-pointer">
+                    ✅
+                </div>
+            </div>
+            <div>
+                <div *ngIf="isMainChat" (click)="AddStaticEmojiToMessage(message.id, '👍', messageService.currentChannelId, authService.currentUser.uid)" class=" curser-pointer">
+                    👍
+                </div>
+            </div>
+            <div (click)="toggleEmojiPickerForTextMassage(message.id)" class="menu-emoji-chat-bar">
+                <img class="emoji-bar curser-pointer" src="./../../../assets/main-section/icons/add_reaction.svg" alt="">
+                <img class="emoji-bar-hover curser-pointer" src="./../../../assets/main-section/icons/add_reaction_blue.svg" alt="">
+            </div>
+            <div *ngIf="message.userName == this.authService.currentUser.name" (click)="openDialogChat(message)" class="chat-options-button">
+                <img class="chat-options-button curser-pointer" src="./../../../assets/main-section/icons/option.svg" alt="">
+                <img class="chat-options-button-hover curser-pointer" src="./../../../assets/main-section/icons/option_blue.svg" alt="">
+            </div>
+        </div>
+        <div class="messager-img-container">
+            <img class="user-img" [src]="message.userImg ? message.userImg : './../../../assets/user_avatars/neutral-avatar.svg'" alt="">
+            <div class="messager-container" style="padding-bottom: 4px;">
+                <span (click)="this.loadMassgesFromChannelInSecondChannel(message)" class="curser-pointer"><b>{{ message.userName }}</b></span>
+                <div class="message-text-user">
+                    <div class="text-img-container">
+                        <img (click)="downloadImage(message.img)" *ngIf="message.img && message.img !== 'defaultImagePath'" [src]="message.img" alt="Bild in Nachricht" class="message-img message-image curser-pointer">
+                    </div>
+                    <div style="position: relative;">
+                        <span>{{ message.text }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="emoji-bar">
+                <div>
+                    <span id="{{ message.id }}"></span>
+                    <img *ngIf="message.emojis?.length" class="emoji-container curser-pointer emoji-img" (click)="toggleEmojiPickerForTextMassage(message.id)" src="./../../assets/main-section/icons/add_reaction.svg" alt="">
+                </div>
+                <div (click)="addEmojiToMessage(message.id,emoji, this.messageService.currentChannelId, this.authService.currentUser.uid)" class="d-flex curser-pointer" *ngFor="let emoji of message.emojis">
+                    <div>{{ emoji.emoji }}</div>
+                    <div>{{ emoji.counter }}</div>
+                </div>
+                <emoji-mart class="emoji-chat-window-bar" *ngIf="activeEmojiPickerId === message.id" (emojiClick)="onEmojiClick($event,  message.id)" (emojiSelect)="onEmojiSelect($event)"></emoji-mart>
+            </div>
+
+            <div class="curser-pointer" (click)="this.loadMassgesFromChannelInSecondChannel(message)" *ngIf="message.secondMessageCounter > 0">
+                <span class="color-antworten">{{message.secondMessageCounter}} </span>
+                <span class="color-antworten">Anworten</span>
+            </div>
+        </div>
+
+        <emoji-mart class="emoji-chat-window-bar curser-pointer" *ngIf="activeEmojiPickerId === message.id" (emojiClick)="onEmojiClick($event,  message.id)" (emojiSelect)="onEmojiSelect($event)"></emoji-mart>
+    </div>
+
+</ng-template>

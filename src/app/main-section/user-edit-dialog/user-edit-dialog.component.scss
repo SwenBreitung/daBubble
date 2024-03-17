@@ -1,0 +1,138 @@
+@import './../../../styles.scss';
+.user-edit-container {
+    height: 100%;
+    width: 100%;
+    padding: 16px;
+}
+
+.img-container {
+    width: 100%;
+    @include center-flex;
+    img {
+        padding: 24px;
+    }
+}
+
+.mdc-dialog__container {
+    width: 30vw !important;
+    height: 80vh !important;
+}
+
+img {}
+
+.name-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.head-name,
+.name {
+    font-size: 40px !important;
+}
+
+.email {
+    @include column;
+    gap: 8px;
+}
+
+.email-data {
+    color: blue;
+}
+
+.close-button {
+    @include center-flex;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    &:hover {
+        color: blue;
+        background-color: var(--link-color);
+    }
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.bearbeiten {
+    color: var(--link-color);
+    padding: 4px;
+    border-radius: 20px;
+    &:hover {
+        background-color: var( --your-chat-background-color);
+        color: var(--header-color);
+    }
+}
+
+.info-container {
+    @include column;
+    height: 53%;
+    padding-top: 16px;
+    gap: 8px;
+    justify-content: space-evenly;
+}
+
+.online-status {
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: greenyellow;
+}
+
+.activ-user-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    gap: 8px;
+}
+
+.input-container {
+    padding: 8px;
+    border: 1px solid grey;
+    border-radius: 20px;
+     :focus {
+        border: 1px solid blue;
+    }
+    input {
+        border: none;
+        width: 100%;
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    justify-content: space-evenly;
+    button {
+        @include center-flex;
+        border-radius: 20px;
+        width: 149px;
+        height: 52px;
+        border: none;
+    }
+    .btn-login-user {
+        background-color: var( --header-color);
+        color: var(--text-white);
+        &:hover {
+            background-color: var( --your-chat-background-color);
+        }
+    }
+    .btn-login-gast {
+        border: 1px solid var( --header-color);
+        background-color: var(--text-white);
+        color: var(--header-color);
+        &:hover {
+            background-color: var( --header-color);
+            color: var(--text-white);
+        }
+    }
+}
