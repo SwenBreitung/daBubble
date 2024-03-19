@@ -34,7 +34,7 @@ export class RegisterComponent{
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [
     Validators.required, 
-    Validators.minLength(5),
+    Validators.minLength(6),
     Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$') // Beispiel für einen regulären Ausdruck
   ]);
   sendMail = false;

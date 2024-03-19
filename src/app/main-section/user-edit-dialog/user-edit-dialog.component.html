@@ -4,7 +4,6 @@
             <span class="head-name"><b>Profil</b></span>
             <div class="close-button" (click)="close()">X</div>
         </div>
-
         <div class="img-container">
             <img *ngIf="authService.currentUser.img; else defaultImage" [src]="authService.currentUser.img" alt="Profilbild">
             <ng-template #defaultImage>
@@ -33,7 +32,6 @@
     </div>
 
 </div>
-
 
 <div *ngIf="switchContainer == 1" class="user-edit-container">
     <div class="user-edit-container">

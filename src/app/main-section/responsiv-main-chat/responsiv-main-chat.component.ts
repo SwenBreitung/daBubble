@@ -26,38 +26,79 @@ export class ResponsivMainChatComponent {
     public  authService: AuthService,
     public dialog: MatDialog,
     private router: Router,
-    ) {
-   
-    }
+    ) {}
+
+  // ngOnInit() {    
+  //   this.selectedChannelId = this.messageService.channel.id;
+  //   this.messageService.secondChatHeader = this.messageService.channel.name;
+  //   this.messageService.channelInfos = this.messageService.channel;
+  //   console.log(this.messageService.channel.name)
+  //   if (this.messageSubscription) {
+  //     this.messageSubscription.unsubscribe();
+  //   }   
+  //   this.messageService.currentChannelId = this.messageService.channel.id;
+  //   this.messageService.loadMessagesForChannel(this.messageService.sourceType as 'channel' | 'chat',this.messageService.channel.id);
+  //   this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
+  //     console.log('new messages testing',messages);
+  //     this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
+  //     console.log('service testing',this.messageService.messages)
+  //   });
+  //   this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, this.messageService.channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
+  //     this.secondMessages = secondMessages;
+  //     this.messageService. secondMessagesSource.next(secondMessages);
+  //     console.log('load from funktion loadMessages', this.secondMessages.length); // Zeigt die Anzahl der Nachrichten an
+  //   });
+  //   this.searchResults = [];
+  // }
+
 
   ngOnInit() {
-    
-    
-      
-    this.selectedChannelId = this.messageService.channel.id;
-    this.messageService.secondChatHeader = this.messageService.channel.name;
-    this.messageService.channelInfos = this.messageService.channel;
-    console.log(this.messageService.channel.name)
+    this.initializeChannelState();
+    this.unsubscribePreviousSubscription();
+    this.loadAndSubscribeToMessages();
+    this.subscribeToSecondChannelMessages();
+    this.resetSearchResults();
+  }
+  
+  initializeChannelState() {
+    const channel = this.messageService.channel;
+    this.selectedChannelId = channel.id;
+    this.messageService.secondChatHeader = channel.name;
+    this.messageService.channelInfos = channel;
+    console.log(channel.name);
+  }
+  
+  unsubscribePreviousSubscription() {
     if (this.messageSubscription) {
       this.messageSubscription.unsubscribe();
     }
+  }
+  
+  loadAndSubscribeToMessages() {
+    const channel = this.messageService.channel;
+    this.messageService.currentChannelId = channel.id;
+    this.messageService.loadMessagesForChannel(this.messageService.sourceType as 'channel' | 'chat', channel.id);
     
-    this.messageService.currentChannelId = this.messageService.channel.id;
-    this.messageService.loadMessagesForChannel(this.messageService.sourceType as 'channel' | 'chat',this.messageService.channel.id);
-
     this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
-      console.log('new messages testing',messages);
+      console.log('new messages testing', messages);
       this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
-      console.log('service testing',this.messageService.messages)
+      console.log('service testing', this.messageService.messages);
     });
-
+  }
+  
+  subscribeToSecondChannelMessages() {
     this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, this.messageService.channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
       this.secondMessages = secondMessages;
-      this.messageService. secondMessagesSource.next(secondMessages);
+      this.messageService.secondMessagesSource.next(secondMessages);
       console.log('load from funktion loadMessages', this.secondMessages.length); // Zeigt die Anzahl der Nachrichten an
     });
+  }
+  
+  resetSearchResults() {
     this.searchResults = [];
   }
+
+
   return(){
     this.router.navigate(['/app-responsive-dashboard'])
   }
@@ -65,16 +106,12 @@ export class ResponsivMainChatComponent {
   
   openDialogChat() {
     const dialogRef = this.dialog.open(UserActionsDialogComponent, {
-     
       width:'80%',
         position: {
-          bottom: '-28px',
-        
+          bottom: '-28px',   
       }, 
       panelClass: 'custom-dialog-container',
-    });
-    
-    //  dialogRef.close('OptionalResult');
+    });  
   }
 
   

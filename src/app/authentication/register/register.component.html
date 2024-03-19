@@ -29,7 +29,6 @@
     <div style="width: 100%;">
         <div class="input-fild">
             <img src="./../../assets/log-in/mail.svg">
-            <!-- <input type="text" [(ngModel)]="user.name" (blur)="onBlur('name')" placeholder="Vor und Nachname" [class.error-border]="!isInputValid(nameField) && errorBooliean" (blur)="checkFieldValidity(nameField)"  (ngModelChange)="checkUsername()" name="name" #nameField="ngModel" -->
             <input type="email" [(ngModel)]="user.email" (blur)="onBlur('email')" placeholder="Email Adresse" [class.error-border]="!isInputValid(emailField)" (blur)="checkEmailValidity()" #emailField="ngModel" name="email" (ngModelChange)="checkEmail()" required
                 email>
         </div>
@@ -59,7 +58,7 @@
         </div>
         <div class="error-container">
             <div class="error-message" *ngIf="showErrorPassword">
-                {{ getErrorMessage(passwordField, 5, 'Passwort') }}
+                {{ getErrorMessage(passwordField, 6, 'Passwort') }}
             </div>
         </div>
     </div>

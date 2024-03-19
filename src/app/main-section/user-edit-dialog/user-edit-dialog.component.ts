@@ -14,54 +14,45 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrl: './user-edit-dialog.component.scss'
 })
 export class UserEditDialogComponent {
-constructor(
- public authService: AuthService,
- public dialogRef: MatDialogRef<UserEditDialogComponent>,
- public noteService: NoteListService,
- public router: Router,
- private fb: FormBuilder,
-){}
-@ViewChild(UserActionsDialogComponent) actionDialog: UserActionsDialogComponent | undefined;
+  constructor(
+    public authService: AuthService,
+    public dialogRef: MatDialogRef<UserEditDialogComponent>,
+    public noteService: NoteListService,
+    public router: Router,
+    private fb: FormBuilder,
+  ){}
+  @ViewChild(UserActionsDialogComponent) actionDialog: UserActionsDialogComponent | undefined;
 
 
-userForm = this.fb.group({
-  userName: [this.authService.currentUser.name, [Validators.required, Validators.minLength(4)]],
-  userEmail: [this.authService.currentUser.email, [Validators.required, Validators.email]]
-});
+  userForm = this.fb.group({
+    userName: [this.authService.currentUser.name, [Validators.required, Validators.minLength(4)]],
+    userEmail: [this.authService.currentUser.email, [Validators.required, Validators.email]]
+  });
 
-switchContainer = 0;
-userEmail:string='';
-userName:string = '';
+  switchContainer = 0;
+  userEmail:string='';
+  userName:string = '';
 
-troggleSwitchContainer(){
-  this.switchContainer = this.switchContainer === 0 ? 1 : 0;
-}
-close(){
-  this.dialogRef.close();
-}
-
-// saveInput(){
-//   this.authService.sendVerificationToNewEmail(this.userEmail)
-//   this.noteService.updateObjectField(this.authService.currentUser.uid, 'email', this.userEmail);
-//   this.authService.currentUser.name = this.userName;
-//   this.authService.currentUser.email = this.userEmail;
-//   localStorage.setItem('dabuble/username',this.userName);
-//   this.noteService.updateObjectField(this.authService.currentUser.uid, 'name', this.userName);
-//   this.close();
-// }
-
-saveInput(): void {
-  if (this.userForm.valid) {
-    console.log(this.authService.currentUser);
-    // Logik zum Speichern der Daten, wenn das Formular gültig ist
-    console.log(this.userForm.value);
-  } else {
-    // Behandeln von ungültigen Eingaben
-    console.error('Formular ist nicht gültig.');
+  troggleSwitchContainer(){
+   this.switchContainer = this.switchContainer === 0 ? 1 : 0;
   }
-}
 
 
+  close(){
+    this.dialogRef.close();
+  }
+
+
+  saveInput(): void {
+    if (this.userForm.valid) {
+     console.log(this.authService.currentUser);
+      // Logik zum Speichern der Daten, wenn das Formular gültig ist
+      console.log(this.userForm.value);
+    } else {
+      // Behandeln von ungültigen Eingaben
+      console.error('Formular ist nicht gültig.');
+    }
+  }
 
 
 }

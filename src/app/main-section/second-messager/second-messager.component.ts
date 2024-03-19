@@ -109,35 +109,34 @@ export class SecondMessagerComponent implements AfterViewInit{
 
 
   
-insertEmoji(emoji: string) {
-  const div = this.contentDiv.nativeElement;
-  this.moveCursorToEnd(div); // Setzt den Cursor zuerst ans Ende
-
-  const selection = window.getSelection();
-  if (selection && selection.rangeCount > 0) {
-    const range = selection.getRangeAt(0);
-    const textNode = document.createTextNode(emoji);
-    range.insertNode(textNode);
-
-    // Bewegt den Cursor unmittelbar nach dem eingefügten Emoji
-    range.setStartAfter(textNode);
-    range.collapse(true);
-    selection.removeAllRanges();
-    selection.addRange(range);
-  } else {
-    // Dieser Fall sollte nun weniger häufig auftreten, da der Cursor bereits ans Ende gesetzt wurde
-    div.appendChild(document.createTextNode(emoji));
+  insertEmoji(emoji: string) {
+    const div = this.contentDiv.nativeElement;
+    this.moveCursorToEnd(div); // Setzt den Cursor zuerst ans Ende
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      const textNode = document.createTextNode(emoji);
+      range.insertNode(textNode);
+      range.setStartAfter(textNode);
+      range.collapse(true);
+      selection.removeAllRanges();
+     selection.addRange(range);
+    } else {
+      div.appendChild(document.createTextNode(emoji));
+    }
   }
-}
 
-moveCursorToEnd(div:any) {
-  const selection = window.getSelection();
-  if (selection) { // Überprüft, ob selection einen Wert hat
-    const range = document.createRange();
-    selection.removeAllRanges();
-    range.selectNodeContents(div);
-    range.collapse(false); // Bewegt den Cursor ans Ende
-    selection.addRange(range);
+
+  moveCursorToEnd(div:any) {
+    const selection = window.getSelection();
+    if (selection) { // Überprüft, ob selection einen Wert hat
+      const range = document.createRange();
+      selection.removeAllRanges();
+      range.selectNodeContents(div);
+      range.collapse(false); // Bewegt den Cursor ans Ende
+      selection.addRange(range);
+    }
   }
-}
+
+  
 }

@@ -28,14 +28,10 @@ export class DragAndDropService {
         this.firebaseService.uploadFile(file).subscribe(
           progressOrUrl => {
             if (typeof progressOrUrl === 'string') { 
-              console.log(`Upload complete. URL: ${progressOrUrl}`);
               resolve(progressOrUrl);
-            } else {
-              console.log(`Upload progress: ${progressOrUrl}%`);
-            }
+            } 
           },
           error => {
-            console.error('Fehler beim Hochladen der Datei', error);
             reject(error); 
           }
         );

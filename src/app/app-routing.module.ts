@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {RegisterComponent} from './authentication/register/register.component';
 import {StartScreenComponent} from './start-screen/start-screen.component';
@@ -10,6 +10,10 @@ import { VerifyEmailInstructionComponent } from './main-section/verify-email-ins
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { ResponsivMainChatComponent } from './main-section/responsiv-main-chat/responsiv-main-chat.component';
 import { ResponsiveDashboardComponent } from './main-section/responsive-dashboard/responsive-dashboard.component';
+import { ImpressumComponent } from './impressum/impressum.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+
+import { CommonModule } from '@angular/common';
 const routes: Routes = [
   { 
     path: '', component: AuthenticationComponent,
@@ -26,7 +30,8 @@ const routes: Routes = [
     //{ path: 'app-responsiv-main-chat/:param1/:param2', component: ResponsivMainChatComponent },
     { path: 'app-responsiv-main-chat', component: ResponsivMainChatComponent },
     { path: 'app-responsive-dashboard', component: ResponsiveDashboardComponent },
-   
+    {path:'impressum', component:ImpressumComponent}, 
+    {path:'privacy-policy', component:PrivacyPolicyComponent}, 
 ];
 
 @NgModule({

@@ -50,8 +50,9 @@ import { EmailVerificationComponent } from './email-verification/email-verificat
 import { ChannelInfoDialogComponent } from './main-section/channel-info-dialog/channel-info-dialog.component';
 import { ResponsiveDashboardComponent } from './main-section/responsive-dashboard/responsive-dashboard.component';
 import { ResponsivMainChatComponent } from './main-section/responsiv-main-chat/responsiv-main-chat.component';
-import { ResponsivSecondChantComponent } from './main-section/responsiv-second-chant/responsiv-second-chant.component';
 import { ChatNavigationComponent } from './main-section/chat-navigation/chat-navigation.component';
+import { ImpressumComponent } from './impressum/impressum.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 @NgModule({
@@ -81,10 +82,10 @@ import { ChatNavigationComponent } from './main-section/chat-navigation/chat-nav
     EmailVerificationComponent,
     ChannelInfoDialogComponent,
     ResponsiveDashboardComponent,
-     ResponsivMainChatComponent,
-    ResponsivSecondChantComponent,
+    ResponsivMainChatComponent,
     ChatNavigationComponent,
-   
+    ImpressumComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     PickerModule, 

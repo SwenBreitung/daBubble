@@ -19,9 +19,7 @@ newChannelName: string = '';
 editChannelName = false;
 editChannelInfo = false;
 
-console(){
-console.log(this.messageService.channelInfos)
-}
+
 
 
 editInfoChannel(){
@@ -29,12 +27,10 @@ editInfoChannel(){
 }
 editNameChannel(){
   this.editChannelName = true;
-  console.log(this.editChannelName)
 }
 saveNameChannel(){
   this.editChannelName = false;
   this.channelService.updateChannelProperties( this.messageService.channelInfos.id,'name', this.newChannelName)
-  console.log(this.editChannelName)
 }
 saveInfoChannel(){
   this.editChannelInfo = false;

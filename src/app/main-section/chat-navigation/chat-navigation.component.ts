@@ -13,92 +13,154 @@ import { AuthService } from './../../auth.service';
 })
 export class ChatNavigationComponent {
 
-@ViewChild('textarea') textarea: ElementRef | undefined;
-private messageSubscription: Subscription | undefined;
-@ViewChild('scondTextarea') scondTextarea: ElementRef | undefined;
-private scondMessageSubscription: Subscription | undefined;
-secondMessages:any;
-searchResults: any[] |[]=[];
+  @ViewChild('textarea') textarea: ElementRef | undefined;
+  private messageSubscription: Subscription | undefined;
+  @ViewChild('scondTextarea') scondTextarea: ElementRef | undefined;
+  private scondMessageSubscription: Subscription | undefined;
+  secondMessages:any;
+  searchResults: any[] |[]=[];
 
-constructor(
-  public channelService: ChannelService,
-  public messageService:MessageService,
-  public dialog: MatDialog,
-  public  authService: AuthService,
-){
- 
-}
+  constructor(
+    public channelService: ChannelService,
+    public messageService:MessageService,
+    public dialog: MatDialog,
+    public  authService: AuthService,
+  ){}
 
-resetSecondChatHeader(){
-  this.messageService.resetSecondChatHeader();
-}
-
-
-openDialogEditChannel(){
-  const dialogRef = this.dialog.open(ChannelInfoDialogComponent, {
-    width: '40vw',
-  });
-}
-openDialog() {
-  const dialogRef = this.dialog.open(AddChannelDialogComponent);
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(`Dialog result: ${result}`);
-  });
-}
-toggleElement(propertyName: string) {
-  this.channelService[propertyName] = !this.channelService[propertyName];
-}
-ngOnDestroy() {
-  if (this.messageSubscription) {
-    this.messageSubscription.unsubscribe();
+  
+  resetSecondChatHeader(){
+    this.messageService.resetSecondChatHeader();
   }
-  if (this.scondMessageSubscription) {
-    this.scondMessageSubscription.unsubscribe();
+
+
+  openDialogEditChannel(){
+    const dialogRef = this.dialog.open(ChannelInfoDialogComponent, {
+      width: '40vw',
+    });
   }
-}
-async loadMassgesInTextChannel(sourceType:string,channel: any) {
-  this.channelService.selectedChannelId = channel.id;
-  this.messageService.secondChatHeader = channel.name;
-  this.messageService.channelInfos = channel;
-  console.log(channel.name)
-  if (this.messageSubscription) {
-    this.messageSubscription.unsubscribe();
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(AddChannelDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {});
+  }
+
+
+  toggleElement(propertyName: string) {
+    this.channelService[propertyName] = !this.channelService[propertyName];
+  }
+
+
+  ngOnDestroy() {
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
+    if (this.scondMessageSubscription) {
+      this.scondMessageSubscription.unsubscribe();
+    }
+  }
+
+
+
+  async loadMassgesInTextChannel(sourceType: string, channel: any) {
+    this.channelService.selectedChannelId = channel.id;
+    this.messageService.secondChatHeader = channel.name;
+    this.messageService.channelInfos = channel;
+  
+    this.unsubscribePreviousMessageSubscription();
+    this.messageService.currentChannelId = channel.id;
+    await this.loadMessages(sourceType, channel.id);
+    this.subscribeToMessages();
+    this.subscribeToSecondChannelMessages(this.messageService.currentChannelId, channel.id);
+    this.setUIForChannelVisibility();
+  }
+
+
+  loadMassgesInSecondChannel(uid: string, user: string) {
+    this.channelService.selectedChannelId = uid;
+    this.messageService.switchSecondChatFunktion = false;
+    this.channelService.currentSecondUser = uid;
+    this.unsubscribePreviousMessageSubscription();
+    this.messageService.checkForExistingChannel(uid, this.authService.currentUser.uid).then(channelId => {
+      this.messageService.currentChannelId = channelId;
+      this.loadMessages('chat', channelId);
+    });
+    this.setUIForChannelVisibility();
+  }
+
+
+  setUIForChannelVisibility() {
+    this.channelService.isSecondaryPanelVisible = false;
+    this.channelService.isMainChatVisible = true;
+    this.channelService.isSidebarVisible = false;
   }
   
-  this.messageService.currentChannelId = channel.id;
-  this.messageService.loadMessagesForChannel(sourceType as 'channel' | 'chat',channel.id);
+  // Vorheriges Abonnement beenden
+  unsubscribePreviousMessageSubscription() {
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
+  }
+  
+  // Nachrichten laden
+  async loadMessages(sourceType: any, channelId: string) {
+    this.messageService.loadMessagesForChannel(sourceType, channelId);
+  }
+  
+  // Nachrichten abonnieren
+  subscribeToMessages() {
+    this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
+      this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
+    });
+  }
+  
+  // Zweiten Nachrichtenkanal abonnieren
+  subscribeToSecondChannelMessages(currentChannelId: string, channelId: string) {
+    this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(currentChannelId, channelId).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
+      this.secondMessages = secondMessages;
+      this.messageService.secondMessagesSource.next(secondMessages);
+    });
+  }
 
-  this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
-    console.log('new messages testing',messages);
-    this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
-    console.log('service testing',this.messageService.messages)
-  });
+  
+  // async loadMassgesInTextChannel(sourceType:string,channel: any) {
+  //   this.channelService.selectedChannelId = channel.id;
+  //   this.messageService.secondChatHeader = channel.name;
+  //   this.messageService.channelInfos = channel;
+  //   if (this.messageSubscription) {
+  //     this.messageSubscription.unsubscribe();
+  //   }
+  
+  //   this.messageService.currentChannelId = channel.id;
+  //   this.messageService.loadMessagesForChannel(sourceType as 'channel' | 'chat',channel.id);
 
-  this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
-    this.secondMessages = secondMessages;
-    this.messageService. secondMessagesSource.next(secondMessages);
-    console.log('load from funktion loadMessages', this.secondMessages.length); // Zeigt die Anzahl der Nachrichten an
-  });
-  this.searchResults = [];
-  this.channelService.isSecondaryPanelVisible = false;
-  this.channelService.isMainChatVisible = true;
-  this.channelService.isSidebarVisible = false;
-}
+  //   this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
+  //     this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
+  //   });
 
-loadMassgesInSecondChannel(uid: string, user: string) {
-  this.channelService.selectedChannelId = uid;
-  this.messageService.switchSecondChatFunktion = false;
-  console.log(uid,this.channelService.selectedChannelId);
-  this.channelService.currentSecondUser = uid;
+  //   this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
+  //     this.secondMessages = secondMessages;
+  //     this.messageService. secondMessagesSource.next(secondMessages);
+  //   });
+  //   this.searchResults = [];
+  //   this.channelService.isSecondaryPanelVisible = false;
+  //   this.channelService.isMainChatVisible = true;
+  //   this.channelService.isSidebarVisible = false;
+  // }
 
-  this.messageService.checkForExistingChannel(uid, this.authService.currentUser.uid).then(channelId => {
-    this.messageService.currentChannelId = channelId;
-    this.messageService.loadMessagesForChannel('chat',channelId );
-  });
-  this.channelService.isSecondaryPanelVisible = false;
-  this.channelService.isMainChatVisible = true;
-  this.channelService.isSidebarVisible = false;
-}
+
+  // loadMassgesInSecondChannel(uid: string, user: string) {
+  //   this.channelService.selectedChannelId = uid;
+  //   this.messageService.switchSecondChatFunktion = false;
+  //   this.channelService.currentSecondUser = uid;
+  //   this.messageService.checkForExistingChannel(uid, this.authService.currentUser.uid).then(channelId => {
+  //     this.messageService.currentChannelId = channelId;
+  //     this.messageService.loadMessagesForChannel('chat',channelId );
+  //   });
+  //   this.channelService.isSecondaryPanelVisible = false;
+  //   this.channelService.isMainChatVisible = true;
+  //   this.channelService.isSidebarVisible = false;
+  // }
 
 }

@@ -22,38 +22,77 @@ constructor(
   public dialog: MatDialog,
   ){}
  
-closeDialog(){
-  // this.channelService.addChannel(this.channel.toJson());
-  this.dialogRef.close();
-}
+  closeDialog(){
+    this.dialogRef.close();
+  }
 
-async logOut() {
-  this.closeDialog();
-  localStorage.removeItem('dabuble/username');
-  this.authService.logout();
-  this.router.navigate(['/login']);
-}
+  async logOut() {
+    this.closeDialog();
+    localStorage.removeItem('dabuble/username');
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 
-openDialogChat() {
-  this.closeDialog();
-  let dialogConfig = {
-    width: '40vw',
-    height: '60vh',
-    position: { top: '100px', right: '26px' },
-  };
 
-  // Prüfen der Fensterbreite und Anpassen der Konfiguration bei Bedarf
-  if (window.innerWidth < 700) {
-    dialogConfig = {
-      ...dialogConfig, // Behalte andere Einstellungen bei
-      width: '80vw', // Neue Breite als Beispiel
-      height: '80vh', // Neue Höhe als Beispiel
-      position: { top: '', right: '' }, // Entferne Positionierung, wenn gewünscht
+  // openDialogChat() {
+  //   this.closeDialog();
+  //   let dialogConfig = {
+  //     width: '40vw',
+  //     height: '60vh',
+  //     position: { top: '100px', right: '26px' },
+  //   };
+  //   if (window.innerWidth < 700) {
+  //     dialogConfig = {
+  //       ...dialogConfig,
+  //       width: '80vw', 
+  //       height: '80vh', 
+  //       position: { top: '', right: '' }, 
+  //     };
+  //   }
+  //   const dialogRef = this.dialog.open(UserEditDialogComponent, dialogConfig);
+  // }
+
+
+  openDialogChat() {
+    this.closeDialog(); 
+    const dialogConfig = this.getDialogConfig(); 
+    const dialogRef = this.dialog.open(UserEditDialogComponent, dialogConfig); 
+  }
+
+
+  getDialogConfig() {
+    let config = this.getDefaultDialogConfig();
+
+    if (this.isSmallScreen()) {
+      config = this.getSmallScreenDialogConfig(config);
+    }
+
+    return config;
+  }
+
+
+  getDefaultDialogConfig() {
+    return {
+      width: '40vw',
+      height: '60vh',
+      position: { top: '100px', right: '26px' }
     };
   }
+
+
+  getSmallScreenDialogConfig(config:any) {
+    return {
+      ...config,
+      width: '80vw',
+      height: '80vh',
+      position: { top: '', right: '' }
+    };
+  }
+
   
-  const dialogRef = this.dialog.open(UserEditDialogComponent, dialogConfig);
+  isSmallScreen() {
+    return window.innerWidth < 700;
+  }
 
 
-}
 }

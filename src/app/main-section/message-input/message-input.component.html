@@ -1,15 +1,14 @@
-<div *ngIf="searchResults" class="user-search-container ">
+<section *ngIf="searchResults" class="user-search-container ">
     <div class="user-searchname" *ngFor="let user of searchResults">
         <div (click)="insertSelectedUserName(user.name)">{{ user.name }}</div>
     </div>
-</div>
+</section>
 
-<div class="send-massage">
+<section class="send-massage">
     <div class="load-img-container" *ngIf="this.dragAndDropService.uploadedImage">
         <div class="delete-img-button" (click)="closeImg()" style="position:absolute;">X</div>
         <img [src]="this.dragAndDropService.uploadedImage" alt="Vorschaubild">
     </div>
-
     <div class="fake-textarea-container" (click)="focusContent()">
         <div contenteditable="true" class="fake-textarea" (input)="onInput($event)" #contentDiv></div>
         <span *ngIf="showPlaceholder" class="placeholder">Nachricht an #{{ messageService.secondChatHeader }}</span>
@@ -37,4 +36,4 @@
             <img (click)="sendMessage()" class="send-button-hover curser-pointer" src="./../../assets/main-section/icons/send_hover.svg " alt=" ">
         </div>
     </div>
-</div>
+</section>

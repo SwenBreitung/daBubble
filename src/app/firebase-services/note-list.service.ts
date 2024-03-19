@@ -27,21 +27,18 @@ export class NoteListService {
   private storage = getStorage();
   constructor() { 
     this.unsubList = onSnapshot(this.getNodeshRef(), (list)=>{
-    list.forEach(element =>{
-    })
-  });
+      list.forEach(element =>{
+      })
+    });
 
 
 
     this.unsubSingle = onSnapshot(this.getSingleDoc("user","id38934834"), (element)=>{
     });
 
-
     this.items$ = collectionData(this.getNodeshRef(), { idField: 'id' }) as Observable<User[]>;
 
-
     this.items$.subscribe(data => {});
-
 
     this.items = this.items$.subscribe((list)=>{
       list.forEach(element =>{})
@@ -49,6 +46,7 @@ export class NoteListService {
     this.items.unsubscribe();
   }
 
+  
   async addUser(userData: any, uid: string,) {
     try {
       const userDocRef = doc(this.getNodeshRef(), uid);

@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './verify-email-instruction.component.html',
   styleUrl: './verify-email-instruction.component.scss'
 })
-export class VerifyEmailInstructionComponent {
-
-}
+export class VerifyEmailInstructionComponent {}

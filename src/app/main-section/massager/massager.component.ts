@@ -47,55 +47,42 @@ export class MassagerComponent {
   secondMessages:any
   imagePreview:any;
   textareaValue = '';
-  // textareaImg = '';
-  // showPlaceholder = true;
   searchResults: any[] | undefined;
-  // @ViewChild('contentDiv') contentDiv!: ElementRef;
   @ViewChild(MessageInputComponent) messageInputComponent: MessageInputComponent | undefined;
 
   private messagesSubscription!: Subscription;
-  ngOnInit() {
+  ngOnInit() {}
 
-  }
+
   ngOnDestroy(){
     if (this.messagesSubscription) {
       this.messagesSubscription.unsubscribe();
     }
   }
   
+
   trackByFn(index:any, item:any) {
     console.log('index',index, item, 'item')
-    return item.id; // oder ein anderes einzigartiges Feld Ihrer Nachrichtenobjekte
+    return item.id; 
   }
 
-loadMassgesFromChannelInSecondChannel(channel:any) {
-this.messageService.torgleRightSide = true;
-this.messageService.loadMassgesFromChannelInSecondChannel(channel);
-}
-
-
-
-logMessageUser(messageUser: any, message:string) {
-  console.log('Message User:', messageUser, message);
-  console.log('Current User:', this.authService.currentUser);
-}
-
-
-toggleEmojiPickerForTextMassage(messageId: string){
- 
-  if (this.activeEmojiPickerId === messageId) {
-   
-    this.activeEmojiPickerId = null;
-  } else {
-  
-    this.activeEmojiPickerId = messageId;
+  loadMassgesFromChannelInSecondChannel(channel:any) {
+    this.messageService.torgleRightSide = true;
+    this.messageService.loadMassgesFromChannelInSecondChannel(channel);
   }
-}
 
 
-incrementEmojiCounterAndSaveUid(emoji:string, currentUser:string, message:string, currentChannelId:string){
-  console.log('emoji',emoji,'user', currentUser,'massege', message,'channelId', currentChannelId, 'messagerId', )
 
+  toggleEmojiPickerForTextMassage(messageId: string){
+    if (this.activeEmojiPickerId === messageId) {
+      this.activeEmojiPickerId = null;
+    } else {
+      this.activeEmojiPickerId = messageId;
+    }
+  }
+
+
+  incrementEmojiCounterAndSaveUid(emoji:string, currentUser:string, message:string, currentChannelId:string){
     this.messageService.incrementEmojiCounterAndSaveUid(message, emoji, currentUser,  this.messageService.currentChannelId)
   }
   
@@ -104,15 +91,12 @@ incrementEmojiCounterAndSaveUid(emoji:string, currentUser:string, message:string
   onEmojiClick(event: any, elementId: string) {
     const emoji = event.emoji.native;
     const element = document.getElementById(elementId);
-   this.handleEmojiInsert(emoji)
+    this.handleEmojiInsert(emoji)
     if (element) {
       if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
-      
         element.value += emoji;
-      } else {
-       
-        this.messageService.addEmojiToMessage(elementId,emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);
-        
+      } else {    
+        this.messageService.addEmojiToMessage(elementId,emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);  
       }
     }
   }
@@ -122,47 +106,35 @@ incrementEmojiCounterAndSaveUid(emoji:string, currentUser:string, message:string
   }
 
   
-toggleEmojiPicker(pickerType:any) {
-  if (pickerType === 'main') {
-    this.messageService.showMainEmojiPicker = !this.messageService.showMainEmojiPicker;
-    console.log(this.messageService.showMainEmojiPicker)
-  } else if (pickerType === 'second') {
-    this.messageService.showSecondEmojiPicker = !this.messageService.showSecondEmojiPicker;
-    console.log( this.messageService.showSecondEmojiPicker)
-  }
-}
-
-
-loadmessageaa(){
-  console.log('loadmessages',this.messageService.messages)
-}
-loadDataSecondMessages(){
-  console.log('loadmessages',this.messageService.secondMessages)
-}
-
-openDialog() {
-  const dialogRef = this.dialog.open(UploadDialogComponent);
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(`Dialog result: ${result}`);
-  });
-}
-
-async imfpfad(channelID: string) {
-  try {
-    if (this.dragAndDrop && this.dragAndDrop.selectedFile) {
-      const imgPath = await this.dragAndDrop.handleFileDropForChatting(this.dragAndDrop.selectedFile, channelID);
-      console.log('Uploaded Image Path:', imgPath);
-      return imgPath; // URL des hochgeladenen Bildes
-    } else {
-      console.error('DragAndDrop oder selectedFile ist nicht definiert');
-      return 'defaultImagePath';
+  toggleEmojiPicker(pickerType:any) {
+    if (pickerType === 'main') {
+      this.messageService.showMainEmojiPicker = !this.messageService.showMainEmojiPicker;
+    } else if (pickerType === 'second') {
+      this.messageService.showSecondEmojiPicker = !this.messageService.showSecondEmojiPicker;
     }
-  } catch (err) {
-    console.error('Fehler beim Hochladen des Bildes', err);
-    return 'defaultImagePath'; // Fehlerfall
   }
-}
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(UploadDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {});
+  }
+
+
+  async imfpfad(channelID: string) {
+    try {
+      if (this.dragAndDrop && this.dragAndDrop.selectedFile) {
+        const imgPath = await this.dragAndDrop.handleFileDropForChatting(this.dragAndDrop.selectedFile, channelID);
+        return imgPath; 
+      } else {
+        return 'defaultImagePath';
+      }
+    } catch (err) {
+    console.error('Fehler beim Hochladen des Bildes', err);
+    return 'defaultImagePath'; 
+    }
+  }
+
 
   async downloadImage(imageUrl: string) {
     try {
@@ -182,57 +154,51 @@ async imfpfad(channelID: string) {
   }
 
 
-  
   closeImg(){
     this.dragAndDrop.uploadedImage = null;
   }
 
 
-openDialogChat(message:any) {
-  const dialogRef = this.dialog.open(EditMessageDialogComponent, {
-    width: '250px',
-    data: { messageText: 'Ihr initialer Nachrichtentext' }
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    if(result == null){
-      return;
-    }
-    console.log('Der Dialog wurde geschlossen. Ergebnis:', result,message.id);
-     this.messageService.switchText(this.messageService.currentChannelId,message.id,result)
-   });
-
-}
-
-addEmojiToMessage(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
-  this.messageService.addEmojiToMessage(messageId,emoji.emoji,currentChannelId, currentUserUid)
-}
-AddStaticEmojiToMessage(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
-  this.messageService.addEmojiToMessage(messageId,emoji,currentChannelId, currentUserUid)
-}
-
-
-
-searchUsers(searchTerm: string): void {
-  this.messageService.searchUsers(searchTerm)
-    .then(channels => {
-      console.log('search users', searchTerm, channels);
-      this.searchResults = channels;
-    })
-    .catch(error => {
-      console.error('Fehler bei der Suche nach Benutzern:', error);
-
+  openDialogChat(message:any) {
+    const dialogRef = this.dialog.open(EditMessageDialogComponent, {
+      width: '250px',
+      data: { messageText: 'Ihr initialer Nachrichtentext' }
     });
-
- }
-
- handleEmojiInsert(emoji: any) {
-  console.log(emoji)
-  if(this.messageInputComponent){
-    this.messageInputComponent.insertEmoji(emoji);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == null){
+        return;
+      }
+      this.messageService.switchText(this.messageService.currentChannelId,message.id,result)
+    });
   }
 
-  // Hier definierst du, was passieren soll, wenn ein Emoji eingefügt wird.
-  // Diese Logik kann je nach Elternkomponente variieren.
-}
+  addEmojiToMessage(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
+    this.messageService.addEmojiToMessage(messageId,emoji.emoji,currentChannelId, currentUserUid)
+  }
+
+
+  AddStaticEmojiToMessage(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
+    this.messageService.addEmojiToMessage(messageId,emoji,currentChannelId, currentUserUid)
+  }
+
+
+
+  searchUsers(searchTerm: string): void {
+    this.messageService.searchUsers(searchTerm)
+      .then(channels => {
+        this.searchResults = channels;
+      })
+    .catch(error => {
+      console.error('Fehler bei der Suche nach Benutzern:', error);
+    });
+  }
+
+
+  handleEmojiInsert(emoji: any) {
+    if(this.messageInputComponent){
+      this.messageInputComponent.insertEmoji(emoji);
+    }
+  }
+
+  
 }

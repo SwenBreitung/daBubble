@@ -35,7 +35,6 @@ export class ChannelService {
   unsubList;
   constructor() {
     this.loadInitialData();
-
     this.unsubList = onSnapshot(this.getNodeshRef(), (list)=>{
       list.forEach(element =>{})
     });  
@@ -49,15 +48,11 @@ export class ChannelService {
     ).subscribe(channels => {
       this.itemsSubject.next(channels);
     });
-
     this.items$ = collectionData(this.getNodeshRef(), { idField: 'id' }) as Observable<Channel[]>;
     this.items$.subscribe(data => {
-      console.log('Daten aus Firebase:', data);
     });
-
     this.items = this.items$.subscribe((list)=>{
       list.forEach(element =>{
-        console.log('foreach',element)
       })
     }); 
     this.items.unsubscribe();
@@ -78,7 +73,7 @@ export class ChannelService {
   }
 
   
-  // Methode zum Abrufen der Namen aller Channels
+
   getChannelNames(): Observable<string[]> {
     return this.items$.pipe(
       map(channels => channels.map(channel => channel.name))
@@ -117,11 +112,7 @@ export class ChannelService {
     const channelRef = doc(collection(this.firestore, 'channel'), channelId);
     const updates = { [fieldName]: newValue };
     updateDoc(channelRef, updates)
-      .then(() => {
-        console.log('Kanaleigenschaft erfolgreich aktualisiert.');
-      })
-      .catch((error) => {
-        console.error('Fehler beim Aktualisieren der Kanaleigenschaft:', error);
-      });
+      .then(() => {})
+      .catch((error) => {});
   }
 }

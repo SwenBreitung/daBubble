@@ -3,7 +3,6 @@
         <div class="d-flex logo pxFromLeftandRightSide">
             <span (click)="return()" class="return-button curser-pointer" *ngIf="!channelService.isScreenWide"><b><</b></span>
             <img *ngIf="channelService.isScreenWide" src="./../../assets/logo/logo.svg" alt="">
-            <!-- Zeigt dieses Bild an, wenn die Bildschirmbreite 700px oder weniger ist -->
             <img *ngIf="!channelService.isScreenWide" src="./../../assets/logo/logo-code-learning.svg" alt="">
             <h1>DABubble</h1>
         </div>
@@ -24,8 +23,6 @@
                 <div class="position-relativ profile" (click)="openDialogChat()">
                     <h2>Name</h2>
                     <img *ngIf="profileImageUrl; else defaultImage" [src]="this.authService.currentUser.img" alt="Profilbild">
-
-                    <!-- Template für den Fall, dass profileImageUrl keinen gültigen Wert hat -->
                     <ng-template #defaultImage>
                         <img class="anonym-img" src="./../../assets/user_avatars/neutral-avatar.svg" alt="Standard Profilbild">
                     </ng-template>
@@ -79,6 +76,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- <app-responsive-dashboard></app-responsive-dashboard> -->
