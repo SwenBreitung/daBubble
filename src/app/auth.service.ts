@@ -10,7 +10,7 @@ import { Unsubscribe,sendEmailVerification, signInAnonymously as firebaseSignInA
 
 export class AuthService {
   
-  constructor(private auth: Auth) {}
+  constructor(public auth: Auth) {}
   currentUser: any; 
 
   signIn(email: string, password: string) {
@@ -109,5 +109,35 @@ export class AuthService {
       throw new Error('Kein Benutzer angemeldet');
     }
   }
-  
+
+
+  async updateEmailAddress(newEmail: string): Promise<void> {
+    const user = this.auth.currentUser;
+    if (user) {
+      await updateEmail(user, newEmail);
+      console.log('E-Mail-Adresse wurde erfolgreich aktualisiert');
+    } else {
+      throw new Error('Kein Benutzer ist eingeloggt.');
+    }
+  }
+
+
+  async sendVerificationEmail() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (user) {
+    await sendEmailVerification(user)
+      .then(() => {
+        console.log('Verifizierungs-E-Mail gesendet.', user.uid);
+      })
+      .catch((error) => {
+        console.error('Fehler beim Senden der Verifizierungs-E-Mail:', error);
+      });
+  } else {
+    throw new Error('Kein Benutzer ist eingeloggt.');
+  }
+}
+
+
 }

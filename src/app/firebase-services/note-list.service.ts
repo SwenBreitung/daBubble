@@ -24,7 +24,7 @@ export class NoteListService {
   items;
   unsubList;
   unsubSingle;
-  private storage = getStorage();
+  public storage = getStorage();
   constructor() { 
     this.unsubList = onSnapshot(this.getNodeshRef(), (list)=>{
       list.forEach(element =>{
@@ -134,8 +134,8 @@ export class NoteListService {
   }
 
 
-  async updateObjectField( uid: string, fieldName: string, newValue: string): Promise<void> {
-    const objektRef = doc(this.firestore, `users/${uid}`);
+  async updateObjectField( uid: string, fieldName: string, newValue: string,channelName:string): Promise<void> {
+    const objektRef = doc(this.firestore, `${channelName}/${uid}`);
     try {
       await updateDoc(objektRef, {
         [fieldName]: newValue 
@@ -196,7 +196,3 @@ export class NoteListService {
   }
   
 }
-
-
-
-

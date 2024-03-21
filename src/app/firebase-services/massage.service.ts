@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc,serverTimestamp , collectionData,onSnapshot, addDoc,updateDoc,deleteDoc,docData  } from '@angular/fire/firestore';
-import { getDocs, query,Query, DocumentData, where, getFirestore, FieldValue, setDoc, getDoc, increment } from 'firebase/firestore';
+import { getDocs, query,Query, DocumentData, where, getFirestore, FieldValue, setDoc, getDoc, increment, DocumentReference } from 'firebase/firestore';
 import { BehaviorSubject, Observable, Subject, Subscription, from, map, switchMap, take, takeUntil } from 'rxjs';
 import { User } from '../models/user.class';
 import { SecondMessage } from '../models/second-message';
@@ -33,8 +33,9 @@ export class MessageService {
   channelInfos:any;
   sourceType:string='';
   channel:any='';
-     
+  messageSubscription: any;  
   private subscription = new Subscription();
+
   constructor(
     public firestore: Firestore,
     public noteService: NoteListService,
@@ -55,15 +56,14 @@ export class MessageService {
   }
 
 
-  messageSubscription: any;
-  collectionData(messagesRef: void, arg1: { idField: string; }) {
-    throw new Error('Method not implemented.');
-  }
+  // collectionData(messagesRef: void, arg1: { idField: string; }) {
+  //   throw new Error('Method not implemented.');
+  // }
 
 
-  collection(arg0: any, arg1: string, channelId: any, arg3: string) {
-    throw new Error('Method not implemented.');
-  }
+  // collection(arg0: any, arg1: string, channelId: any, arg3: string) {
+  //   throw new Error('Method not implemented.');
+  // }
 
 
   async getDocumentsFromQuery(q: Query<DocumentData>) {
@@ -176,8 +176,7 @@ export class MessageService {
         createdAt: serverTimestamp(),
         type:'privateMassage' 
       });
-    }catch{
-    }
+    }catch{}
   }
 
 
@@ -205,43 +204,59 @@ export class MessageService {
   }
 
 
-  async addEmojiToMessage(messageId: string, emoji: string, channelID: string, uid: string) {
-    const messageRef = doc(this.firestore, `channel/${channelID}/messages/${messageId}`); 
-    try {
-      const messageSnap = await getDoc(messageRef);
-      if (messageSnap.exists()) {
-        const messageData = messageSnap.data();
-        let emojis = messageData['emojis'] || [];
-        let emojiExists = emojis.find((e: { emoji: string; }) => e.emoji === emoji);
-        if (emojiExists) {
-          let updatedUids = emojiExists.uids.includes(uid) 
-              ? emojiExists.uids.filter((u: string) => u !== uid) 
-              : [...emojiExists.uids, uid];
+  // async addEmojiToMessage(messageId: string, emoji: string, channelID: string, uid: string) {
+  //   const messageRef = doc(this.firestore, `channel/${channelID}/messages/${messageId}`); 
+  //   try {
+  //     const messageSnap = await getDoc(messageRef);
+  //     if (messageSnap.exists()) {
+  //       const messageData = messageSnap.data();
+  //       let emojis = messageData['emojis'] || [];
+  //       let emojiExists = emojis.find((e: { emoji: string; }) => e.emoji === emoji);
+  //       if (emojiExists) {
+  //         let updatedUids = emojiExists.uids.includes(uid) 
+  //             ? emojiExists.uids.filter((u: string) => u !== uid) 
+  //             : [...emojiExists.uids, uid];
   
-          if (updatedUids.length === 0) {
-            emojis = emojis.filter((e: { emoji: string; }) => e.emoji !== emoji);
-          } else {
-            emojiExists.uids = updatedUids;
-            emojiExists.counter = updatedUids.length;
-          }
-        } else {
-          const emojiId = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-          emojis.push({
-            emoji: emoji,
-            uids: [uid],
-            counter: 1,
-            id:emojiId
-          });
-        } 
-        await updateDoc(messageRef, { emojis: emojis });
-      } else {}
-    } catch (error) {
-    }
+  //         if (updatedUids.length === 0) {
+  //           emojis = emojis.filter((e: { emoji: string; }) => e.emoji !== emoji);
+  //         } else {
+  //           emojiExists.uids = updatedUids;
+  //           emojiExists.counter = updatedUids.length;
+  //         }
+  //       } else {
+  //         const emojiId = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+  //         emojis.push({
+  //           emoji: emoji,
+  //           uids: [uid],
+  //           counter: 1,
+  //           id:emojiId
+  //         });
+  //       } 
+  //       await updateDoc(messageRef, { emojis: emojis });
+  //     } else {}
+  //   } catch (error) {
+  //   }
+  // }
+
+  
+  async addEmojiToMessage(messageId: string, emoji: string, channelID: string, uid: string) {
+    const messageRef = this.getDocumentReference(this.firestore, `channel/${channelID}/messages/${messageId}`);
+    this.updateMessageEmojis(messageRef, emoji,  uid);
+  }
+ 
+
+  async addEmojiToMessageSecond(secondChannelID: string, emoji: any, channelID: string, uid: string,messageId:string) {
+    const messageRef = this.getDocumentReference(this.firestore, `channel/${channelID}/messages/${messageId}/secondMessages/${secondChannelID})`);
+    this.updateMessageEmojis(messageRef, emoji,  uid);
+  }
+ 
+  
+  getDocumentReference(firestore:Firestore, pfad:string) {
+    return doc(firestore, pfad);
   }
 
 
-  async addEmojiToMessageSecond(secondChannelID: string, emoji: any, channelID: string, uid: string,messageId:string) {
-    const messageRef =   doc(this.firestore, `channel/${channelID}/messages/${messageId}/secondMessages/${secondChannelID}`);
+  async updateMessageEmojis(messageRef:DocumentReference, emoji:any,  uid:string){
     try {
       const messageSnap = await getDoc(messageRef);
       if (messageSnap.exists()) {
@@ -274,6 +289,39 @@ export class MessageService {
   }
 
 
+
+  // async incrementEmojiCounterAndSaveUid(messageId: string, emojiId: string, userId: string, channelId: string) {
+  //   const messageRef = doc(this.firestore, `channel/${channelId}/messages/${messageId}`);
+  //   try {
+  //     const messageSnap = await getDoc(messageRef);
+  //     if (messageSnap.exists()) {
+  //       const messageData = messageSnap.data();
+  //       let emojis = messageData['emojis'] || [];
+  //       let emojiIndex = emojis.findIndex((e: { id: string; }) => e.id === emojiId);
+  //       if (emojiIndex !== -1) {
+  //         let emojiData = emojis[emojiIndex];
+  //         let uids = emojiData['uids'] || [];
+  //         let counter = emojiData['counter'] || 0;
+  
+  //         if (uids.includes(userId)) {
+  //           uids = uids.filter((uid: string) => uid !== userId);
+  //           counter = Math.max(counter - 1, 0);
+  //           if (counter === 0) {
+  //             emojis.splice(emojiIndex, 1);
+  //           } else {
+  //             emojis[emojiIndex] = { ...emojiData, uids, counter };
+  //           }
+  //         } else {
+  //           uids.push(userId);
+  //           counter += 1;
+  //           emojis[emojiIndex] = { ...emojiData, uids, counter };
+  //         }
+  //         await updateDoc(messageRef, { emojis: emojis });
+  //       } else {}
+  //     } else {}
+  //   } catch (error) {}
+  // }
+
   async incrementEmojiCounterAndSaveUid(messageId: string, emojiId: string, userId: string, channelId: string) {
     const messageRef = doc(this.firestore, `channel/${channelId}/messages/${messageId}`);
     try {
@@ -281,29 +329,78 @@ export class MessageService {
       if (messageSnap.exists()) {
         const messageData = messageSnap.data();
         let emojis = messageData['emojis'] || [];
-        let emojiIndex = emojis.findIndex((e: { id: string; }) => e.id === emojiId);
-        if (emojiIndex !== -1) {
-          let emojiData = emojis[emojiIndex];
-          let uids = emojiData['uids'] || [];
-          let counter = emojiData['counter'] || 0;
-  
-          if (uids.includes(userId)) {
-            uids = uids.filter((uid: string) => uid !== userId);
-            counter = Math.max(counter - 1, 0);
-            if (counter === 0) {
-              emojis.splice(emojiIndex, 1);
-            } else {
-              emojis[emojiIndex] = { ...emojiData, uids, counter };
-            }
-          } else {
-            uids.push(userId);
-            counter += 1;
-            emojis[emojiIndex] = { ...emojiData, uids, counter };
-          }
-          await updateDoc(messageRef, { emojis: emojis });
-        } else {}
-      } else {}
-    } catch (error) {}
+        emojis = this.updateEmojiData(emojis, emojiId, userId); // Verwendung der Hilfsfunktion
+        await updateDoc(messageRef, { emojis: emojis });
+      }
+    } catch (error) {
+      console.error('Fehler beim Aktualisieren der Emoji-Daten', error);
+    }
+  }
+
+
+  // updateEmojiData(emojis: any[], emojiId: string, userId: string): any[] {
+  //   let emojiIndex = emojis.findIndex((e: { id: string; }) => e.id === emojiId);
+  //   if (emojiIndex !== -1) {
+  //     let emojiData = emojis[emojiIndex];
+  //     let uids = emojiData['uids'] || [];
+  //     let counter = emojiData['counter'] || 0;
+
+  //     if (uids.includes(userId)) {
+  //       uids = uids.filter((uid: string) => uid !== userId);
+  //       counter = Math.max(counter - 1, 0);
+  //       emojiData = counter === 0 ? null : { ...emojiData, uids, counter };
+  //     } else {
+  //       uids.push(userId);
+  //       counter += 1;
+  //       emojiData = { ...emojiData, uids, counter };
+  //     } 
+  //     if (emojiData) {
+  //       emojis[emojiIndex] = emojiData;
+  //     } else {
+  //       emojis.splice(emojiIndex, 1);
+  //     }
+  //   }
+  //   return emojis;
+  // }   
+  updateEmojiData(emojis: any[], emojiId: string, userId: string): any[] {
+    let emojiIndex = emojis.findIndex((e: { id: string; }) => e.id === emojiId);
+    if (emojiIndex !== -1) {
+      let emojiData = emojis[emojiIndex];
+      let uids = emojiData['uids'] || [];
+
+      if (uids.includes(userId)) {
+        emojis = this.removeUserIdFromEmojis(emojis, emojiIndex, userId);
+      } else {
+        emojis = this.addUserIdToEmojis(emojis, emojiIndex, userId);
+      }
+    }
+    return emojis;
+  }
+
+
+  private removeUserIdFromEmojis(emojis: any[], emojiIndex: number, userId: string): any[] {
+    let emojiData = emojis[emojiIndex];
+    let uids = emojis[emojiIndex]['uids'] || [];
+    let counter = emojis[emojiIndex]['counter'] || 0;
+    uids = uids.filter((uid: string) => uid !== userId);
+    counter = Math.max(counter - 1, 0);
+    if (counter === 0) {
+      emojis.splice(emojiIndex, 1);
+    } else {
+      emojis[emojiIndex] = { ...emojiData, uids, counter };
+    }
+    return emojis;
+  }
+
+
+  private addUserIdToEmojis(emojis: any[], emojiIndex: number, userId: string): any[] {
+    let emojiData = emojis[emojiIndex];
+    let uids = emojiData['uids'] || [];
+    let counter = emojiData['counter'] || 0;
+    uids.push(userId);
+    counter += 1;
+    emojis[emojiIndex] = { ...emojiData, uids, counter };
+    return emojis;
   }
 
 
@@ -326,7 +423,6 @@ export class MessageService {
   async searchUsers(searchTerm: string) {
     const channelsRef = collection(this.firestore, 'users'); // Angenommen, Ihre Channels sind in der Sammlung 'channels' gespeichert
     const searchQuery = query(channelsRef, where('name', '>=', searchTerm), where('name', '<=', searchTerm + '\uf8ff'));
-
     try {
       const querySnapshot = await getDocs(searchQuery);
       const channels: { id: string; }[] = [];
@@ -340,22 +436,48 @@ export class MessageService {
   }
 
 
-  async searchMessagesInAllChannels(searchTerm: string) {
+  // async searchMessagesInAllChannels(searchTerm: string) {
+  //   const allMessages = [];
+  //   try {
+  //     const channelsRef = collection(this.firestore, 'channel');
+  //     const channelsSnapshot = await getDocs(channelsRef);
+  //   for (const channelDoc of channelsSnapshot.docs) {
+  //     const channelId = channelDoc.id;
+  //     const messagesRef = collection(this.firestore, `channel/${channelId}/messages`);
+  //     const messagesQuery = query(messagesRef, where('text', '>=', searchTerm), where('text', '<=', searchTerm + '\uf8ff'));
+  //     const messagesSnapshot = await getDocs(messagesQuery);
+  //     const filteredMessages = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  //     if (filteredMessages.length > 0) {
+  //       allMessages.push({ channelId, messages: filteredMessages });
+  //     }
+  //   }
+  // } catch (error) {}
+  //   return allMessages;
+  // }
+  async getAllChannelIds() {
+    const channelsRef = collection(this.firestore, 'channel');
+    const snapshot = await getDocs(channelsRef);
+    return snapshot.docs.map(doc => doc.id);
+  }
+
+
+  async searchMessagesInChannel(channelId:string, searchTerm:string) {
+    const messagesRef = collection(this.firestore, `channel/${channelId}/messages`);
+    const messagesQuery = query(messagesRef, where('text', '>=', searchTerm), where('text', '<=', searchTerm + '\uf8ff'));
+    const snapshot = await getDocs(messagesQuery);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  }
+
+
+  async searchMessagesInAllChannels(searchTerm:string) {
     const allMessages = [];
-    try {
-      const channelsRef = collection(this.firestore, 'channel');
-      const channelsSnapshot = await getDocs(channelsRef);
-    for (const channelDoc of channelsSnapshot.docs) {
-      const channelId = channelDoc.id;
-      const messagesRef = collection(this.firestore, `channel/${channelId}/messages`);
-      const messagesQuery = query(messagesRef, where('text', '>=', searchTerm), where('text', '<=', searchTerm + '\uf8ff'));
-      const messagesSnapshot = await getDocs(messagesQuery);
-      const filteredMessages = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      if (filteredMessages.length > 0) {
-        allMessages.push({ channelId, messages: filteredMessages });
+    const channelIds = await this.getAllChannelIds();
+    for (const channelId of channelIds) {
+      const messages = await this.searchMessagesInChannel(channelId, searchTerm);
+      if (messages.length > 0) {
+        allMessages.push({ channelId, messages });
       }
     }
-  } catch (error) {}
     return allMessages;
   }
 
@@ -370,7 +492,8 @@ export class MessageService {
         switchMap(() => {
           return this.incrementSecondMessageCount(this.currentChannelId, currentSecondChannel);
         })
-      ).subscribe({
+      )
+      .subscribe({
         next: () => {},
         error: (error) => console.error('Fehler beim Senden der Kanalnachricht', error)
       });
@@ -387,7 +510,8 @@ export class MessageService {
       switchMap(() => {
         return this.incrementSecondMessageCount(this.currentChannelId, privateChannelId);
       })
-   ).subscribe({
+   )
+   .subscribe({
       next: () => {},
       error: (error) => console.error('Fehler beim Senden der privaten Nachricht', error)
     });
@@ -401,7 +525,8 @@ export class MessageService {
         switchMap(user => {
         return this.addMessage(currentChannelId as string, messageText, user.name,imfPfad,user.uid,user.img);
       })
-    ).subscribe({
+    )
+    .subscribe({
       next: () => {},
       error: (error) => console.error('Fehler beim Senden der Nachricht', error)
     });  

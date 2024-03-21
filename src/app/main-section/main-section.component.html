@@ -45,7 +45,8 @@
         <div>Workspace-Menü schließen</div>
     </div>
     <div class="d-flex chat-layout border-box">
-        <div class="main-content border-box" [ngClass]="{'d-none': !channelService.isSidebarVisible && !channelService.isScreenWide}">
+        <div class="main-content border-box" [ngClass]="{'': !channelService.isSidebarVisible && !channelService.isScreenWide, 'slide-out': !channelService.isSidebarVisible && !channelService.isScreenWide}">
+            <!-- <div class="main-content border-box" [ngClass]="{'d-none': !channelService.isSidebarVisible && !channelService.isScreenWide}"> -->
             <app-chat-navigation class="padding-left16px"></app-chat-navigation>
         </div>
 

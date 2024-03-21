@@ -9,7 +9,6 @@ import {Channel} from './../models/channel.class';
 
 
 
-// users:User[]=[]
 @Injectable({
   providedIn: 'root'
 })

@@ -4,6 +4,10 @@ h1 {
     padding-bottom: 8px;
 }
 
+section {
+    padding: 16px;
+}
+
 .column {
     @include column;
 }

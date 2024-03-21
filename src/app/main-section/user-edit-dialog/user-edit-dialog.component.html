@@ -1,4 +1,4 @@
-<div *ngIf="switchContainer == 0" class="user-edit-container">
+<div *ngIf="switchContainer == 0" class="usedatar-edit-container">
     <div class="user-edit-container">
         <div class="header">
             <span class="head-name"><b>Profil</b></span>
@@ -46,23 +46,35 @@
                 <img class="anonym-img" src="./../../assets/user_avatars/neutral-avatar.svg" alt="Standard Profilbild">
             </ng-template>
         </div>
-        <form [formGroup]="userForm" (ngSubmit)="saveInput()">
-            <div class="info-container">
-                <div class="gap8px">
-                    <div class="input-container">
-                        <label>Vollständiger Name</label>
-                        <input formControlName="userName" type="text" placeholder="Vollständiger Name">
+        <div>
+            <form [formGroup]="userForm" *ngIf="switchSecondContainer == 0" (ngSubmit)="saveInput()">
+                <div class="info-container">
+                    <div class="gap8px">
+                        <div class="input-container">
+                            <label>Vollständiger Name</label>
+                            <input formControlName="userName" type="text" placeholder="{{authService.currentUser.name}}">
+                        </div>
+                        <div class="input-container">
+                            <label>E-Mail Adresse</label>
+                            <input formControlName="userEmail" type="email" placeholder="{{authService.currentUser.email}}">
+                        </div>
                     </div>
-                    <div class="input-container">
-                        <label>E-Mail Adresse</label>
-                        <input formControlName="userEmail" type="email" placeholder="E-Mail Adresse">
+                    <div class="buttons">
+                        <button type="button" (click)="close()" class="btn-login-user">Abbrechen</button>
+                        <button type="submit" class="btn-login-gast">Speichern</button>
                     </div>
                 </div>
-                <div class="buttons">
-                    <button type="button" (click)="close()" class="btn-login-user">Abbrechen</button>
-                    <button type="submit" class="btn-login-gast">Speichern</button>
+            </form>
+            <div *ngIf="switchSecondContainer == 1">
+                <span>Die Daten würden geändert.</span>
+                <div>
+                    <div class="close-button" (click)="close()">Schließen</div>
+                    <button (click)="troggleSwitchSecondContainer()" type="submit" class="btn-login-gast">zurück</button>
                 </div>
             </div>
-        </form>
+        </div>
+
     </div>
+
+
 </div>

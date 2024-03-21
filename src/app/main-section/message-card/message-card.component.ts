@@ -126,6 +126,62 @@ export class MessageCardComponent {
   }
 
 
+  async downloadImage(imageUrl: string): Promise<void> {
+    try {
+      const blob = await this.fetchImageAsBlob(imageUrl);
+      const filename = this.extractFilename(imageUrl);
+      const link = this.createDownloadLink(blob, filename);
+      this.triggerDownload(link);
+    } catch (error) {
+      console.error('Fehler beim Herunterladen des Bildes:', error);
+    }
+  }
+
+  private async fetchImageAsBlob(imageUrl: string): Promise<Blob> {
+    const response = await fetch(imageUrl);
+    return response.blob();
+  }
+
+  private extractFilename(imageUrl: string): string {
+    const basePath = imageUrl.split('?')[0];
+    const filename = basePath.split('/').pop();
+    return filename || 'downloadedFile';
+  }
+
+  private createDownloadLink(blob: Blob, filename: string): HTMLAnchorElement {
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = filename;
+    return link;
+  }
+
+  private triggerDownload(link: HTMLAnchorElement): void {
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(link.href);
+  }
+  // async downloadImage(imageUrl: string) {
+  //   try {
+  //     const response = await fetch(imageUrl);
+  //     const blob = await response.blob(); // Konvertiert die Antwort in einen Blob
+  //     const downloadUrl = window.URL.createObjectURL(blob); // Erstellt eine URL für den Blob
+  //     const a = document.createElement('a');
+  //     a.href = downloadUrl;
+  //     const basePath = imageUrl.split('?')[0];
+  //     const extension = basePath.split('.').pop();
+  //     a.download = 'downloadedImage.' + extension;
+  //     document.body.appendChild(a); 
+  //     a.click(); 
+  //     document.body.removeChild(a); 
+  //     window.URL.revokeObjectURL(downloadUrl); 
+  //   } catch (error) {
+  //     console.error('Fehler beim Herunterladen des Bildes:', error);
+  //   }
+  // }
+
+
   // async downloadImage(imageUrl: string) {
   //   try {
   //     const response = await fetch(imageUrl);
@@ -142,32 +198,32 @@ export class MessageCardComponent {
   //     console.error('Fehler beim Herunterladen des Bildes:', error);
   //   }
   // }
-  async downloadImage(imagePath: string) {
-    const storage = getStorage(); // Zugriff auf den Firebase Storage
-    const imageRef = ref(storage, imagePath); // Erstellen einer Referenz zum Bildpfad
+  // async downloadImage(imagePath: string) {
+  //   const storage = getStorage(); // Zugriff auf den Firebase Storage
+  //   const imageRef = ref(storage, imagePath); // Erstellen einer Referenz zum Bildpfad
   
-    try {   
-const storage = getStorage();
-getDownloadURL(ref(storage, 'https://firebasestorage.googleapis.com/v0/b/dabubble-7d65b.appspot.com/o/ydGNfqJEnQklQna4g380%2Fleft_menu_icon_close.svg?alt=media&token=0609dfd4-e564-4012-87b6-9169afe99a14'))
-  .then((url) => {
-    // `url` is the download URL for 'images/stars.jpg'
-    // This can be downloaded directly:
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = (event) => {
-      const blob = xhr.response;
-    };
-    xhr.open('GET', url);
-    xhr.send();
-    // Or inserted into an <img> element
-    const img = document.getElementById('myimg');
-    if(img){
-      img.setAttribute('src', url);
-    }
-  })
-  .catch((error) => {
-    // Handle any errors
-  });
+  //   try {   
+  //     const storage = getStorage();
+  //   getDownloadURL(ref(storage, 'https://firebasestorage.googleapis.com/v0/b/dabubble-7d65b.appspot.com/o/ydGNfqJEnQklQna4g380%2Fleft_menu_icon_close.svg?alt=media&token=0609dfd4-e564-4012-87b6-9169afe99a14'))
+  //     .then((url) => {
+  //   // `url` is the download URL for 'images/stars.jpg'
+  //   // This can be downloaded directly:
+  //      const xhr = new XMLHttpRequest();
+  //     xhr.responseType = 'blob';
+  //     xhr.onload = (event) => {
+  //       const blob = xhr.response;
+  //     };
+  //     xhr.open('GET', url);
+  //     xhr.send();
+  //   // Or inserted into an <img> element
+  //     const img = document.getElementById('myimg');
+  //     if(img){
+  //       img.setAttribute('src', url);
+  //     }
+  //   })
+  //   .catch((error) => {
+  // console.log(error)
+  // });
 
 
       // const imageUrl = 'https://firebasestorage.googleapis.com/v0/b/dabubble-7d65b.appspot.com/o/ydGNfqJEnQklQna4g380%2Fleft_menu_icon_close.svg?alt=media&token=0609dfd4-e564-4012-87b6-9169afe99a14';
@@ -186,8 +242,8 @@ getDownloadURL(ref(storage, 'https://firebasestorage.googleapis.com/v0/b/dabubbl
       // document.body.appendChild(a);
       // a.click();
       // document.body.removeChild(a);
-    } catch (error) {
-      console.error('Fehler beim Herunterladen des Bildes:', error);
-    }
-  }
+  //   } catch (error) {
+  //     console.error('Fehler beim Herunterladen des Bildes:', error);
+  //   }
+  // }
 }
