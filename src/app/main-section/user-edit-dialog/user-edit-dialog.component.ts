@@ -1,5 +1,5 @@
-import { Component,OnInit } from '@angular/core';
-import {AuthService} from './../../auth.service'
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../../auth.service'
 import { MatDialogRef } from '@angular/material/dialog';
 import { NoteListService } from '../../firebase-services/note-list.service';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ export class UserEditDialogComponent {
     public noteService: NoteListService,
     public router: Router,
     public fb: FormBuilder,
-  ){}
+  ) { }
   @ViewChild(UserActionsDialogComponent) actionDialog: UserActionsDialogComponent | undefined;
 
 
@@ -29,43 +29,33 @@ export class UserEditDialogComponent {
     userEmail: [this.authService.currentUser.email, [Validators.required, Validators.email]]
   });
 
-  switchContainer: number = 0; 
-  userEmail:string='';
-  userName:string = '';
-  switchSecondContainer:number =0;
+  switchContainer: number = 0;
+  userEmail: string = '';
+  userName: string = '';
+  switchSecondContainer: number = 0;
 
 
-  troggleSwitchContainer(){
-   this.switchContainer = this.switchContainer === 0 ? 1 : 0;
+  troggleSwitchContainer() {
+    this.switchContainer = this.switchContainer === 0 ? 1 : 0;
   }
 
 
-  troggleSwitchSecondContainer(){
+  troggleSwitchSecondContainer() {
     this.switchSecondContainer = this.switchSecondContainer === 0 ? 1 : 0;
   }
 
 
-  close(){
+  close() {
     this.dialogRef.close();
   }
 
 
-  async  saveInput() {
+  async saveInput() {
     if (this.userForm.valid) {
-      console.log(this.authService.currentUser);
       this.troggleSwitchSecondContainer();
-
       this.updateUsername();
-     
       this.updateEmail();
-     
-   
-      // Logik zum Speichern der Daten, wenn das Formular gültig ist
-      console.log(this.userForm.value);
-    } else {
-      // Behandeln von ungültigen Eingaben
-      console.error('Formular ist nicht gültig.');
-    }
+    } else {}
   }
 
 
@@ -83,42 +73,25 @@ export class UserEditDialogComponent {
   // }
 
   async updateEmail() {
-    if(this.userForm.get('userEmail')?.value.length > 0){
-      const userEmailValue: string = this.userForm.get('userEmail')?.value;
-      this.noteService.updateObjectField(this.authService.currentUser.uid,'email', userEmailValue,'users' );
-      console.log(userEmailValue ,'email')
-    }
-  
-    const newEmail = this.userForm.get('userEmail')?.value;
-    if (newEmail && newEmail.length > 0) {
-      const user = this.authService.auth.currentUser;
-      if (user) {
-        // Wenn die aktuelle E-Mail verifiziert ist, versuche die neue E-Mail zu aktualisieren.
-        try {
-          await this.authService.updateEmailAddress(newEmail);
-          console.log('E-Mail-Adresse wurde aktualisiert.');
-        } catch (error) {
-          console.error('Fehler bei der Aktualisierung der E-Mail', error);
-        }
-      } else {
-        // Wenn die aktuelle E-Mail nicht verifiziert ist, sende eine Verifizierungs-E-Mail.
-        try {
-          await this.authService.sendVerificationEmail();
-          console.log('Verifizierungs-E-Mail wurde gesendet.');
-        } catch (error) {
-          console.error('Fehler beim Senden der Verifizierungs-E-Mail', error);
-        }
+    if (this.userForm.get('userEmail')?.value.length > 0) {
+
+
+
+
+      const newEmail = this.userForm.get('userEmail')?.value;
+      if (newEmail && newEmail.length > 0) {
+        const userEmailValue: string = this.userForm.get('userEmail')?.value;
+        this.noteService.updateObjectField(this.authService.currentUser.uid, 'email', userEmailValue, 'users');
+        this.authService.updateEmailAddress(newEmail)
       }
     }
   }
 
 
-  updateUsername(){
-
-    if(this.userForm.get('userName')?.value.length > 0){
+  updateUsername() {
+    if (this.userForm.get('userName')?.value.length > 0) {
       const userNameValue: string = this.userForm.get('userName')?.value;
-      this.noteService.updateObjectField(this.authService.currentUser.uid,'name', userNameValue,'users' );
+      this.noteService.updateObjectField(this.authService.currentUser.uid, 'name', userNameValue, 'users');
     }
   }
-
 }

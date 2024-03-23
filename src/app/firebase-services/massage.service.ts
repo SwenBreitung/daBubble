@@ -71,31 +71,33 @@ export class MessageService {
     return querySnapshot.docs.map(doc => doc.data());
   }
 
-  
+
+  getMessages(...pathSegments: string[]): Observable<any[]> {
+  const messagesQuery = query(collection(this.firestore, pathSegments.join('/')));
+  return collectionData(messagesQuery, { idField: 'id' });
+  }
+
   getMessagesForSecondMessage(channelId: string): Observable<any[]> {
-    const messagesQuery = query(collection(this.firestore, `privateChannel/${channelId}/messages`));
-    return collectionData(messagesQuery, { idField: 'id' });
+    return this.getMessages('privateChannel', channelId, 'messages');
   }
 
 
   getMessagesForSecondTextMessage(channelId: string): Observable<any[]> {
-    const messagesQuery = query(collection(this.firestore, `channel/${channelId}/messages/secondtextchannel`));
-    return collectionData(messagesQuery, { idField: 'id' });
+    return this.getMessages('channel', channelId, 'messages', 'secondtextchannel');
+    
   }
 
   
   getMessagesMessageInSecondChannel(mainChannelId:string,secondChannelId: string): Observable<any[]> {
-    const messagesQuery = query(collection(this.firestore, `channel/${mainChannelId}/messages/${secondChannelId}/secondMessages`));
-    return collectionData(messagesQuery, { idField: 'id' });
+    return this.getMessages('channel', mainChannelId, 'messages', secondChannelId, 'secondMessages');
   }
 
 
   getMessagesFromUser(uid: string): Observable<any[]> {
-    const messagesQuery = query(collection(this.firestore, `users/${uid}/messages`));
-    return collectionData(messagesQuery, { idField: 'id' });
+    return this.getMessages('users', uid, 'messages');
   }
 
- 
+
   async checkForExistingChannel(currentUser: string, otherUserId: string) {
     const channelsRef = doc(this.firestore, 'users', currentUser);
     const messageRef = collection(channelsRef, 'privateMessage');
@@ -332,9 +334,7 @@ export class MessageService {
         emojis = this.updateEmojiData(emojis, emojiId, userId); // Verwendung der Hilfsfunktion
         await updateDoc(messageRef, { emojis: emojis });
       }
-    } catch (error) {
-      console.error('Fehler beim Aktualisieren der Emoji-Daten', error);
-    }
+    } catch (error) {}
   }
 
 
@@ -495,7 +495,6 @@ export class MessageService {
       )
       .subscribe({
         next: () => {},
-        error: (error) => console.error('Fehler beim Senden der Kanalnachricht', error)
       });
     }
   }
@@ -513,7 +512,6 @@ export class MessageService {
    )
    .subscribe({
       next: () => {},
-      error: (error) => console.error('Fehler beim Senden der privaten Nachricht', error)
     });
   }
 
@@ -528,7 +526,6 @@ export class MessageService {
     )
     .subscribe({
       next: () => {},
-      error: (error) => console.error('Fehler beim Senden der Nachricht', error)
     });  
   }
   else if(this.isPrivateChatMode){
@@ -539,7 +536,6 @@ export class MessageService {
       })
       ).subscribe({
           next: () => {},
-          error: (error) => console.error('Fehler beim Senden der Nachricht', error)
       });
     }    
   }

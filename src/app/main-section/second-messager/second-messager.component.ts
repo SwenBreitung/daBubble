@@ -53,7 +53,6 @@ export class SecondMessagerComponent implements AfterViewInit{
   
     this.messageService.currentsecondMessages$.subscribe(secondMessages => {
       this.messageService.secondMessages = secondMessages;
-      console.log('observable',  this.secondMessages)
     });
   }
 
@@ -72,7 +71,6 @@ export class SecondMessagerComponent implements AfterViewInit{
   }
 
   handleEmojiInsert(emoji: any) {
-    console.log(emoji)
     if(this.messageInputComponent){
       this.messageInputComponent.insertEmoji(emoji);
     }
@@ -80,28 +78,24 @@ export class SecondMessagerComponent implements AfterViewInit{
   // toggleEmojiPicker(pickerType:any) {
   //   if (pickerType === 'main') {
   //     this.showMainEmojiPicker = !this.showMainEmojiPicker;
-  //     console.log(this.showMainEmojiPicker)
+
   //   } else if (pickerType === 'second') {
   //     this.showSecondEmojiPicker = !this.showSecondEmojiPicker;
-  //     console.log( this.showSecondEmojiPicker)
+
   //   }
   // }
   toggleEmojiPicker(pickerType:any) {
     if (pickerType === 'main') {
       this.messageService.showMainEmojiPicker = !this.messageService.showMainEmojiPicker;
-      console.log(this.messageService.showMainEmojiPicker)
     } else if (pickerType === 'second') {
       this.messageService.showSecondEmojiPicker = !this.messageService.showSecondEmojiPicker;
-      console.log( this.messageService.showSecondEmojiPicker)
     }
   }
   onEmojiSelect(event: any) {
     // Logik zur Verarbeitung des ausgewählten Emojis
   }
 
-  loadDataSecondMessages(){
-    console.log('loadmessages',this.messageService.secondMessages,'testarry', this.secondMessages)
-  }
+
 
   closeLeftWindow(){
     this.messageService.torgleRightSide =false;

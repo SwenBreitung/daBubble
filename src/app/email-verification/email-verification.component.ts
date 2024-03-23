@@ -29,10 +29,8 @@ export class EmailVerificationComponent implements OnInit {
   async verifyEmail(code: string): Promise<void> {
     try {
       await applyActionCode(this.auth, code);
-      console.log('Email successfully verified.');
       this.router.navigate(['']);
     } catch (error) {
-      console.error('Error verifying email:', error);
       this.error = 'There was an error verifying your email. Please try again.';
     }
   }

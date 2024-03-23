@@ -132,9 +132,7 @@ export class MessageCardComponent {
       const filename = this.extractFilename(imageUrl);
       const link = this.createDownloadLink(blob, filename);
       this.triggerDownload(link);
-    } catch (error) {
-      console.error('Fehler beim Herunterladen des Bildes:', error);
-    }
+    } catch (error) {}
   }
 
   private async fetchImageAsBlob(imageUrl: string): Promise<Blob> {
@@ -177,7 +175,6 @@ export class MessageCardComponent {
   //     document.body.removeChild(a); 
   //     window.URL.revokeObjectURL(downloadUrl); 
   //   } catch (error) {
-  //     console.error('Fehler beim Herunterladen des Bildes:', error);
   //   }
   // }
 
@@ -195,7 +192,6 @@ export class MessageCardComponent {
   //     document.body.removeChild(a); // Entfernt das Anker-Element wieder
   //     window.URL.revokeObjectURL(downloadUrl); // Gibt die erzeugte Blob-URL frei
   //   } catch (error) {
-  //     console.error('Fehler beim Herunterladen des Bildes:', error);
   //   }
   // }
   // async downloadImage(imagePath: string) {
@@ -222,7 +218,7 @@ export class MessageCardComponent {
   //     }
   //   })
   //   .catch((error) => {
-  // console.log(error)
+
   // });
 
 
@@ -243,7 +239,6 @@ export class MessageCardComponent {
       // a.click();
       // document.body.removeChild(a);
   //   } catch (error) {
-  //     console.error('Fehler beim Herunterladen des Bildes:', error);
   //   }
   // }
 }

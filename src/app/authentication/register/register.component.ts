@@ -229,7 +229,6 @@ export class RegisterComponent{
       return file; 
     })
     .catch(error => {
-      console.error('Fehler beim Konvertieren des Pfades in eine Datei:', error);
       throw error; 
     });
   }

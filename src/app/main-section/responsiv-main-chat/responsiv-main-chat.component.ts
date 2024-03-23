@@ -32,21 +32,21 @@ export class ResponsivMainChatComponent {
   //   this.selectedChannelId = this.messageService.channel.id;
   //   this.messageService.secondChatHeader = this.messageService.channel.name;
   //   this.messageService.channelInfos = this.messageService.channel;
-  //   console.log(this.messageService.channel.name)
+
   //   if (this.messageSubscription) {
   //     this.messageSubscription.unsubscribe();
   //   }   
   //   this.messageService.currentChannelId = this.messageService.channel.id;
   //   this.messageService.loadMessagesForChannel(this.messageService.sourceType as 'channel' | 'chat',this.messageService.channel.id);
   //   this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
-  //     console.log('new messages testing',messages);
+  
   //     this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
-  //     console.log('service testing',this.messageService.messages)
+  
   //   });
   //   this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, this.messageService.channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
   //     this.secondMessages = secondMessages;
   //     this.messageService. secondMessagesSource.next(secondMessages);
-  //     console.log('load from funktion loadMessages', this.secondMessages.length); // Zeigt die Anzahl der Nachrichten an
+  
   //   });
   //   this.searchResults = [];
   // }
@@ -65,7 +65,6 @@ export class ResponsivMainChatComponent {
     this.selectedChannelId = channel.id;
     this.messageService.secondChatHeader = channel.name;
     this.messageService.channelInfos = channel;
-    console.log(channel.name);
   }
   
   unsubscribePreviousSubscription() {
@@ -80,9 +79,7 @@ export class ResponsivMainChatComponent {
     this.messageService.loadMessagesForChannel(this.messageService.sourceType as 'channel' | 'chat', channel.id);
     
     this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
-      console.log('new messages testing', messages);
       this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
-      console.log('service testing', this.messageService.messages);
     });
   }
   
@@ -90,7 +87,6 @@ export class ResponsivMainChatComponent {
     this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, this.messageService.channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
       this.secondMessages = secondMessages;
       this.messageService.secondMessagesSource.next(secondMessages);
-      console.log('load from funktion loadMessages', this.secondMessages.length); // Zeigt die Anzahl der Nachrichten an
     });
   }
   

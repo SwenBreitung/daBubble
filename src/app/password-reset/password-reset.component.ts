@@ -12,12 +12,7 @@ export class PasswordResetComponent {
 
   sendPasswordResetEmail(email: string) {
       const auth = getAuth();
-      sendPasswordResetEmail(auth, email).then(() => {
-          console.log('Passwort-Reset-E-Mail gesendet.');
-      }).catch((error) => {
-          console.error('Fehler beim Senden der Passwort-Reset-E-Mail:', error);
-      
-      });
+      sendPasswordResetEmail(auth, email).then(() => {}).catch((error) => {});
   }
 
 

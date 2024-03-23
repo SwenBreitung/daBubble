@@ -12,7 +12,7 @@ import { ResponsivMainChatComponent } from './main-section/responsiv-main-chat/r
 import { ResponsiveDashboardComponent } from './main-section/responsive-dashboard/responsive-dashboard.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-
+import{UpdateEmailComponent } from './update-email/update-email.component'
 import { CommonModule } from '@angular/common';
 const routes: Routes = [
   { 
@@ -32,6 +32,7 @@ const routes: Routes = [
     { path: 'app-responsive-dashboard', component: ResponsiveDashboardComponent },
     {path:'impressum', component:ImpressumComponent}, 
     {path:'privacy-policy', component:PrivacyPolicyComponent}, 
+    {path:'update-email', component:UpdateEmailComponent}, 
 ];
 
 @NgModule({

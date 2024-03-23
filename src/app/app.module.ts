@@ -53,6 +53,7 @@ import { ResponsivMainChatComponent } from './main-section/responsiv-main-chat/r
 import { ChatNavigationComponent } from './main-section/chat-navigation/chat-navigation.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { UpdateEmailComponent } from './update-email/update-email.component';
 
 
 @NgModule({
@@ -86,6 +87,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     ChatNavigationComponent,
     ImpressumComponent,
     PrivacyPolicyComponent,
+    UpdateEmailComponent,
+   
   ],
   imports: [
     PickerModule, 

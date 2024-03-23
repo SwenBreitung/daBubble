@@ -62,7 +62,6 @@ export class MassagerComponent {
   
 
   trackByFn(index:any, item:any) {
-    console.log('index',index, item, 'item')
     return item.id; 
   }
 
@@ -130,7 +129,6 @@ export class MassagerComponent {
         return 'defaultImagePath';
       }
     } catch (err) {
-    console.error('Fehler beim Hochladen des Bildes', err);
     return 'defaultImagePath'; 
     }
   }
@@ -148,9 +146,7 @@ export class MassagerComponent {
       a.click(); // Simuliert einen Klick auf das Anker-Element
       document.body.removeChild(a); // Entfernt das Anker-Element wieder
       window.URL.revokeObjectURL(downloadUrl); // Gibt die erzeugte Blob-URL frei
-    } catch (error) {
-      console.error('Fehler beim Herunterladen des Bildes:', error);
-    }
+    } catch (error) {}
   }
 
 
@@ -188,9 +184,7 @@ export class MassagerComponent {
       .then(channels => {
         this.searchResults = channels;
       })
-    .catch(error => {
-      console.error('Fehler bei der Suche nach Benutzern:', error);
-    });
+    .catch(error => {});
   }
 
 

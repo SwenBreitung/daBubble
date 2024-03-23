@@ -2,7 +2,7 @@
     <div *ngIf="channelService.isScreenWide" class="d-flex left-head-container border-box curser-pointer">
         <img (click)="resetSecondChatHeader()" src="./../../assets/logo/logo-code-learning.svg " alt=" ">
         <h1 (click)="resetSecondChatHeader()" class="hover">Code learning</h1>
-        <span (click)="openDialogEditChannel()" class="bookmarker-img hover">
+        <span (click)="openDialog()" class="bookmarker-img hover">
             <img class="image hover" src="./../../assets/icons/book_marker.svg " alt=" ">
             <img class="hover-image hover" src="./../../assets/icons/book_marker_blue.svg " alt=" ">
         </span>
@@ -58,7 +58,7 @@
 
             <div *ngIf="channelService.showUsers" class="users-container border-box">
 
-                <div [class.selected]="channelService.selectedChannelId === user.id" [attr.id]="user.uid" class="user-container border-box hover" (click)="loadMassgesInSecondChannel(user.id,user)" *ngFor="let user of channelService.users ">
+                <div [class.selected]="channelService.selectedChannelId === user.id" [attr.id]="user.uid" class="user-container border-box hover" (click)="loadMassgesInSecondChannel(user.id, user)" *ngFor="let user of channelService.users ">
                     <span class="d-flex">
                         <img *ngIf="user.img; else noImage" [src]="user.img" alt="Bild in Nachricht" class="message-img message-image curser-pointer">
                         <ng-template #noImage><img src="./../../assets/user_avatars/neutral-avatar.svg" alt="Standardbild"></ng-template>

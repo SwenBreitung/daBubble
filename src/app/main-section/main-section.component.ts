@@ -9,6 +9,7 @@ import { AuthService } from './../auth.service';
 import { Router } from '@angular/router';
 import { DragAndDropService } from '../firebase-services/drag-drop.service';
 import { UserActionsDialogComponent } from './user-actions-dialog/user-actions-dialog.component';
+import { ChannelInfoDialogComponent } from './channel-info-dialog/channel-info-dialog.component';
 
 
 
@@ -422,4 +423,9 @@ export class MainSectionComponent  {
   }
 
   
+  openDialogEditChannel(){
+    const dialogRef = this.dialog.open(ChannelInfoDialogComponent, {
+      width: '40vw',
+    });
+  }
 }

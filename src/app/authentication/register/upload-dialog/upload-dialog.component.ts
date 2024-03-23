@@ -18,8 +18,7 @@ export class UploadDialogComponent {
     public dragAndDropService: DragAndDropService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ){
-    this.storageTarget = data.key; // Korrekter Zugriff auf den Wert von `key`
-    console.log('testing storageTarget', this.storageTarget);
+    this.storageTarget = data.key;
   }
 
   

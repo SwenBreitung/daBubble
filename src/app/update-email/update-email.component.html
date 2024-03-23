@@ -1,0 +1,8 @@
+<!-- update-email.component.html -->
+<div>
+    <input type="email" [(ngModel)]="newEmail" placeholder="Neue E-Mail-Adresse">
+    <button (click)="auth.updateEmailAddress(newEmail)">E-Mail aktualisieren</button>
+
+    <input type="text" [(ngModel)]="verificationCode" placeholder="Verifizierungscode">
+    <!-- <button (click)="applyVerificationCode()">Code bestätigen</button> -->
+</div>

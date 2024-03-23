@@ -22,7 +22,7 @@ export class ChannelService {
   showChannels = true;
   isLeftWindowOpen:boolean = true;
   selectedChannelId: string | null = null;
-  channels: any[] = [];
+  channels: Channel[] = [];
   currentSecondUser ='';
   users: any[] = [];
   showUsers = true;

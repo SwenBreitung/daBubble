@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import {getAuth,onAuthStateChanged, Auth,signInWithPopup, signInWithEmailAndPassword,GoogleAuthProvider, createUserWithEmailAndPassword, signOut, updateEmail } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged, Auth, signInWithPopup, signInWithEmailAndPassword, GoogleAuthProvider, createUserWithEmailAndPassword, signOut, updateEmail, verifyBeforeUpdateEmail, } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { Unsubscribe,sendEmailVerification, signInAnonymously as firebaseSignInAnonymously, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { Unsubscribe, sendEmailVerification, signInAnonymously as firebaseSignInAnonymously, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  
-  constructor(public auth: Auth) {}
-  currentUser: any; 
+
+  constructor(public auth: Auth) { }
+  currentUser: any;
 
   signIn(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);
@@ -21,12 +21,12 @@ export class AuthService {
   signUp(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
- 
+
   signOut() {
     return signOut(this.auth);
   }
 
- 
+
   signInAnonymously() {
     const auth = getAuth();
     return firebaseSignInAnonymously(auth);
@@ -38,6 +38,7 @@ export class AuthService {
     return signInWithPopup(this.auth, provider);
   }
 
+
   getCurrentUser() {
     return this.currentUser;
   }
@@ -47,10 +48,7 @@ export class AuthService {
     const auth = getAuth();
     try {
       await signOut(auth);
-      console.log('Erfolgreich ausgeloggt');
-    } catch (error) {
-      console.error('Fehler beim Ausloggen:', error);
-    }
+    } catch (error) { }
   }
 
 
@@ -59,85 +57,68 @@ export class AuthService {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Einfacher Regex für die Überprüfung von E-Mail-Adressen
     return regex.test(email);
   }
- 
+
 
   async sendVerificationToNewEmail(newEmail: string): Promise<void> {
     if (!this.isValidEmail(newEmail)) {
-      console.error('Die E-Mail-Adresse ist im ungültigen Format:', newEmail);
       throw new Error('InvalidEmailFormat');
     }
 
     const user = this.auth.currentUser;
     if (user) {
-      try {    
-        console.log('Temporäre E-Mail-Adresse aktualisiert, um Verifizierung zu senden.');     
+      try {
         await sendEmailVerification(user);
-        console.log('Verifizierungs-E-Mail gesendet.');
-
       } catch (error) {
-        console.error('Fehler beim Senden der Verifizierungs-E-Mail:', error);
         throw error; // Weiterleiten des Fehlers für eventuelle Fehlerbehandlung außerhalb der Funktion
       }
     } else {
-      console.log('Kein Benutzer angemeldet');
       throw new Error('Kein Benutzer angemeldet');
     }
   }
-  
+
   async changeEmail(newEmail: string): Promise<void> {
     if (!this.isValidEmail(newEmail)) {
-      console.error('Die E-Mail-Adresse ist im ungültigen Format:', newEmail);
       throw new Error('InvalidEmailFormat');
     }
-  
     const user = this.auth.currentUser;
     if (user) {
       try {
 
         await updateEmail(user, newEmail);
-        console.log('E-Mail-Adresse erfolgreich aktualisiert');
-  
         await sendEmailVerification(user);
-        console.log('Verifizierungs-E-Mail gesendet.');
-  
       } catch (error) {
-        console.error('Fehler beim Aktualisieren der E-Mail-Adresse:', error);
         throw error;
       }
     } else {
-      console.log('Kein Benutzer angemeldet');
       throw new Error('Kein Benutzer angemeldet');
     }
   }
 
 
   async updateEmailAddress(newEmail: string): Promise<void> {
-    const user = this.auth.currentUser;
+    const auth = getAuth();
+    const user = auth.currentUser;
+
     if (user) {
-      await updateEmail(user, newEmail);
-      console.log('E-Mail-Adresse wurde erfolgreich aktualisiert');
-    } else {
-      throw new Error('Kein Benutzer ist eingeloggt.');
-    }
+      try {
+        await verifyBeforeUpdateEmail(user, newEmail);
+      } catch (error) {}
+    } else {}
   }
 
 
   async sendVerificationEmail() {
-  const auth = getAuth();
-  const user = auth.currentUser;
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-  if (user) {
-    await sendEmailVerification(user)
-      .then(() => {
-        console.log('Verifizierungs-E-Mail gesendet.', user.uid);
-      })
-      .catch((error) => {
-        console.error('Fehler beim Senden der Verifizierungs-E-Mail:', error);
-      });
-  } else {
-    throw new Error('Kein Benutzer ist eingeloggt.');
+    if (user) {
+      await sendEmailVerification(user)
+        .then(() => { })
+        .catch((error) => {});
+    } else {
+      throw new Error('Kein Benutzer ist eingeloggt.');
+    }
   }
-}
 
 
 }

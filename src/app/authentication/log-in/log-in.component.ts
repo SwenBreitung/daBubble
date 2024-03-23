@@ -44,14 +44,12 @@ export class LogInComponent {
     const firestore = getFirestore();
     try {
         const cred = await signInWithEmailAndPassword(auth, this.email, this.passwort);
-        console.log('User logged in:', cred.user);
         const userId = cred.user.uid;
         const userDocRef = doc(firestore, 'users', userId);
         const docSnap = await getDoc(userDocRef);
 
         if (docSnap.exists()) {
             const userDetails = docSnap.data();
-            console.log("Benutzerdetails:", userDetails);
             this.authService.currentUser = userDetails;
             this.saveUidInLocal(this.authService.currentUser);
             this.router.navigate(['/main-section']);
@@ -62,7 +60,6 @@ export class LogInComponent {
 
   loginAsGuest() {
     this.authService.signInAnonymously().then(cred => {
-      console.log('Angemeldet als Gast:', cred.user);
       this.user.email = cred.user.email ? cred.user.email : "Keine E-Mail";
       this.user.name = cred.user.displayName ? cred.user.displayName : "Gast";
       this.user.uid = cred.user.uid; 
@@ -71,10 +68,7 @@ export class LogInComponent {
       this.saveUidInLocal(this.authService.currentUser);
       this.saveUser(); 
       this.router.navigate(['/main-section']);
-    }).catch(err => {
-      console.error('Login error:', err);
-      console.error('nicht eingelogt:', err);  
-    });
+    }).catch(err => {});
   }
 
 
@@ -89,9 +83,7 @@ export class LogInComponent {
       this.saveUidInLocal(this.authService.currentUser);
       this.saveUser(); 
       this.router.navigate(['/main-section']);
-    }).catch((error) => {
-        console.error('Login error:', error);
-    });
+    }).catch((error) => {});
   }
 
 
@@ -110,9 +102,7 @@ export class LogInComponent {
      this.allUserService.addName(this.user.name);
      const userData:any = this.user.toJson(); 
     this.noteService.addUser(userData, this.user.uid).then(() => {  
-    }).catch((error) => { 
-       console.error(error);
-    });
+    }).catch((error) => {});
 
 
     if (this.user.email && this.user.passwort) {

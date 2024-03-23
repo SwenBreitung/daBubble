@@ -207,9 +207,7 @@ export class MessageInputComponent {
       .then(channels => {
         this.searchResults = channels;
       })
-    .catch(error => {
-      console.error('Fehler bei der Suche nach Benutzern:', error);
-    });
+    .catch(error => {});
   }
 
 
