@@ -31,14 +31,11 @@ export class MassagerComponent {
  
 
   constructor(
-    
-  //  public mainSection:MainSectionComponent,
     public  authService: AuthService,
     public messageService:MessageService,
     private noteService: NoteListService,
     public dialog: MatDialog,
     public dragAndDrop:DragAndDropService,
-    // public downloadConfirmDialogComponent :DownloadConfirmDialogComponent 
   ){}
   
   activeEmojiPickerId: string | null = null;
@@ -100,9 +97,7 @@ export class MassagerComponent {
     }
   }
 
-  onEmojiSelect(event: any) {
-    // Logik zur Verarbeitung des ausgewählten Emojis
-  }
+  onEmojiSelect(event: any) {}
 
   
   toggleEmojiPicker(pickerType:any) {
@@ -137,15 +132,15 @@ export class MassagerComponent {
   async downloadImage(imageUrl: string) {
     try {
       const response = await fetch(imageUrl);
-      const blob = await response.blob(); // Konvertiert die Antwort in einen Blob
-      const downloadUrl = window.URL.createObjectURL(blob); // Erstellt eine URL für den Blob
+      const blob = await response.blob(); 
+      const downloadUrl = window.URL.createObjectURL(blob); 
       const a = document.createElement('a');
       a.href = downloadUrl;
-      a.download = 'downloadedImage.jpg'; // Setzt den Dateinamen für den Download
-      document.body.appendChild(a); // Fügt das Anker-Element zum Dokument hinzu
-      a.click(); // Simuliert einen Klick auf das Anker-Element
-      document.body.removeChild(a); // Entfernt das Anker-Element wieder
-      window.URL.revokeObjectURL(downloadUrl); // Gibt die erzeugte Blob-URL frei
+      a.download = 'downloadedImage.jpg'; 
+      document.body.appendChild(a); 
+      a.click(); 
+      document.body.removeChild(a); 
+      window.URL.revokeObjectURL(downloadUrl); 
     } catch (error) {}
   }
 

@@ -20,8 +20,6 @@ export class ChannelInfoDialogComponent {
   editChannelInfo = false;
 
 
-
-
   editInfoChannel() {
     this.editChannelInfo = true;
   }

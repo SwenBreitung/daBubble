@@ -4,6 +4,10 @@ h2 {
     margin: 0;
 }
 
+.d-none {
+    display: none !important;
+}
+
 app-massager {
     @include column;
     justify-content: space-between;
@@ -31,7 +35,7 @@ header {
     gap: 16px;
     padding: 20px;
     .logo {
-        min-width: 316px !important;
+        min-width: 300px !important;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -41,10 +45,13 @@ header {
             width: 100px;
         }
     }
+    .width300px {
+        width: 300px;
+    }
     .profile {
         gap: 8px;
         position: relative;
-        width: 300px;
+        width: auto;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -131,14 +138,13 @@ header {
 }
 
 .slide-out {
-    transform: translateX(100%); // Verschiebt das Element um 100% der eigenen Breite nach rechts
-    opacity: 0; // Setzt die Opazität auf 0, um das Element auszublenden
+    transform: translateX(100%);
+    opacity: 0;
 }
 
 .main-content {
-    // padding: 20px;
-    transition: width 5s ease, opacity 5s ease; // Übergangseffekte für Breite und Opazität
-    width: 100%; // Standardbreite
+    transition: width 5s ease, opacity 5s ease;
+    width: 100%;
     box-sizing: border-box;
     width: auto;
     height: calc(100vh - 140px);
@@ -329,6 +335,9 @@ header {
             min-width: 248px !important;
         }
         .profile {
+            width: auto;
+        }
+        .width300px {
             width: 250px;
         }
     }
@@ -417,13 +426,23 @@ header {
 }
 
 @media (max-width:700px) {
+    h2 {
+        display: none;
+    }
+    .animated-box {
+        width: 100%;
+    }
     app-chat-navigation {
         width: 100% !important;
         padding-left: 16px;
+        padding-right: 16px;
     }
     header {
         .logo {
-            min-width: 248px !important;
+            min-width: auto !important;
+        }
+        .width300px {
+            width: auto;
         }
         .profile {
             width: auto;

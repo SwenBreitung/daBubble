@@ -97,7 +97,8 @@ import { UpdateEmailComponent } from './update-email/update-email.component';
     FormsModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
-   
+    BrowserAnimationsModule,
+
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,

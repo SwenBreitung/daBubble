@@ -1,7 +1,6 @@
-<div class="p-16 " *ngIf="message.userName !== this.authService.currentUser.name; else sameUserTemplate">
-
+<div class="" *ngIf="message.userName !== this.authService.currentUser.name; else sameUserTemplate">
     <div class="message-second-user p-16">
-        <div class="menu-second-user">
+        <div class="menu-second-user d-flex">
             <div>
                 <div *ngIf="isMainChat" (click)="AddStaticEmojiToMessage(message.id, '✅', messageService.currentChannelId, authService.currentUser.uid)" class=" curser-pointer">
                     ✅
@@ -60,7 +59,6 @@
 
 
 <ng-template #sameUserTemplate>
-    <!-- Anzeige für Nachrichten vom aktuellen Benutzer -->
     <div class="message-user  p-16">
         <div class="menu d-flex">
             <div>
@@ -117,8 +115,4 @@
 
         <emoji-mart class="emoji-chat-window-bar curser-pointer" *ngIf="activeEmojiPickerId === message.id" (emojiClick)="onEmojiClick($event,  message.id)" (emojiSelect)="onEmojiSelect($event)"></emoji-mart>
     </div>
-
 </ng-template>
-
-<a href="https://firebasestorage.googleapis.com/v0/b/dabubble-7d65b.appspot.com/o/ydGNfqJEnQklQna4g380%2Fleft_menu_icon_close.svg?alt=media&token=0609dfd4-e564-4012-87b6-9169afe99a14" download="filename.svg">Download SVG</a>
-<button (click)="downloadImage('https://firebasestorage.googleapis.com/v0/b/dabubble-7d65b.appspot.com/o/ydGNfqJEnQklQna4g380%2Fleft_menu_icon_close.svg?alt=media&token=0609dfd4-e564-4012-87b6-9169afe99a14')"> Test download</button>

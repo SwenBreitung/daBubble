@@ -149,9 +149,7 @@ header {
     }
     .message-viewer {
         -ms-overflow-style: none !important;
-        /* IE 11 */
         scrollbar-width: none !important;
-        /* Firefox */
     }
     *::-webkit-scrollbar {
         display: none !important;
@@ -161,11 +159,7 @@ header {
     }
 }
 
-// emoji-mart {
-//     width: 50px !important;
-// }
 .emoji-chat-window-bar {
-    // width: 90% !important;
     height: 300px !important;
     overflow: auto;
     display: flex;
@@ -174,8 +168,6 @@ header {
     z-index: 999;
     left: 16px;
     right: 16px;
-    // scrollbar-width: none;
-    // -ms-overflow-style: none;
     &::-webkit-scrollbar {
         display: none;
     }

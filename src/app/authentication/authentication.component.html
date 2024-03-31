@@ -1,3 +1,8 @@
+<div class="animation-wrapper" *ngIf="authService.showBackground">
+    <img src="./../../assets/logo/logo.svg" alt="Sliding Bild" [@slideAndFade]="animationState" (@slideAndFade.done)="animationDone()">
+</div>
+
+
 <app-header></app-header>
 
 <div class="login-out">

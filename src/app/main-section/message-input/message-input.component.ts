@@ -78,7 +78,7 @@ export class MessageInputComponent {
         return 'defaultImagePath';
       }
     } catch (err) {
-      return 'defaultImagePath'; // Fehlerfall
+      return 'defaultImagePath'; 
     }
   }
 
@@ -87,33 +87,6 @@ export class MessageInputComponent {
     this.dragAndDropService.uploadedImage = null;
   }
 
-
-  // onInput(event: any): void {
-  //   this.showPlaceholder = event.target.textContent.trim() === '';
-  //   setTimeout(() => {
-  //     const element = this.contentDiv.nativeElement;
-  //     const text = element.innerText;
-  //     const regex = /@([^ ]*)$/;
-  //     const matches = text.match(regex);
-  //     if (matches && matches[1]) {
-  //       this.searchUsers(matches[1]);
-  //     }  else { 
-  //       this.searchResults = undefined;
-  //     }
-  //     const highlightedText = text.replace(regex, `<span style="color:blue">$&</span>`);
-  //     if (element.innerHTML !== highlightedText) {
-  //       element.innerHTML = highlightedText;
-  //       const range = document.createRange();
-  //       const sel = window.getSelection();
-  //       if (sel) {
-  //         range.selectNodeContents(element);
-  //         range.collapse(false);
-  //         sel.removeAllRanges();
-  //         sel.addRange(range);
-  //       }
-  //     }
-  //   }, 0);
-  // }
 
   onInput(event: any): void {
     this.showPlaceholder = event.target.textContent.trim() === '';
@@ -138,6 +111,7 @@ export class MessageInputComponent {
       this.searchResults = undefined;
     }
   }
+ 
   
   highlightText(originalText: string, element: HTMLElement) {
     const regex = /@([^ ]*)$/;
@@ -147,6 +121,7 @@ export class MessageInputComponent {
       this.updateCursorPosition(element);
     }
   }
+ 
   
   updateCursorPosition(element: HTMLElement) {
     const range = document.createRange();
@@ -211,24 +186,6 @@ export class MessageInputComponent {
   }
 
 
-  // insertAtSymbol(): void {
-  //   const el = this.contentDiv.nativeElement;
-  //   el.focus(); 
-  //   const selection = window.getSelection();
-  //   if (selection && selection.rangeCount > 0) {
-  //     const range = document.createRange();
-  //     selection.deleteFromDocument();
-  //     range.selectNodeContents(el);
-  //     range.collapse(false);
-  //     const textNode = document.createTextNode("@");
-  //     range.insertNode(textNode);
-  //     range.setStartAfter(textNode);
-  //     range.setEndAfter(textNode);
-  //     selection.removeAllRanges(); 
-  //     selection.addRange(range);
-  //     this.showPlaceholder = false;
-  //   }
-  // }
   insertAtSymbol(): void {
     const el = this.contentDiv.nativeElement;
     el.focus();
@@ -240,6 +197,7 @@ export class MessageInputComponent {
       this.showPlaceholder = false;
     }
   }
+ 
   
   createAndInsertTextNode(el: HTMLElement, text: string): Text {
     const range = document.createRange();
@@ -249,6 +207,7 @@ export class MessageInputComponent {
     range.insertNode(textNode);
     return textNode;
   }
+ 
   
   updateSelection(textNode: Text): void {
     const range = document.createRange();
@@ -269,7 +228,6 @@ export class MessageInputComponent {
       this.messageService.showSecondEmojiPicker = !this.messageService.showSecondEmojiPicker;
     }
   }
-
 
 
   moveCursorToEnd(div:any) {
@@ -312,6 +270,5 @@ export class MessageInputComponent {
   appendTextToEndOfDiv(text: string, div: HTMLElement) {
     div.appendChild(document.createTextNode(text));
   }
-
 
 }

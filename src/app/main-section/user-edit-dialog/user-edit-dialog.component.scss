@@ -136,3 +136,12 @@ img {}
         }
     }
 }
+
+@media(max-width:700px) {
+    .user-edit-container {
+        padding: 4px;
+    }
+    .input-container {
+        padding: 4px;
+    }
+}

@@ -24,6 +24,7 @@ app-footer {
 }
 
 app-footer {
+    display: flex;
     padding-top: 50px;
 }
 
@@ -55,6 +56,7 @@ app-footer {
             background-color: var( --background-color);
             border: none;
             height: 32px;
+            width: 100%;
             &:focus {
                 border: none;
                 outline: none;
@@ -75,5 +77,31 @@ app-footer {
         color: red;
         font-size: 14px;
         padding: 4px;
+    }
+}
+
+.animation-wrapper.transparent {
+    background-color: transparent;
+}
+
+.animation-wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: blue;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width:700px) {
+    app-footer {
+        display: none;
+    }
+    .login-out {
+        @include center-flex;
+        width: 100%;
     }
 }

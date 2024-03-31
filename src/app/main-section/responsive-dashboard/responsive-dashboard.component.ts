@@ -95,7 +95,6 @@ constructor(
     // this.selectedChannelId = channel.id;
     // this.messageService.secondChatHeader = channel.name;
     // this.messageService.channelInfos = channel;
-    // console.log(channel.name)
     // if (this.messageSubscription) {
     //   this.messageSubscription.unsubscribe();
     // }
@@ -104,24 +103,19 @@ constructor(
     // this.messageService.loadMessagesForChannel(sourceType as 'channel' | 'chat',channel.id);
 
     // this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
-    //   console.log('new messages testing',messages);
     //   this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
-    //   console.log('service testing',this.messageService.messages)
     // });
 
     // this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
     //   this.secondMessages = secondMessages;
     //   this.messageService. secondMessagesSource.next(secondMessages);
-    //   console.log('load from funktion loadMessages', this.secondMessages.length); // Zeigt die Anzahl der Nachrichten an
     // });
     // this.searchResults = [];
   }
   loadMassgesInSecondChannel(uid: string, user: string) {
     this.selectedChannelId = uid;
     this.messageService.switchSecondChatFunktion = false;
-    console.log(uid,this.selectedChannelId);
     this.currentSecondUser = uid;
-
     this.messageService.checkForExistingChannel(uid, this.authService.currentUser.uid).then(channelId => {
       this.messageService.currentChannelId = channelId;
       this.messageService.loadMessagesForChannel('chat',channelId );
@@ -130,7 +124,6 @@ constructor(
   loadUserDatas(){
     this.noteService.getUsersData().subscribe(users => {
       this.users = users;
-      console.log('Benutzerdaten1:','users', this.users,'currenuser',this.authService.currentUser);
     });
   }
   loadDataFromLocal(){
@@ -149,22 +142,18 @@ constructor(
     }
     if(this.isUserNotNull(user)){
       this.authService.currentUser = user; 
-      console.log(this.authService.currentUser)
     }
   }
   isUserAndCurrentUserNull(user:any){
     return !user && !this.authService.currentUser
   }
   isUserNotNull(user:any){
-    console.log(user)
     return user != null && user.uid !== null;
   }
 
   logChannelData() {
     this.channelService.getChannels().subscribe(channels => {
-      this.channels = channels;
-      console.log('Channel-Daten:', this.channels);
-    });
+      this.channels = channels;});
   }
 
 
@@ -174,7 +163,6 @@ constructor(
     if (event.target instanceof HTMLInputElement) {
       const input = event.target;
       const inputValue = input.value;
-      console.log(inputValue);
       if (inputValue.length === 0) {
         if(1== number){
           this.searchResults = []; 
@@ -184,7 +172,6 @@ constructor(
        
       } else {
          await this.search(inputValue, number);
-        console.log(this.searchResults); 
       }
     }
   }
@@ -203,24 +190,18 @@ constructor(
 searchChannels(searchTerm: string,number:number) {
   this.messageService.searchChannels(searchTerm)
     .then(channels => {
-      console.log('search Channels', searchTerm, channels);
-
       if(number == 1){
         this.searchResults = channels;
       }else{
         this.searchResultsMain = channels;
       }
     })
-    .catch(error => {
-      console.error('Fehler bei der Suche nach Channels:', error);
-
-    });
+    .catch(error => {});
 }
 
 searchUsers(searchTerm: string,number:number) {
   this.messageService.searchUsers(searchTerm)
     .then(channels => {
-      console.log('search users', searchTerm, channels);
       if(number == 1){
         this.searchResults = channels;
       }else{
@@ -228,14 +209,10 @@ searchUsers(searchTerm: string,number:number) {
       }
  
     })
-    .catch(error => {
-      console.error('Fehler bei der Suche nach Channels:', error);
- 
-    });
+    .catch(error => {});
 }
 
 async searchText(searchTerm: string) {
-  console.log('search Text', searchTerm)
   return [];
 }
 
@@ -258,7 +235,7 @@ async searchText(searchTerm: string) {
   //   if (event.target instanceof HTMLInputElement) {
   //       const input=event.target;
   //       const inputValue=input.value;
-  //       console.log(inputValue);
+ 
   //       if (inputValue.length===0) {
   //           if(1==number) {
   //               this.searchResults=[];
@@ -269,7 +246,7 @@ async searchText(searchTerm: string) {
   //       }
   //       else {
   //           await this.search(inputValue, number);
-  //           console.log(this.searchResults);
+
   //       }
   //   }
 }

@@ -19,9 +19,10 @@
             </div>
         </div>
         <div class="">
-            <div class="profile ">
+            <div [@openCloseHeader]="channelService.isScreenWide && messageService.torgleRightSide? 'openHeader' : 'closedHeader'" class="animated width300px"></div>
+            <div class=" profile ">
                 <div class="position-relativ profile" (click)="openDialogChat()">
-                    <h2>Name</h2>
+                    <h2>{{ authService.currentUser.name }}</h2>
                     <img *ngIf="profileImageUrl; else defaultImage" [src]="this.authService.currentUser.img" alt="Profilbild">
                     <ng-template #defaultImage>
                         <img class="anonym-img" src="./../../assets/user_avatars/neutral-avatar.svg" alt="Standard Profilbild">
@@ -45,12 +46,11 @@
         <div>Workspace-Menü schließen</div>
     </div>
     <div class="d-flex chat-layout border-box">
-        <div class="main-content border-box" [ngClass]="{'': !channelService.isSidebarVisible && !channelService.isScreenWide, 'slide-out': !channelService.isSidebarVisible && !channelService.isScreenWide}">
-            <!-- <div class="main-content border-box" [ngClass]="{'d-none': !channelService.isSidebarVisible && !channelService.isScreenWide}"> -->
+        <div [@openClose]="channelService.isLeftWindowOpen ? 'open' : 'closed'" class="animated-box" [ngClass]="{'d-none': !channelService.isSidebarVisible && !channelService.isScreenWide}">
             <app-chat-navigation class="padding-left16px"></app-chat-navigation>
         </div>
-
-        <div class="mid-container border-box" [ngClass]="{'d-none': !channelService.isMainChatVisible && !channelService.isScreenWide}">
+        <!-- -->
+        <div class="mid-container border-box" [ngClass]="{'d-none': !channelService.isMainChatVisible  && !channelService.isScreenWide}">
             <div class="width-and-heigt-100p message-container border-box">
 
                 <div *ngIf="messageService.secondChatHeader" class="send-massage border-box">
@@ -72,7 +72,7 @@
                 <app-massager class="border-box"></app-massager>
             </div>
         </div>
-        <div class="right-container  border-box padding-right16px " [ngClass]="{'d-none': !channelService.isSecondaryPanelVisible && !channelService.isScreenWide}">
+        <div [@openClose]="messageService.torgleRightSide? 'open' : 'closed'" class="animated-box right-container  border-box padding-right16px" [ngClass]="{'d-none': !channelService.isSecondaryPanelVisible && !channelService.isScreenWide}">
             <app-second-messager style="position: relative;" class="border-box"></app-second-messager>
         </div>
     </div>

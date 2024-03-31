@@ -38,23 +38,16 @@ section {
 .right-side {
     position: absolute;
     right: 16px;
-    /* oder den ursprünglichen Wert, den Sie für die Ausrichtung nach rechts verwenden */
     transition: transform 0.5s ease;
-    /* Sanfte Transition */
 }
-
-
-/* Zustand für die Bewegung, z.B. durch Hinzufügen einer zusätzlichen Klasse oder durch ein bestimmtes Ereignis */
 
 .right-side.move {
     transform: translate(8px, -8px);
-    /* Bewegt das Element nach oben rechts */
 }
 
 .right-side-slide-left {
     position: absolute;
     right: 16px;
-    /* oder den ursprünglichen Wert, den Sie für die Ausrichtung nach rechts verwenden */
     transition: transform 0.5s ease;
 }
 
@@ -65,14 +58,11 @@ section {
 .left-side {
     position: absolute;
     left: 16px;
-    /* oder den ursprünglichen Wert, den Sie für die Ausrichtung nach links verwenden */
     transition: transform 0.5s ease;
-    /* Sanfte Transition */
 }
 
 .left-side.move {
     transform: translate(-8px, -8px);
-    /* Bewegt das Element nach oben links */
 }
 
 .beetween {
@@ -112,7 +102,6 @@ section {
 
 .no-border {
     border-color: transparent;
-    /* Macht den Border unsichtbar, indem die Farbe transparent wird */
 }
 
 .border-container {
@@ -125,17 +114,10 @@ section {
     position: relative;
 }
 
-// .border-container {
-//     border: 1px solid transparent;
-// }
 .border-container.visible-border {
     border: none !important;
 }
 
-// .border-container.edit-mode {
-//     transform: translateY(+5px);
-//     /* Bewegt das Element sanft nach oben */
-// }
 .input-field {
     padding: 4px;
     background-color: var(--second-background-color);
@@ -144,7 +126,6 @@ section {
     border-radius: 24px;
     border: 1px solid transparent;
     transition: box-shadow 0.5s ease;
-    /* Weicher Übergang für den Schatten */
 }
 
 .input-field input {
@@ -159,7 +140,6 @@ section {
 
 .input-field.visible-border {
     box-shadow: 0 0 0 1px grey;
-    /* Schatten für den Border-Effekt */
 }
 
 .channel-description-editor {
@@ -184,10 +164,5 @@ section {
 
 .move-up {
     transition: transform 0.3s ease;
-    /* Weiche Transition für die Bewegung */
     transform: translate(-8px, -8px);
-    /* Verschiebt das Element um 8px nach oben */
 }
-
-
-/* Stil für den Container, wenn der Bearbeitungsmodus aktiviert ist */

@@ -28,29 +28,6 @@ export class ResponsivMainChatComponent {
     private router: Router,
     ) {}
 
-  // ngOnInit() {    
-  //   this.selectedChannelId = this.messageService.channel.id;
-  //   this.messageService.secondChatHeader = this.messageService.channel.name;
-  //   this.messageService.channelInfos = this.messageService.channel;
-
-  //   if (this.messageSubscription) {
-  //     this.messageSubscription.unsubscribe();
-  //   }   
-  //   this.messageService.currentChannelId = this.messageService.channel.id;
-  //   this.messageService.loadMessagesForChannel(this.messageService.sourceType as 'channel' | 'chat',this.messageService.channel.id);
-  //   this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
-  
-  //     this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
-  
-  //   });
-  //   this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, this.messageService.channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
-  //     this.secondMessages = secondMessages;
-  //     this.messageService. secondMessagesSource.next(secondMessages);
-  
-  //   });
-  //   this.searchResults = [];
-  // }
-
 
   ngOnInit() {
     this.initializeChannelState();
@@ -60,6 +37,7 @@ export class ResponsivMainChatComponent {
     this.resetSearchResults();
   }
   
+
   initializeChannelState() {
     const channel = this.messageService.channel;
     this.selectedChannelId = channel.id;
@@ -67,12 +45,14 @@ export class ResponsivMainChatComponent {
     this.messageService.channelInfos = channel;
   }
   
+
   unsubscribePreviousSubscription() {
     if (this.messageSubscription) {
       this.messageSubscription.unsubscribe();
     }
   }
   
+
   loadAndSubscribeToMessages() {
     const channel = this.messageService.channel;
     this.messageService.currentChannelId = channel.id;
@@ -83,12 +63,14 @@ export class ResponsivMainChatComponent {
     });
   }
   
+
   subscribeToSecondChannelMessages() {
     this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, this.messageService.channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
       this.secondMessages = secondMessages;
       this.messageService.secondMessagesSource.next(secondMessages);
     });
   }
+  
   
   resetSearchResults() {
     this.searchResults = [];

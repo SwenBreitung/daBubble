@@ -34,25 +34,6 @@ constructor(
   }
 
 
-  // openDialogChat() {
-  //   this.closeDialog();
-  //   let dialogConfig = {
-  //     width: '40vw',
-  //     height: '60vh',
-  //     position: { top: '100px', right: '26px' },
-  //   };
-  //   if (window.innerWidth < 700) {
-  //     dialogConfig = {
-  //       ...dialogConfig,
-  //       width: '80vw', 
-  //       height: '80vh', 
-  //       position: { top: '', right: '' }, 
-  //     };
-  //   }
-  //   const dialogRef = this.dialog.open(UserEditDialogComponent, dialogConfig);
-  // }
-
-
   openDialogChat() {
     this.closeDialog(); 
     const dialogConfig = this.getDialogConfig(); 

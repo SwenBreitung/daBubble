@@ -31,6 +31,7 @@ export class ChannelService {
   isSidebarVisible = true;
   isMainChatVisible = false;
   isSecondaryPanelVisible = false;
+  // isSidebarVisible = false;
   unsubList;
   constructor() {
     this.loadInitialData();

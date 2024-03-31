@@ -94,13 +94,16 @@
     <span class="name">{{ this.user.name}}</span>
     <span class="text">Aus der Liste wählen</span>
     <div class="d-flex img-bar">
-        <img src="./../../assets/user_avatars/women-1.svg" alt="Frauen-Avatar" (click)="selectImage('./../../assets/user_avatars/women-1.svg')">
-        <img src="./../../assets/user_avatars/man-1.svg" alt="Männer-Avatar 1" (click)="selectImage('./../../assets/user_avatars/man-1.svg')">
-        <img src="./../../assets/user_avatars/man-2.svg" alt="Männer-Avatar 2" (click)="selectImage('./../../assets/user_avatars/man-2.svg')">
-        <img src="./../../assets/user_avatars/man-3.svg" alt="Männer-Avatar 3" (click)="selectImage('./../../assets/user_avatars/man-3.svg')">
-        <img src="./../../assets/user_avatars/man-4.svg" alt="Männer-Avatar 4" (click)="selectImage('./../../assets/user_avatars/man-4.svg')">
-        <img src="./../../assets/user_avatars/man-5.svg" alt="Männer-Avatar 5" (click)="selectImage('./../../assets/user_avatars/man-5.svg')">
-
+        <div>
+            <img src="./../../assets/user_avatars/women-1.svg" alt="Frauen-Avatar" (click)="selectImage('./../../assets/user_avatars/women-1.svg')">
+            <img src="./../../assets/user_avatars/man-1.svg" alt="Männer-Avatar 1" (click)="selectImage('./../../assets/user_avatars/man-1.svg')">
+            <img src="./../../assets/user_avatars/man-2.svg" alt="Männer-Avatar 2" (click)="selectImage('./../../assets/user_avatars/man-2.svg')">
+        </div>
+        <div>
+            <img src="./../../assets/user_avatars/man-3.svg" alt="Männer-Avatar 3" (click)="selectImage('./../../assets/user_avatars/man-3.svg')">
+            <img src="./../../assets/user_avatars/man-4.svg" alt="Männer-Avatar 4" (click)="selectImage('./../../assets/user_avatars/man-4.svg')">
+            <img src="./../../assets/user_avatars/man-5.svg" alt="Männer-Avatar 5" (click)="selectImage('./../../assets/user_avatars/man-5.svg')">
+        </div>
     </div>
     <div (click)="openDialog()" class="upload-img-container">
         <span>Eigenes Bild verwenden</span>

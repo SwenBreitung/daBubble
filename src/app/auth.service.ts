@@ -12,7 +12,9 @@ export class AuthService {
 
   constructor(public auth: Auth) { }
   currentUser: any;
+  showBackground = true;
 
+  
   signIn(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }

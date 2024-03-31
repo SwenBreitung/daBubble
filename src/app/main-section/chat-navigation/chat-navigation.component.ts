@@ -6,10 +6,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddChannelDialogComponent } from '../../add-channel-dialog/add-channel-dialog.component';
 import { AuthService } from './../../auth.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 @Component({
   selector: 'app-chat-navigation',
   templateUrl: './chat-navigation.component.html',
-  styleUrl: './chat-navigation.component.scss'
+  styleUrl: './chat-navigation.component.scss',
 })
 export class ChatNavigationComponent {
 
@@ -62,7 +64,6 @@ export class ChatNavigationComponent {
   }
 
 
-
   async loadMassgesInTextChannel(sourceType: string, channel: any) {
     this.channelService.selectedChannelId = channel.id;
     this.messageService.secondChatHeader = channel.name;
@@ -94,28 +95,29 @@ export class ChatNavigationComponent {
     this.channelService.isSecondaryPanelVisible = false;
     this.channelService.isMainChatVisible = true;
     this.channelService.isSidebarVisible = false;
+    console.log(this.channelService.isSecondaryPanelVisible ,this.channelService.isMainChatVisible, this.channelService.isSidebarVisible)
   }
-  
-  // Vorheriges Abonnement beenden
+ 
+
   unsubscribePreviousMessageSubscription() {
     if (this.messageSubscription) {
       this.messageSubscription.unsubscribe();
     }
   }
   
-  // Nachrichten laden
+
   async loadMessages(sourceType: any, channelId: string) {
     this.messageService.loadMessagesForChannel(sourceType, channelId);
   }
   
-  // Nachrichten abonnieren
+
   subscribeToMessages() {
     this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
       this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
     });
   }
   
-  // Zweiten Nachrichtenkanal abonnieren
+ 
   subscribeToSecondChannelMessages(currentChannelId: string, channelId: string) {
     this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(currentChannelId, channelId).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
       this.secondMessages = secondMessages;
@@ -123,44 +125,5 @@ export class ChatNavigationComponent {
     });
   }
 
-  
-  // async loadMassgesInTextChannel(sourceType:string,channel: any) {
-  //   this.channelService.selectedChannelId = channel.id;
-  //   this.messageService.secondChatHeader = channel.name;
-  //   this.messageService.channelInfos = channel;
-  //   if (this.messageSubscription) {
-  //     this.messageSubscription.unsubscribe();
-  //   }
-  
-  //   this.messageService.currentChannelId = channel.id;
-  //   this.messageService.loadMessagesForChannel(sourceType as 'channel' | 'chat',channel.id);
-
-  //   this.messageSubscription = this.messageService.currentMessages$.subscribe(messages => {
-  //     this.messageService.messages = messages.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
-  //   });
-
-  //   this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(this.messageService.currentChannelId, channel.id).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
-  //     this.secondMessages = secondMessages;
-  //     this.messageService. secondMessagesSource.next(secondMessages);
-  //   });
-  //   this.searchResults = [];
-  //   this.channelService.isSecondaryPanelVisible = false;
-  //   this.channelService.isMainChatVisible = true;
-  //   this.channelService.isSidebarVisible = false;
-  // }
-
-
-  // loadMassgesInSecondChannel(uid: string, user: string) {
-  //   this.channelService.selectedChannelId = uid;
-  //   this.messageService.switchSecondChatFunktion = false;
-  //   this.channelService.currentSecondUser = uid;
-  //   this.messageService.checkForExistingChannel(uid, this.authService.currentUser.uid).then(channelId => {
-  //     this.messageService.currentChannelId = channelId;
-  //     this.messageService.loadMessagesForChannel('chat',channelId );
-  //   });
-  //   this.channelService.isSecondaryPanelVisible = false;
-  //   this.channelService.isMainChatVisible = true;
-  //   this.channelService.isSidebarVisible = false;
-  // }
 
 }

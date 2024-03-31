@@ -129,10 +129,13 @@
     position: absolute;
     flex-direction: row;
     justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    top: 8px;
     right: 16px;
+    top: -20px;
+    border: 1px solid;
+    color: black;
+    border-radius: 20px 0px 20px 20px;
+    background-color: white;
+    padding: 10px 10px 10px 10px;
 }
 
 .message-user {
@@ -181,9 +184,6 @@
             background-color: var(--text-white);
         }
     }
-    // .menu {
-    //     display: none;
-    // }
     .messager-container {
         display: flex;
         flex-direction: column;
@@ -209,7 +209,6 @@
     .user-img {
         max-height: 56px;
         object-fit: cover;
-        // padding: 15px;
         border-radius: 50%;
         border: none;
     }
@@ -217,4 +216,13 @@
 
 @media (max-width:800px) {
     .second-messager-container-second {}
+}
+
+@media(max-width:700px) {
+    .message-user {
+        width: 100%
+    }
+    .ng-star-inserted {
+        width: 100%;
+    }
 }

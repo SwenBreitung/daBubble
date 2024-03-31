@@ -33,7 +33,7 @@ export class SecondMessagerComponent implements AfterViewInit{
   
   showEmojiPicker: boolean = false;
   showMainEmojiPicker = false;
-  // showSecondEmojiPicker = false;
+  
  
   switchSecondChatFunktion=true;
   currentSecondChannel:string = '';
@@ -49,8 +49,8 @@ export class SecondMessagerComponent implements AfterViewInit{
     }
   }
 
+
   ngOnInit() {
-  
     this.messageService.currentsecondMessages$.subscribe(secondMessages => {
       this.messageService.secondMessages = secondMessages;
     });
@@ -70,20 +70,14 @@ export class SecondMessagerComponent implements AfterViewInit{
     }
   }
 
+
   handleEmojiInsert(emoji: any) {
     if(this.messageInputComponent){
       this.messageInputComponent.insertEmoji(emoji);
     }
   }
-  // toggleEmojiPicker(pickerType:any) {
-  //   if (pickerType === 'main') {
-  //     this.showMainEmojiPicker = !this.showMainEmojiPicker;
 
-  //   } else if (pickerType === 'second') {
-  //     this.showSecondEmojiPicker = !this.showSecondEmojiPicker;
-
-  //   }
-  // }
+  
   toggleEmojiPicker(pickerType:any) {
     if (pickerType === 'main') {
       this.messageService.showMainEmojiPicker = !this.messageService.showMainEmojiPicker;
@@ -91,16 +85,12 @@ export class SecondMessagerComponent implements AfterViewInit{
       this.messageService.showSecondEmojiPicker = !this.messageService.showSecondEmojiPicker;
     }
   }
-  onEmojiSelect(event: any) {
-    // Logik zur Verarbeitung des ausgewählten Emojis
-  }
-
+  onEmojiSelect(event: any) {}
 
 
   closeLeftWindow(){
     this.messageService.torgleRightSide =false;
   }
-
 
   
   insertEmoji(emoji: string) {
@@ -123,11 +113,11 @@ export class SecondMessagerComponent implements AfterViewInit{
 
   moveCursorToEnd(div:any) {
     const selection = window.getSelection();
-    if (selection) { // Überprüft, ob selection einen Wert hat
+    if (selection) { 
       const range = document.createRange();
       selection.removeAllRanges();
       range.selectNodeContents(div);
-      range.collapse(false); // Bewegt den Cursor ans Ende
+      range.collapse(false); 
       selection.addRange(range);
     }
   }
