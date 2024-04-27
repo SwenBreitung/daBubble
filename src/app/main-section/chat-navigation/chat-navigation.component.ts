@@ -1,11 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import {ChannelService} from './../../firebase-services/channels.service';
-import {MessageService} from './../../firebase-services/massage.service';
-import { ChannelInfoDialogComponent } from '../channel-info-dialog/channel-info-dialog.component';
+import {ChannelService} from '../../service/channels.service';
+import {MessageService} from '../../service/massage.service';
+import { ChannelInfoDialogComponent } from '../../dialogs/channel-info-dialog/channel-info-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddChannelDialogComponent } from '../../add-channel-dialog/add-channel-dialog.component';
-import { AuthService } from './../../auth.service';
+import { AuthService } from './../../service/auth.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -97,7 +97,7 @@ export class ChatNavigationComponent {
     this.channelService.isSidebarVisible = false;
     console.log(this.channelService.isSecondaryPanelVisible ,this.channelService.isMainChatVisible, this.channelService.isSidebarVisible)
   }
- 
+
 
   unsubscribePreviousMessageSubscription() {
     if (this.messageSubscription) {
@@ -117,7 +117,7 @@ export class ChatNavigationComponent {
     });
   }
   
- 
+
   subscribeToSecondChannelMessages(currentChannelId: string, channelId: string) {
     this.messageSubscription = this.messageService.getMessagesMessageInSecondChannel(currentChannelId, channelId).subscribe((secondMessages: { createdAt: { seconds: number; } }[]) => {
       this.secondMessages = secondMessages;

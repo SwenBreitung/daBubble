@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collectionData, collection, query, getDocs, where, doc, setDoc, getDoc, addDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import {Channel} from './../models/channel.class';
+import {Channel} from '../models/channel.class';
 @Injectable({
   providedIn: 'root'
 })

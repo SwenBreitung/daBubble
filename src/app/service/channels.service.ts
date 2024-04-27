@@ -5,7 +5,7 @@ import { Firestore, collection, addDoc, collectionData, doc, deleteDoc, } from '
 import {  onSnapshot, updateDoc,docData  } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {Channel} from './../models/channel.class';
+import {Channel} from '../models/channel.class';
 
 
 
@@ -31,7 +31,6 @@ export class ChannelService {
   isSidebarVisible = true;
   isMainChatVisible = false;
   isSecondaryPanelVisible = false;
-  // isSidebarVisible = false;
   unsubList;
   constructor() {
     this.loadInitialData();

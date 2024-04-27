@@ -13,28 +13,26 @@ import { LogInComponent } from './authentication/log-in/log-in.component';
 import { RegisterComponent } from './authentication/register/register.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StartScreenComponent } from './start-screen/start-screen.component';
+
 import {DialogModule} from '@angular/cdk/dialog';
 import { HeaderComponent } from './authentication/header/header.component';
 import { FooterComponent } from './authentication/footer/footer.component'; 
 
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import {  getApp,  } from '@angular/fire/app';
-import { AuthService } from './auth.service';
+import { AuthService } from './service/auth.service'
 import { MainSectionComponent } from './main-section/main-section.component';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { PasswordResetComponent } from './authentication/password-reset/password-reset.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AddChannelDialogComponent } from './add-channel-dialog/add-channel-dialog.component';
 import { UploadDialogComponent } from './authentication/register/upload-dialog/upload-dialog.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
- import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { MassagerComponent } from './main-section/massager/massager.component';
 import { SecondMessagerComponent } from './main-section/second-messager/second-messager.component';
-import { DownloadConfirmDialogComponent } from './download-confirm-dialog/download-confirm-dialog.component';
-import { EditMessageDialogComponent } from './edit-message-dialog/edit-message-dialog.component';
+import { DownloadConfirmDialogComponent } from './dialogs/download-confirm-dialog/download-confirm-dialog.component';
+import { EditMessageDialogComponent } from './dialogs/edit-message-dialog/edit-message-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
-
-
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -42,14 +40,14 @@ import { InputSendigComponent } from './input-sendig/input-sendig.component';
 import { MessageInputComponent } from './main-section/message-input/message-input.component';
 import { MessageCardComponent } from './main-section/message-card/message-card.component';
 
-import { UserMenuComponent } from './user-menu/user-menu.component';
-import { UserActionsDialogComponent } from './main-section/user-actions-dialog/user-actions-dialog.component';
-import { UserEditDialogComponent } from './main-section/user-edit-dialog/user-edit-dialog.component';
- import { VerifyEmailInstructionComponent } from './main-section/verify-email-instruction/verify-email-instruction.component';
+import { UserMenuComponent } from './ui-components/user-menu/user-menu.component';
+import { UserActionsDialogComponent } from './dialogs/user-actions-dialog/user-actions-dialog.component';
+import { UserEditDialogComponent } from './dialogs/user-edit-dialog/user-edit-dialog.component';
+import { VerifyEmailInstructionComponent } from './main-section/verify-email-instruction/verify-email-instruction.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
-import { ChannelInfoDialogComponent } from './main-section/channel-info-dialog/channel-info-dialog.component';
-import { ResponsiveDashboardComponent } from './main-section/responsive-dashboard/responsive-dashboard.component';
-import { ResponsivMainChatComponent } from './main-section/responsiv-main-chat/responsiv-main-chat.component';
+import { ChannelInfoDialogComponent } from './dialogs/channel-info-dialog/channel-info-dialog.component';
+// import { ResponsiveDashboardComponent } from './main-section/responsive-dashboard/responsive-dashboard.component';
+// import { ResponsivMainChatComponent } from './main-section/responsiv-main-chat/responsiv-main-chat.component';
 import { ChatNavigationComponent } from './main-section/chat-navigation/chat-navigation.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
@@ -61,7 +59,6 @@ import { UpdateEmailComponent } from './update-email/update-email.component';
     AppComponent,
     LogInComponent,
     RegisterComponent,
-    StartScreenComponent,
     HeaderComponent,
     FooterComponent,
     MainSectionComponent,
@@ -82,8 +79,8 @@ import { UpdateEmailComponent } from './update-email/update-email.component';
     VerifyEmailInstructionComponent,
     EmailVerificationComponent,
     ChannelInfoDialogComponent,
-    ResponsiveDashboardComponent,
-    ResponsivMainChatComponent,
+
+
     ChatNavigationComponent,
     ImpressumComponent,
     PrivacyPolicyComponent,
@@ -91,6 +88,7 @@ import { UpdateEmailComponent } from './update-email/update-email.component';
    
   ],
   imports: [
+    BrowserModule,
     PickerModule, 
     BrowserModule,
     AppRoutingModule,
@@ -120,6 +118,6 @@ import { UpdateEmailComponent } from './update-email/update-email.component';
     
   ],
   providers: [],
-  bootstrap: [AppComponent, ]
+  bootstrap: [AppComponent] 
 })
 export class AppModule {}

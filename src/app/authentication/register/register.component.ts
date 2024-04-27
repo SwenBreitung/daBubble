@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AllUserService } from '../../firebase-services/all-user.service'
+import { AllUserService } from '../../service/all-user.service'
 import { User} from '../../models/user.class'
-import { AuthService } from '../../auth.service';
-import { NoteListService } from '../../firebase-services/note-list.service';
+import { AuthService } from '../../service/auth.service';
+import { NoteListService } from '../../service/note-list.service';
 import { FormControl, NG_VALIDATORS, Validators,AbstractControl, Validator  } from '@angular/forms';
 import {UploadDialogComponent} from './upload-dialog/upload-dialog.component'
 import {MatDialogModule} from '@angular/material/dialog'; 
-import {DragAndDropService} from '../../firebase-services/drag-drop.service';
+import {DragAndDropService} from '../../service/drag-drop.service';
+
 type FieldName = 'name' | 'email' | 'password' | 'checkbox';
+
 import {
   MatDialog,
   MatDialogRef,
@@ -92,7 +94,6 @@ export class RegisterComponent{
 
 
   checkFieldValidity(field: any): void {
-   
     if (field.invalid && (field.dirty || field.touched)) {
       this.errorBooliean = true; 
     }
@@ -139,9 +140,9 @@ export class RegisterComponent{
       return `Bitte geben Sie eine gültige E-Mail-Adresse an.`;
     }
     return '';
-   }
+  }
 
-   authUser(){}
+  authUser(){}
 
   async saveUser() {
     const userCredential = await this.authService.signUp(this.user.email, this.user.passwort);
@@ -220,7 +221,7 @@ export class RegisterComponent{
     });
   }
 
- async convertPathToFile(imagePath:string) {
+async convertPathToFile(imagePath:string) {
     return fetch(imagePath)
     .then(response => response.blob())
     .then(blob => {

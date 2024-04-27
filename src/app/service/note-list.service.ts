@@ -13,7 +13,7 @@ export class NoteListService {
   getUid() {
     throw new Error('Method not implemented.');
   }
- 
+
   users:User[]=[];
   uid:string='';
 

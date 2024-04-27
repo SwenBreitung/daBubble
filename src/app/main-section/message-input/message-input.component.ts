@@ -1,10 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import {MainSectionComponent} from './../main-section.component'
-import { MessageService } from '../../firebase-services/massage.service';
-import { DragAndDropService } from '../../firebase-services/drag-drop.service';
+import { MessageService } from '../../service/massage.service';
+import { DragAndDropService } from '../../service/drag-drop.service';
 import { MatDialog } from '@angular/material/dialog';
-import { EditMessageDialogComponent } from '../../edit-message-dialog/edit-message-dialog.component';
+import { EditMessageDialogComponent } from '../../dialogs/edit-message-dialog/edit-message-dialog.component';
 import { UploadDialogComponent } from '../../authentication/register/upload-dialog/upload-dialog.component';
+import { EmojiBarService } from "../../service/emoji-bar.service";
 @Component({
   selector: 'app-message-input',
   templateUrl: './message-input.component.html',
@@ -16,6 +17,7 @@ export class MessageInputComponent {
     public dragAndDropService:DragAndDropService,
     public messageService:MessageService,
     public dialog: MatDialog,
+    public emojiBarService:EmojiBarService,
   ){}
   textareaValue = '';
   textareaImg = '';
@@ -111,7 +113,7 @@ export class MessageInputComponent {
       this.searchResults = undefined;
     }
   }
- 
+
   
   highlightText(originalText: string, element: HTMLElement) {
     const regex = /@([^ ]*)$/;
@@ -121,7 +123,7 @@ export class MessageInputComponent {
       this.updateCursorPosition(element);
     }
   }
- 
+
   
   updateCursorPosition(element: HTMLElement) {
     const range = document.createRange();
@@ -147,7 +149,7 @@ export class MessageInputComponent {
     if (match) { 
       const htmlContent = element.innerHTML;
       const matchIndex = htmlContent.lastIndexOf(match[0]);
-       if (matchIndex !== -1) {  
+      if (matchIndex !== -1) {  
         const beforeMatch = htmlContent.substring(0, matchIndex);
         const afterMatch = htmlContent.substring(matchIndex + match[0].length);
         element.innerHTML = `${beforeMatch}<span style="color:blue">@${selectedUserName}</span> ${afterMatch}`;
@@ -197,7 +199,7 @@ export class MessageInputComponent {
       this.showPlaceholder = false;
     }
   }
- 
+
   
   createAndInsertTextNode(el: HTMLElement, text: string): Text {
     const range = document.createRange();
@@ -207,7 +209,7 @@ export class MessageInputComponent {
     range.insertNode(textNode);
     return textNode;
   }
- 
+
   
   updateSelection(textNode: Text): void {
     const range = document.createRange();
@@ -223,9 +225,9 @@ export class MessageInputComponent {
 
   toggleEmojiPicker(pickerType:any) {
     if (this.functionKey === 'funktionA') {
-      this.messageService.showMainEmojiPicker = !this.messageService.showMainEmojiPicker;    
+      this.emojiBarService.showMainEmojiPicker = !this.emojiBarService.showMainEmojiPicker;    
     } else if (this.functionKey === 'funktionB') {
-      this.messageService.showSecondEmojiPicker = !this.messageService.showSecondEmojiPicker;
+      this.emojiBarService.showSecondEmojiPicker = !this.emojiBarService.showSecondEmojiPicker;
     }
   }
 

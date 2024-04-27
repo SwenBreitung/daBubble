@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {RegisterComponent} from '../register.component'
-import {DragAndDropService} from '../../../firebase-services/drag-drop.service'
+import {DragAndDropService} from '../../../service/drag-drop.service'
 
 @Component({
   selector: 'app-upload-dialog',

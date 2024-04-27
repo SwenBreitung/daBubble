@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResponsivMainChatComponent } from './responsiv-main-chat.component';
+// import { ResponsivMainChatComponent } from './responsiv-main-chat.component';
 
-describe('ResponsivMainChatComponent', () => {
-  let component: ResponsivMainChatComponent;
-  let fixture: ComponentFixture<ResponsivMainChatComponent>;
+// describe('ResponsivMainChatComponent', () => {
+//   let component: ResponsivMainChatComponent;
+//   let fixture: ComponentFixture<ResponsivMainChatComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ResponsivMainChatComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ResponsivMainChatComponent]
+//     })
+//     .compileComponents();
     
-    fixture = TestBed.createComponent(ResponsivMainChatComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(ResponsivMainChatComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

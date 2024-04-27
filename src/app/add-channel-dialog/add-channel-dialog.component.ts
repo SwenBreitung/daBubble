@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {ChannelService} from './../firebase-services/channels.service'
+import { ChannelService } from '../service/channels.service'
 import { MatDialogRef } from '@angular/material/dialog';
-import {Channel} from './../models/channel.class';
+import { Channel } from './../models/channel.class';
 
 @Component({
   selector: 'app-add-channel-dialog',
@@ -13,16 +13,16 @@ import {Channel} from './../models/channel.class';
 export class AddChannelDialogComponent {
   channel: Channel = new Channel();
 
-constructor(
-  public channelService: ChannelService,
-   private dialogRef: MatDialogRef<AddChannelDialogComponent>
+  constructor(
+    public channelService: ChannelService,
+    private dialogRef: MatDialogRef<AddChannelDialogComponent>
 
-  ){}
+  ) { }
 
- closeDialog(){
-  this.channelService.addChannel(this.channel.toJson());
-  this.dialogRef.close();
-}
+  closeDialog() {
+    this.channelService.addChannel(this.channel.toJson());
+    this.dialogRef.close();
+  }
 
 
 

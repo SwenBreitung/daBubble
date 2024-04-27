@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { MessageService } from '../../firebase-services/massage.service';
-import { AuthService } from '../../auth.service';
+import { MessageService } from '../../service/massage.service';
+import { AuthService } from './../../service/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { EditMessageDialogComponent } from '../../edit-message-dialog/edit-message-dialog.component';
-import { ChannelService } from '../../firebase-services/channels.service';
+import { EditMessageDialogComponent } from '../../dialogs/edit-message-dialog/edit-message-dialog.component';
+import { ChannelService } from '../../service/channels.service';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
-
+import { EmojiBarService } from "../../service/emoji-bar.service";
 @Component({
   selector: 'app-message-card',
   templateUrl: './message-card.component.html',
@@ -17,6 +17,7 @@ export class MessageCardComponent {
     public  authService: AuthService,
     public dialog: MatDialog,
     public channelService: ChannelService,
+    public emojiBarService:EmojiBarService,
   ){}
   activeEmojiPickerId: string | null = null;
   
@@ -24,13 +25,13 @@ export class MessageCardComponent {
   @Input() isMainChat: boolean = false;
 
   AddStaticEmojiToMessage(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
-    this.messageService.addEmojiToMessage(messageId,emoji,currentChannelId, currentUserUid)
+    this.emojiBarService.addEmojiToMessage(messageId,emoji,currentChannelId, currentUserUid)
   }
 
 
   addEmojiToMessage(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
     if(this.isMainChat){
-      this.messageService.addEmojiToMessage(messageId,emoji.emoji,currentChannelId, currentUserUid)
+      this.emojiBarService.addEmojiToMessage(messageId,emoji.emoji,currentChannelId, currentUserUid)
     }else{
       this.addEmojiToMessageSecond(messageId, emoji, this.messageService.currentChannelId, this.authService.currentUser.uid)
     }
@@ -38,7 +39,7 @@ export class MessageCardComponent {
   
 
   addEmojiToMessageSecond(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
-    this.messageService.addEmojiToMessageSecond(messageId,emoji,currentChannelId, currentUserUid,this.messageService.currentSecondChannel)
+    this.emojiBarService.addEmojiToMessageSecond(messageId,emoji,currentChannelId, currentUserUid,this.messageService.currentSecondChannel)
   }
 
 
@@ -50,7 +51,7 @@ export class MessageCardComponent {
         element.value += emoji;
       } else {
         if (this.isMainChat) {
-          this.messageService.addEmojiToMessage(elementId, emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);
+          this.emojiBarService.addEmojiToMessage(elementId, emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);
         } else {
           this.addEmojiToMessageSecond(elementId, emoji, this.messageService.currentChannelId, this.authService.currentUser.uid)
         }
@@ -79,7 +80,7 @@ export class MessageCardComponent {
     });
   }
   
- 
+
   openEditMessageDialog(messageText: string): MatDialogRef<EditMessageDialogComponent, any> {
     return this.dialog.open(EditMessageDialogComponent, {
       width: '380px',
@@ -87,7 +88,7 @@ export class MessageCardComponent {
     });
   }
   
- 
+
   handleDialogResult(result: any, message: any): void {
     if(result == null){
       return;

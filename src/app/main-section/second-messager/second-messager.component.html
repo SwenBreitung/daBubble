@@ -7,7 +7,6 @@
             </div>
             <span *ngIf="channelService.isScreenWide" class="closeLeftWindow" (click)="closeLeftWindow()"><b>X</b></span>
         </div>
-        <div class="border-line"></div>
     </header>
     <div class="heigt100p-calc">
         <div class="width-and-heigt-100p ">
@@ -15,7 +14,7 @@
                 <div class="d-flex p-16" *ngFor="let message of messageService.secondMessages ">
                     <app-message-card style="width: 100%;" [isMainChat]="false" [message]="message"></app-message-card>
                 </div>
-                <emoji-mart class="emoji-chat-window-bar" (emojiClick)="onEmojiClick($event, 'secondChannelTextarea')" *ngIf="messageService.showSecondEmojiPicker" (emojiSelect)="onEmojiSelect($event)">saddasddassa</emoji-mart>
+                <emoji-mart class="emoji-chat-window-bar" (emojiClick)="onEmojiClick($event, 'secondChannelTextarea')" *ngIf="emojiBarService.showSecondEmojiPicker" (emojiSelect)="onEmojiSelect($event)">saddasddassa</emoji-mart>
             </div>
             <app-message-input style="padding-bottom:16px;" [functionKey]="'funktionB'"></app-message-input>
         </div>

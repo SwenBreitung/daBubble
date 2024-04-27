@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Output, Renderer2, ViewChild } from '@angular/core';
-import {MessageService} from './../../firebase-services/massage.service';
-import { AuthService } from './../../auth.service';
-import {NoteListService} from './../../firebase-services/note-list.service';
+import {MessageService} from '../../service/massage.service';
+import { AuthService } from './../../service/auth.service';
+import {NoteListService} from '../../service/note-list.service';
 import { Subscription } from 'rxjs';
 import { MessageInputComponent } from '../message-input/message-input.component';
-import { ChannelService } from '../../firebase-services/channels.service';
-
+import { ChannelService } from '../../service/channels.service';
+import { EmojiBarService } from "../../service/emoji-bar.service";
 @Component({
   selector: 'app-second-messager',
   templateUrl: './second-messager.component.html',
@@ -18,10 +18,10 @@ export class SecondMessagerComponent implements AfterViewInit{
     public messageService:MessageService,
     public  authService: AuthService,
     private noteService: NoteListService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    public emojiBarService:EmojiBarService,
   ) {}
 
- 
 
   @ViewChild('emojiMart') emojiMart: ElementRef | undefined;
 
@@ -34,7 +34,7 @@ export class SecondMessagerComponent implements AfterViewInit{
   showEmojiPicker: boolean = false;
   showMainEmojiPicker = false;
   
- 
+
   switchSecondChatFunktion=true;
   currentSecondChannel:string = '';
   secondMessages:any;
@@ -65,7 +65,7 @@ export class SecondMessagerComponent implements AfterViewInit{
       if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
         element.value += emoji;
       } else {
-        this.messageService.addEmojiToMessage(elementId,emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);
+        this.emojiBarService.addEmojiToMessage(elementId,emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);
       }
     }
   }
@@ -80,9 +80,9 @@ export class SecondMessagerComponent implements AfterViewInit{
   
   toggleEmojiPicker(pickerType:any) {
     if (pickerType === 'main') {
-      this.messageService.showMainEmojiPicker = !this.messageService.showMainEmojiPicker;
+      this.emojiBarService.showMainEmojiPicker = !this.emojiBarService.showMainEmojiPicker;
     } else if (pickerType === 'second') {
-      this.messageService.showSecondEmojiPicker = !this.messageService.showSecondEmojiPicker;
+      this.emojiBarService.showSecondEmojiPicker = !this.emojiBarService.showSecondEmojiPicker;
     }
   }
   onEmojiSelect(event: any) {}
@@ -104,7 +104,7 @@ export class SecondMessagerComponent implements AfterViewInit{
       range.setStartAfter(textNode);
       range.collapse(true);
       selection.removeAllRanges();
-     selection.addRange(range);
+      selection.addRange(range);
     } else {
       div.appendChild(document.createTextNode(emoji));
     }

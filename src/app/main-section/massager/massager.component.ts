@@ -1,14 +1,15 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import {MainSectionComponent} from './../main-section.component'
-import { AuthService } from './../../auth.service';
-import { MessageService } from './../../firebase-services/massage.service';
-import { NoteListService } from './../../firebase-services/note-list.service';
+import { AuthService } from './../../service/auth.service';
+import { MessageService } from '../../service/massage.service';
+import { NoteListService } from '../../service/note-list.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { UploadDialogComponent } from './../../authentication/register/upload-dialog/upload-dialog.component'
-import { DragAndDropService } from './../../firebase-services/drag-drop.service'
-import { EditMessageDialogComponent } from './../../edit-message-dialog/edit-message-dialog.component'
-import { DownloadConfirmDialogComponent } from './../../download-confirm-dialog/download-confirm-dialog.component'
+import { DragAndDropService } from '../../service/drag-drop.service'
+import { EditMessageDialogComponent } from '../../dialogs/edit-message-dialog/edit-message-dialog.component'
+import { DownloadConfirmDialogComponent } from '../../dialogs/download-confirm-dialog/download-confirm-dialog.component'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { EmojiBarService } from "../../service/emoji-bar.service";
 
 import {
   MatDialog,
@@ -28,7 +29,7 @@ import { MessageInputComponent } from '../message-input/message-input.component'
 })
 export class MassagerComponent {
   cdRef: any;
- 
+
 
   constructor(
     public  authService: AuthService,
@@ -36,6 +37,7 @@ export class MassagerComponent {
     private noteService: NoteListService,
     public dialog: MatDialog,
     public dragAndDrop:DragAndDropService,
+    public emojiBarService:EmojiBarService,
   ){}
   
   activeEmojiPickerId: string | null = null;
@@ -79,7 +81,7 @@ export class MassagerComponent {
 
 
   incrementEmojiCounterAndSaveUid(emoji:string, currentUser:string, message:string, currentChannelId:string){
-    this.messageService.incrementEmojiCounterAndSaveUid(message, emoji, currentUser,  this.messageService.currentChannelId)
+    this.emojiBarService.incrementEmojiCounterAndSaveUid(message, emoji, currentUser,  this.messageService.currentChannelId)
   }
   
 
@@ -92,7 +94,7 @@ export class MassagerComponent {
       if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
         element.value += emoji;
       } else {    
-        this.messageService.addEmojiToMessage(elementId,emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);  
+        this.emojiBarService.addEmojiToMessage(elementId,emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);  
       }
     }
   }
@@ -102,9 +104,9 @@ export class MassagerComponent {
   
   toggleEmojiPicker(pickerType:any) {
     if (pickerType === 'main') {
-      this.messageService.showMainEmojiPicker = !this.messageService.showMainEmojiPicker;
+      this.emojiBarService.showMainEmojiPicker = !this.emojiBarService.showMainEmojiPicker;
     } else if (pickerType === 'second') {
-      this.messageService.showSecondEmojiPicker = !this.messageService.showSecondEmojiPicker;
+      this.emojiBarService.showSecondEmojiPicker = !this.emojiBarService.showSecondEmojiPicker;
     }
   }
 
@@ -164,12 +166,12 @@ export class MassagerComponent {
   }
 
   addEmojiToMessage(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
-    this.messageService.addEmojiToMessage(messageId,emoji.emoji,currentChannelId, currentUserUid)
+    this.emojiBarService.addEmojiToMessage(messageId,emoji.emoji,currentChannelId, currentUserUid)
   }
 
 
   AddStaticEmojiToMessage(messageId:string,emoji:any, currentChannelId:string, currentUserUid:string){
-    this.messageService.addEmojiToMessage(messageId,emoji,currentChannelId, currentUserUid)
+    this.emojiBarService.addEmojiToMessage(messageId,emoji,currentChannelId, currentUserUid)
   }
 
 

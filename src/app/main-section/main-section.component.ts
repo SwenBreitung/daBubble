@@ -1,16 +1,17 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { ChannelService } from './../firebase-services/channels.service';
-import { NoteListService } from './../firebase-services/note-list.service';
-import { MessageService } from './../firebase-services/massage.service';
+import { ChannelService } from '../service/channels.service';
+import { NoteListService } from '../service/note-list.service';
+import { MessageService } from '../service/massage.service';
 import { User } from '../models/user.class'
 import { Subscription } from 'rxjs';
-import { AuthService } from './../auth.service';
+import { AuthService } from './../service/auth.service';
 import { Router } from '@angular/router';
-import { DragAndDropService } from '../firebase-services/drag-drop.service';
-import { UserActionsDialogComponent } from './user-actions-dialog/user-actions-dialog.component';
-import { ChannelInfoDialogComponent } from './channel-info-dialog/channel-info-dialog.component';
+import { DragAndDropService } from '../service/drag-drop.service';
+import { UserActionsDialogComponent } from '../dialogs/user-actions-dialog/user-actions-dialog.component';
+import { ChannelInfoDialogComponent } from '../dialogs/channel-info-dialog/channel-info-dialog.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { EmojiBarService } from "../service/emoji-bar.service";
 
 
 @Component({
@@ -53,7 +54,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       ]),
     ]),
   ]
-
 })
 
 
@@ -87,6 +87,7 @@ export class MainSectionComponent {
     public authService: AuthService,
     private dragAndDropService: DragAndDropService,
     private router: Router,
+    public emojiBarService:EmojiBarService,
   ) {
     this.checkScreenSize();
     this.searchResults = [];
@@ -207,7 +208,7 @@ export class MainSectionComponent {
       if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
         element.value += emoji;
       } else {
-        this.messageService.addEmojiToMessage(elementId, emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);
+        this.emojiBarService.addEmojiToMessage(elementId, emoji, this.messageService.currentChannelId, this.authService.currentUser.uid);
       }
     }
   }
@@ -259,7 +260,7 @@ export class MainSectionComponent {
 
 
   incrementEmojiCounterAndSaveUid(emoji: string, currentUser: string, message: string, currentChannelId: string) {
-    this.messageService.incrementEmojiCounterAndSaveUid(message, emoji, currentUser, currentChannelId)
+    this.emojiBarService.incrementEmojiCounterAndSaveUid(message, emoji, currentUser, currentChannelId)
   }
 
 

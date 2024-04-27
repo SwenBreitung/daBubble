@@ -1,5 +1,3 @@
-<!-- <div class="login-out width-and-heigt-100p"> -->
-
 <!-- ----- step 1----- -->
 <form *ngIf="currentStep === 1" #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="login">
     <div class="header-container">
@@ -111,18 +109,8 @@
     </div>
 
 
-
-    <!-- 
-        <button type="button" mat-raised-button (click)="openDialog()">Open dialog without animation</button> -->
-    <!-- <button mat-raised-button (click)="openDialog('3000ms', '1500ms')">Open dialog slowly</button> -->
-
-
-
     <div type="submit" class="buttons">
         <div></div>
         <button [disabled]="!contactForm.valid" class="button-return-login">Weiter</button>
     </div>
 </form>
-
-<!-- </div> -->
-<!-- <app-footer></app-footer> -->

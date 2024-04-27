@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { NoteListService } from '../../firebase-services/note-list.service'
+import { NoteListService } from '../../service/note-list.service'
 import {MatDialog,} from '@angular/material/dialog';
 import {RegisterComponent} from '../register/register.component'
 import { Event as RouterEvent, NavigationEnd } from '@angular/router';
@@ -20,7 +20,7 @@ export class HeaderComponent {
     private router: Router, 
     private activatedRoute: ActivatedRoute,
   ) {
-   
+  
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {

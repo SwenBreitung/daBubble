@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../../auth.service'
+import { AuthService } from '../../service/auth.service'
 import { MatDialogRef } from '@angular/material/dialog';
-import { NoteListService } from '../../firebase-services/note-list.service';
+import { NoteListService } from '../../service/note-list.service';
 import { Router } from '@angular/router';
 import { ViewChild, AfterViewInit } from '@angular/core';
 import { UserActionsDialogComponent } from '../user-actions-dialog/user-actions-dialog.component';

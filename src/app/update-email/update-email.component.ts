@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthService} from './../auth.service'
+import {AuthService} from './../service/auth.service'
 
 @Component({
   selector: 'app-update-email',
@@ -8,7 +8,7 @@ import {AuthService} from './../auth.service'
 })
 export class UpdateEmailComponent {
 constructor(
- public auth:AuthService,
+public auth:AuthService,
 ){}
 
 newEmail='';

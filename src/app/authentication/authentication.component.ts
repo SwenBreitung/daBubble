@@ -1,12 +1,12 @@
 import { Component, OnInit  } from '@angular/core';
 import { trigger, state, style, animate, transition, useAnimation } from '@angular/animations';
 import { animation } from '@angular/animations';
-import {AuthService} from './../auth.service'
+import {AuthService} from './../service/auth.service'
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss'],
- 
+
   animations: [
     trigger('fadeBackground', [
       state('visible', style({

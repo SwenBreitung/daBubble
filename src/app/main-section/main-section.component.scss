@@ -11,13 +11,18 @@ h2 {
 app-massager {
     @include column;
     justify-content: space-between;
-    width: 100%;
-    height: 90%;
+    // width: 100%;
+    // height: 90%;
+    overflow: auto;
+    flex-grow: 1;
 }
 
 .chat-layout {
+    min-width: 1px;
+    min-height: 1px;
     gap: 16px;
-    height: calc(100vh - 140px);
+    flex-grow: 1;
+    // height: calc(100vh - 140px);
 }
 
 emoji-mart {
@@ -150,32 +155,22 @@ header {
     height: calc(100vh - 140px);
     display: flex;
     gap: 16px;
-    .send-massage {
-        width: 100%;
-        border-radius: 20px;
-        padding: 16px;
-        textarea {
-            width: 100%;
-            border: none;
-            resize: none;
-            &:focus-visible {
-                border: none;
-                outline: none;
-            }
-        }
-        .send-menu {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-        }
-    }
+}
+
+.send-massage {
+    box-shadow: 0 7px 5px -4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 16px;
+    font-size: 24px;
 }
 
 .mid-container {
     @include column;
     background-color: var( --second-background-color);
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
+    flex-grow: 1;
     border-radius: 20px;
     padding: 16px;
     justify-content: space-between;
@@ -287,6 +282,7 @@ header {
 }
 
 .searchbar {
+    box-shadow: 0 7px 5px -4px rgba(0, 0, 0, 0.2);
     background-color: var( --second-background-color);
     box-sizing: border-box;
     width: 100%;
@@ -367,6 +363,7 @@ header {
         }
         .user-container,
         .channel-container {
+            box-shadow: 0 7px 5px -4px #0003;
             width: 100%;
             padding: 4px;
             &:hover {

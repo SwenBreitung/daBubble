@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterComponent } from '../register/register.component'
-import { NoteListService } from '../../firebase-services/note-list.service'
+import { NoteListService } from '../../service/note-list.service'
 import { MatDialog, } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 // import { DialogAddUserComponent } from './../dialog-add-user/dialog-add-user.component';
-import { AuthService } from '../../auth.service';
-import { AllUserService } from '../../firebase-services/all-user.service'
+import { AuthService } from '../../service/auth.service';
+import { AllUserService } from '../../service/all-user.service'
 import { User } from '../../models/user.class'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
@@ -30,7 +30,6 @@ export class LogInComponent {
     private router: Router, // Injizieren des Routers
     private authService: AuthService,
     private allUserService: AllUserService,
-
   ) { }
 
 

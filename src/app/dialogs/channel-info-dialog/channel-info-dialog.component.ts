@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MessageService } from './../../firebase-services/massage.service';
-import { ChannelService } from './../../firebase-services/channels.service'
+import { MessageService } from '../../service/massage.service';
+import { ChannelService } from '../../service/channels.service'
 @Component({
   selector: 'app-channel-info-dialog',
   templateUrl: './channel-info-dialog.component.html',

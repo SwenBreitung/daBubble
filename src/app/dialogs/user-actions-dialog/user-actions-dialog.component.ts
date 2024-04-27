@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {ChannelService} from './../../firebase-services/channels.service'
-import { AuthService } from './../../auth.service';
+import {ChannelService} from '../../service/channels.service'
+import { AuthService } from '../../service/auth.service';
 import { AddChannelDialogComponent } from '../../add-channel-dialog/add-channel-dialog.component';
 import { Router } from '@angular/router';
 import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.component';

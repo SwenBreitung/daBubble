@@ -96,7 +96,7 @@
 .emoji-bar-second-user {
     display: flex;
     align-items: center;
-    width: 100%;
+    // width: 100%;
     z-index: 999;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -214,15 +214,8 @@
     }
 }
 
-@media (max-width:800px) {
-    .second-messager-container-second {}
-}
-
 @media(max-width:700px) {
     .message-user {
         width: 100%
-    }
-    .ng-star-inserted {
-        width: 100%;
     }
 }

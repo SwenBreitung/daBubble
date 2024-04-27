@@ -31,7 +31,8 @@ export class AuthService {
 
   signInAnonymously() {
     const auth = getAuth();
-    return firebaseSignInAnonymously(auth);
+    console.log(auth,'test auth')
+    return  firebaseSignInAnonymously(auth);
   }
 
 

@@ -79,6 +79,8 @@ body {
     height: 100svh!important;
     background-color: var(--background-color);
     color: var(--text-color);
+    display: flex;
+    flex-direction: column;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -103,6 +105,38 @@ body {
     background-color: var(--header-color) !important;
     border-radius: 10px;
     border: 3px solid #ffffff00;
+}
+
+* {
+    scrollbar-width: thin;
+    /* Alternativ "auto" oder "none" */
+    scrollbar-color: var(--header-color) #ffffff00;
+    /* Scrollbar-Thumb und Track Farben */
+}
+
+
+/* Zusätzliche Stil-Definitionen für andere Browser (für Konsistenz) */
+
+
+/* Chrome, Edge, Safari */
+
+*::-webkit-scrollbar {
+    width: 8px;
+    /* Breite des Scrollbars */
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffffff00;
+    /* Transparenz für den Track */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--header-color) !important;
+    /* Farbe des Scrollbar-Thumbs */
+    border-radius: 10px;
+    /* Abrundung der Ecken des Thumbs */
+    border: 3px solid #ffffff00;
+    /* Transparenz für den Rand des Thumbs */
 }
 
 .d-flex {
@@ -239,9 +273,9 @@ body {
 
 @media (max-width:700px) {
     * {
-        // overflow-y: auto;
+        // overflow-y: auto !important;
         // /* Ermöglicht das Scrollen, wenn der Inhalt überläuft */
-        // scrollbar-width: none !important;
+        scrollbar-width: none !important;
         /* Für Firefox */
     }
     *::-webkit-scrollbar {
@@ -284,4 +318,21 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 900;
     font-style: italic;
+}
+
+.emoji-mart-scroll {
+    overflow-y: scroll;
+    overflow-x: scroll;
+    height: 140px;
+    padding: 0 6px 6px 6px;
+    will-change: transform;
+    width: 150px;
+}
+
+.emoji-mart-dark {
+    width: 100% !important;
+}
+
+.emoji-mart-scroll {
+    width: 100%;
 }

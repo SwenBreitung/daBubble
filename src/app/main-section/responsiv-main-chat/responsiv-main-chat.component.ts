@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {MessageService} from './../../firebase-services/massage.service';
+import {MessageService} from '../../service/massage.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../auth.service';
-import { UserActionsDialogComponent } from '../user-actions-dialog/user-actions-dialog.component';
+import { AuthService } from './../../service/auth.service';
+import { UserActionsDialogComponent } from '../../dialogs/user-actions-dialog/user-actions-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-responsiv-main-chat',
