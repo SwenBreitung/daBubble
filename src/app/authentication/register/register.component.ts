@@ -147,18 +147,18 @@ export class RegisterComponent{
   async saveUser() {
     const userCredential = await this.authService.signUp(this.user.email, this.user.passwort);
     this.noteService.uid = userCredential.user.uid;
-    let imfPfad = await this.uploadSelectedImage();
+    let imgPfad = await this.uploadSelectedImage();
     this.user.uid = this.noteService.uid;
     this.allUserService.addName(this.user.name);
     this.allUserService.addEmail(this.user.email);
-    this.user.img = imfPfad;
+    this.user.img = imgPfad;
     const uid = this.user.uid;
     const userData:any = this.user.toJson();
     await this.noteService.addUser(userData, uid);
   } 
 
   
-  async imfpfad() {
+  async imgpfad() {
     const uid =  this.noteService.uid;   
     if (this.dragAndDropService && this.dragAndDropService.fileName) {
       const fileNameParts = this.dragAndDropService.fileName.split('.');

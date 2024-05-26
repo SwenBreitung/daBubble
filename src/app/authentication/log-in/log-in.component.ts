@@ -108,6 +108,4 @@ export class LogInComponent {
       this.authService.signUp(this.user.email, this.user.passwort);
     } else { }
   }
-
-
 }
