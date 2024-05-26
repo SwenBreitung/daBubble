@@ -150,4 +150,7 @@ describe('RegisterComponent', () => {
     expect(allUserService.addName).toHaveBeenCalledWith('Test User');
     expect(allUserService.addEmail).toHaveBeenCalledWith('test@example.com');
   }));
+
+
+  
 });
