@@ -40,9 +40,9 @@
         h1 {
             font-size: 24px;
         }
-        img {
-            width: 48px;
-        }
+        // img {
+        //     width: 48px;
+        // }
     }
     .left-menu-channels {
         @include center-flex($justify-content: space-between);
@@ -103,34 +103,22 @@
 }
 
 .bookmarker-img {
-    position: relative;
+    padding: 8px;
     display: inline-block;
-    height: 40px !important;
-    width: 40px !important;
     .image {
-        opacity: 1;
+        display: flex;
+        width: 22px;
+        height: 22px;
     }
-    img {
-        height: 30px !important;
-        width: 30px !important;
-        display: block;
-    }
-    .image,
     .hover-image {
-        position: absolute;
-        top: 2px;
-        left: 6px;
+        display: none;
     }
     &:hover {
-        border-radius: 50%;
-        height: 34px;
-        width: 34px;
-        background-color: var(--your-chat-background-color);
         .hover-image {
-            opacity: 1;
+            display: flex;
         }
         .image {
-            opacity: 0;
+            display: none;
         }
     }
 }
@@ -173,7 +161,6 @@
         img {
             display: block;
             width: 16px;
-            /* Stellen Sie sicher, dass die Bilder die gleiche Größe haben */
             height: auto;
         }
         img:last-child {
@@ -248,6 +235,24 @@
     max-height: 50%;
 }
 
+.add-button-container {
+    display: flex;
+    &:hover {
+        .button {
+            display: none !important;
+        }
+        .button-hover {
+            display: flex !important;
+        }
+    }
+    .button {
+        display: flex;
+    }
+    .button-hover {
+        display: none;
+    }
+}
+
 @media(max-width:1200px) {
     .users-container {
         height: 90% !important;
@@ -312,20 +317,6 @@
             .hover {
                 display: flex;
             }
-        }
-    }
-    .bookmarker-img {
-        position: relative;
-        display: inline-block;
-        height: 31px !important;
-        width: 31px !important;
-        .image {
-            height: 24px !important;
-            width: 24px !important;
-        }
-        .hover-image {
-            height: 24px !important;
-            width: 24px !important;
         }
     }
 }

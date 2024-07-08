@@ -4,12 +4,12 @@
         <h1 (click)="resetSecondChatHeader()" class="hover">Code learning</h1>
         <span (click)="openDialog()" class="bookmarker-img hover">
       <img
-        class="image hover"
+        class="image hover-img"
         src="./../../assets/icons/book_marker.svg "
         alt=" "
       />
       <img
-        class="hover-image hover"
+        class="hover-image hover-img"
         src="./../../assets/icons/book_marker_blue.svg "
         alt=" "
       />
@@ -30,7 +30,10 @@
                         </div>
                         <h2 class="hover">Channels</h2>
                     </div>
-                    <img (click)="openDialog()" class="button curser-pointer border-box hover" src="./../../assets/main-section/icons/add_black.svg " alt=" " />
+                    <div class="add-button-container">
+                        <img (click)="openDialog()" class="button curser-pointer border-box hover" src="./../../assets/main-section/icons/add_black.svg " alt=" " />
+                        <img (click)="openDialog()" class="button-hover curser-pointer border-box " src="./../../assets/main-section/icons/add_blue.svg " alt=" " />
+                    </div>
                 </div>
             </div>
             <div class="left-channels border-box" *ngIf="channelService.showChannels">

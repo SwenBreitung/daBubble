@@ -9,7 +9,6 @@ import { AllUserService } from '../../service/all-user.service'
 import { User } from '../../models/user.class'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-
 import { trigger, state, style, transition, animate } from '@angular/animations';
 @Component({
   selector: 'app-log-in',
@@ -27,7 +26,7 @@ export class LogInComponent {
   constructor(
     public dialog: MatDialog,
     public noteService: NoteListService,
-    private router: Router, // Injizieren des Routers
+    private router: Router, 
     private authService: AuthService,
     private allUserService: AllUserService,
   ) { }

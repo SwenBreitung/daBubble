@@ -323,6 +323,9 @@ header {
 
 .return-button {
     font-size: 40px;
+    &:hover {
+        color: var(--your-chat-background-color);
+    }
 }
 
 @media(max-width:1200px) {
