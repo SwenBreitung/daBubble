@@ -40,9 +40,6 @@
         h1 {
             font-size: 24px;
         }
-        // img {
-        //     width: 48px;
-        // }
     }
     .left-menu-channels {
         @include center-flex($justify-content: space-between);
@@ -100,6 +97,11 @@
             max-height: 30px;
         }
     }
+}
+
+.channel-container.selected,
+.user-container.selected {
+    background-color: var(--link-color);
 }
 
 .bookmarker-img {

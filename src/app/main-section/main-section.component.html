@@ -34,7 +34,6 @@
     </header>
 
     <div *ngIf="channelService.isScreenWide" (click)="toggleLeftWindow()" class="torgle-menu border-box curser-pointer">
-
         <div *ngIf="isMenuOpen">
             <img class="img" src="./../../assets/main-section/icons/left_menu_icon_open.svg" alt=" ">
             <img class="hover-image" src="./../../assets/main-section/icons/left_menu_icon_open_blue.svg" alt=" ">
@@ -57,7 +56,7 @@
                     <span (click)="openDialogEditChannel()" class="curser-pointer"><b># {{  messageService.secondChatHeader }}</b></span>
                 </div>
                 <div *ngIf="!messageService.secondChatHeader" class="search-container">
-                    <div class="searchbar-mid ">
+                    <div class="searchbar-mid">
                         <div class="input-fild">
                             <input (input)="onInputChange($event,2)" type="text" placeholder="An:#Channel oder @Jemanden">
                         </div>

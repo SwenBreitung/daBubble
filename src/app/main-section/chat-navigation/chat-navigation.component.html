@@ -70,19 +70,19 @@
                     <span class="d-flex">
             <img
               *ngIf="user.img; else noImage"
-              [src]="user.img"
-              alt="Bild in Nachricht"
-              class="message-img message-image curser-pointer"
+                [src]="user.img"
+                alt="Bild in Nachricht"
+                class="message-img message-image curser-pointer"
             />
             <ng-template #noImage
-              ><img
+                ><img
                 src="./../../assets/user_avatars/neutral-avatar.svg"
                 alt="Standardbild"
             /></ng-template>
-          </span>
+        </span>
                     <span>
             {{ user.name }}
-          </span>
+            </span>
                 </div>
             </div>
         </div>

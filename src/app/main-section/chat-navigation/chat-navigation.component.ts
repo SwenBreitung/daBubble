@@ -78,10 +78,11 @@ export class ChatNavigationComponent {
   }
 
 
-  loadMassgesInSecondChannel(uid: string, user: string) {
+  loadMassgesInSecondChannel(uid: string, user:any) {
     this.channelService.selectedChannelId = uid;
     this.messageService.switchSecondChatFunktion = false;
     this.channelService.currentSecondUser = uid;
+    this.messageService.secondChatHeader = user.name;
     this.unsubscribePreviousMessageSubscription();
     this.messageService.checkForExistingChannel(uid, this.authService.currentUser.uid).then(channelId => {
       this.messageService.currentChannelId = channelId;
@@ -95,7 +96,6 @@ export class ChatNavigationComponent {
     this.channelService.isSecondaryPanelVisible = false;
     this.channelService.isMainChatVisible = true;
     this.channelService.isSidebarVisible = false;
-    console.log(this.channelService.isSecondaryPanelVisible ,this.channelService.isMainChatVisible, this.channelService.isSidebarVisible)
   }
 
 
